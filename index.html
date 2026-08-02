@@ -1,1 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
 
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta name="theme-color" content="#050006">
+
+  <title>Marv’s Spin the Wheel</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="game-shell">
+
+    <header class="game-header">
+      <div class="logo-circle">M</div>
+
+      <div>
+        <span class="header-kicker">MARVALOUS DAILY GAME</span>
+        <h1>Spin the Wheel</h1>
+      </div>
+    </header>
+
+
+    <section class="hero-panel">
+
+      <span class="daily-badge">ONE SPIN PER DAY</span>
+
+      <h2>
+        Spin for a
+        <strong>Marvalous reward!</strong>
+      </h2>
+
+      <p>
+        Tap the button and see where the wheel lands.
+      </p>
+
+
+      <div class="wheel-area">
+
+        <div class="wheel-pointer"></div>
+
+        <div class="wheel-frame">
+
+          <div id="wheel" class="wheel">
+
+            <div class="wheel-label label-1">5% OFF</div>
+            <div class="wheel-label label-2">TRY AGAIN</div>
+            <div class="wheel-label label-3">10% OFF</div>
+            <div class="wheel-label label-4">BONUS</div>
+            <div class="wheel-label label-5">15% OFF</div>
+            <div class="wheel-label label-6">TRY AGAIN</div>
+            <div class="wheel-label label-7">5% OFF</div>
+            <div class="wheel-label label-8">MYSTERY</div>
+
+          </div>
+
+          <button
+            id="spinButton"
+            class="spin-button"
+            type="button"
+          >
+            SPIN
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="game-status" aria-live="polite">
+        <span id="statusText">Your daily spin is ready</span>
+      </div>
+
+    </section>
+
+
+    <section class="info-grid">
+
+      <article class="info-card">
+        <span class="info-icon">🎡</span>
+        <div>
+          <strong>One daily spin</strong>
+          <small>Come back tomorrow</small>
+        </div>
+      </article>
+
+      <article class="info-card">
+        <span class="info-icon">🎁</span>
+        <div>
+          <strong>Daily rewards</strong>
+          <small>New chances every day</small>
+        </div>
+      </article>
+
+    </section>
+
+
+    <section class="recent-win-card">
+
+      <div>
+        <span>YOUR RECENT WIN</span>
+        <h2 id="recentWin">Nothing yet</h2>
+        <p>Your latest reward will appear here.</p>
+      </div>
+
+      <div class="recent-win-icon">★</div>
+
+    </section>
+
+  </main>
+
+
+  <div id="resultModal" class="result-modal">
+
+    <div class="result-card">
+
+      <span class="result-kicker">YOUR RESULT</span>
+
+      <div class="result-icon">🎉</div>
+
+      <h2 id="resultTitle">You won!</h2>
+
+      <p id="resultMessage">
+        Your reward will appear here.
+      </p>
+
+      <button
+        id="closeResultButton"
+        type="button"
+      >
+        Continue
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script src="app.js"></script>
+
+</body>
+</html>
