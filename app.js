@@ -17,7 +17,8 @@ const resultTitle = document.getElementById("resultTitle");
 const resultMessage = document.getElementById("resultMessage");
 const closeResultButton =
   document.getElementById("closeResultButton");
-
+const resultCloseX =
+  document.getElementById("resultCloseX");
 const wheelLabels = Array.from(
   document.querySelectorAll(".wheel-label")
 );
@@ -770,7 +771,10 @@ closeResultButton.addEventListener(
   "click",
   closeResult
 );
-
+resultCloseX.addEventListener(
+  "click",
+  closeResult
+);
 resultModal.addEventListener(
   "click",
   event => {
