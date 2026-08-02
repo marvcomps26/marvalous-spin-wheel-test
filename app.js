@@ -32,6 +32,7 @@ let currentPrize = null;
 
 let spinning = false;
 let currentRotation = 0;
+const TEST_MODE = true;
 
 
 /* DAILY PLAY KEY */
@@ -231,6 +232,7 @@ function restoreDailyState() {
 
   return;
   }
+
 
   spinButton.disabled = false;
 
