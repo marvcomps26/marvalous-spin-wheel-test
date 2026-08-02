@@ -46,13 +46,7 @@ function getLocalDateKey() {
   return `${year}-${month}-${day}`;
 }
 
-const todayKey = getLocalDateKey();
 
-const playKey =
-  `marvalous_spin_played_${todayKey}`;
-
-const resultKey =
-  `marvalous_spin_result_${todayKey}`;
 
 
 /* CSV READER */
@@ -77,7 +71,17 @@ function csvSplit(row) {
 async function loadSettings() {
   statusText.textContent = "Loading today’s wheel...";
 
-  spinButton.disabled = true;
+  const TEST_MODE = true;
+
+const todayKey = TEST_MODE
+  ? "TEST"
+  : getLocalDateKey();
+
+const playKey =
+  `marvalous_spin_played_${todayKey}`;
+
+const resultKey =
+  `marvalous_spin_result_${todayKey}`;.disabled = true;
 
   try {
     const response = await fetch(
@@ -219,13 +223,13 @@ function restoreDailyState() {
     recentWin.textContent = savedResult;
   }
 
-  if (hasPlayed) {
-    spinButton.disabled = true;
+  if (!TEST_MODE && hasPlayed) {
+  spinButton.disabled = true;
 
-    statusText.textContent =
-      "You’ve used today’s spin. Come back tomorrow.";
+  statusText.textContent =
+    "You’ve used today’s spin. Come back tomorrow.";
 
-    return;
+  return;
   }
 
   spinButton.disabled = false;
@@ -272,7 +276,9 @@ function pickPrizeIndex() {
 function spinWheel() {
   if (spinning) return;
 
-  if (localStorage.getItem(playKey) === "yes") {
+  if (!TEST_MODE) {
+  localStorage.setItem(playKey, "yes");
+  }
     spinButton.disabled = true;
 
     statusText.textContent =
