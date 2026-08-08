@@ -31,29 +31,33 @@ body {
   overflow-x: hidden;
 
   color: #ffffff;
-
   font-family: "Sora", Arial, sans-serif;
 
   background:
     radial-gradient(
-      circle at 50% -10%,
-      rgba(84, 17, 140, 0.28),
+      circle at 50% -8%,
+      rgba(118, 31, 190, 0.38),
       transparent 30%
     ),
     radial-gradient(
-      circle at 92% 22%,
-      rgba(79, 19, 129, 0.09),
-      transparent 34%
+      circle at 85% 20%,
+      rgba(168, 101, 23, 0.08),
+      transparent 25%
     ),
     radial-gradient(
-      circle at 8% 62%,
-      rgba(97, 22, 156, 0.07),
-      transparent 38%
+      circle at 50% 52%,
+      rgba(255, 207, 98, 0.05),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 10% 70%,
+      rgba(108, 31, 164, 0.12),
+      transparent 34%
     ),
     linear-gradient(
       180deg,
-      #08030b 0%,
-      #040205 42%,
+      #100216 0%,
+      #050207 42%,
       #020102 100%
     );
 }
@@ -408,43 +412,36 @@ body::after {
 
 .hero-panel {
   position: relative;
-
   overflow: hidden;
 
-  padding:
-    28px 18px
-    21px;
-
+  padding: 28px 18px 21px;
   text-align: center;
-
-  border-radius:
-    var(--radius-xl);
+  border-radius: var(--radius-xl);
 
   background:
     radial-gradient(
-      circle at 50% 15%,
-      rgba(78, 20, 115, 0.22),
-      transparent 31%
+      circle at 50% 18%,
+      rgba(118, 31, 190, 0.25),
+      transparent 30%
     ),
     radial-gradient(
-      circle at 100% 38%,
-      rgba(106, 28, 149, 0.09),
-      transparent 34%
+      circle at 50% 60%,
+      rgba(255, 208, 96, 0.04),
+      transparent 42%
     ),
     linear-gradient(
       180deg,
-      rgba(18, 8, 24, 0.985) 0%,
-      rgba(8, 4, 11, 0.992) 50%,
+      rgba(20, 8, 28, 0.985) 0%,
+      rgba(8, 4, 12, 0.992) 52%,
       rgba(4, 2, 6, 0.997) 100%
     );
 
-  border:
-    1px solid rgba(230, 191, 93, 0.31);
+  border: 1px solid rgba(230, 191, 93, 0.34);
 
   box-shadow:
     0 28px 70px rgba(0, 0, 0, 0.58),
-    0 0 20px rgba(80, 21, 120, 0.09),
-    inset 0 1px 0 rgba(255, 255, 255, 0.055);
+    0 0 26px rgba(103, 31, 160, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .hero-panel::before {
@@ -687,35 +684,24 @@ body::after {
   content: "";
 
   position: absolute;
-
-  width: 92%;
-
+  width: 94%;
   aspect-ratio: 1;
-
   top: 51%;
   left: 50%;
-
-  transform:
-    translate(
-      -50%,
-      -50%
-    );
-
+  transform: translate(-50%, -50%);
   z-index: -1;
-
   border-radius: 50%;
 
   background:
     radial-gradient(
       circle,
-      rgba(150, 83, 12, 0.13),
-      rgba(101, 29, 135, 0.08) 46%,
+      rgba(255, 201, 84, 0.12),
+      rgba(111, 32, 197, 0.14) 42%,
       transparent 68%
     );
 
-  filter: blur(20px);
+  filter: blur(22px);
 }
-
 
 /* =========================================
    POINTER
@@ -1721,64 +1707,35 @@ body::after {
 
 .info-card {
   min-width: 0;
-
   min-height: 112px;
-
-  padding:
-    15px 13px;
+  padding: 15px 13px;
 
   display: flex;
-
   align-items: center;
-
   gap: 10px;
 
-  border-radius:
-    23px;
+  border-radius: 23px;
 
   background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(111, 32, 197, 0.10),
+      transparent 36%
+    ),
     linear-gradient(
       145deg,
-      rgba(
-        19,
-        9,
-        24,
-        0.97
-      ),
-      rgba(
-        7,
-        4,
-        9,
-        0.99
-      )
+      rgba(23, 10, 29, 0.98),
+      rgba(8, 4, 10, 0.99)
     );
 
-  border:
-    1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.08
-    );
+  border: 1px solid rgba(255, 255, 255, 0.09);
 
   box-shadow:
-    0 16px 35px
-    rgba(
-      0,
-      0,
-      0,
-      0.28
-    ),
-
-    inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.055
-    );
+    0 16px 35px rgba(0, 0, 0, 0.30),
+    0 0 16px rgba(95, 27, 146, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
+
 
 .info-number {
   width: 51px;
@@ -1899,81 +1856,42 @@ body::after {
 
 .recent-win-card {
   position: relative;
-
   overflow: hidden;
 
   min-height: 154px;
-
   margin-top: 15px;
-
-  padding:
-    22px 20px;
+  padding: 22px 20px;
 
   display: flex;
-
   align-items: center;
-
-  justify-content:
-    space-between;
-
+  justify-content: space-between;
   gap: 18px;
 
-  border-radius:
-    var(--radius-xl);
+  border-radius: var(--radius-xl);
 
   background:
     radial-gradient(
       circle at 100% 58%,
-      rgba(
-        153,
-        94,
-        16,
-        0.11
-      ),
-      transparent 39%
+      rgba(179, 107, 22, 0.14),
+      transparent 40%
     ),
-
+    radial-gradient(
+      circle at 18% 15%,
+      rgba(111, 32, 197, 0.10),
+      transparent 32%
+    ),
     linear-gradient(
       135deg,
-      rgba(
-        18,
-        7,
-        23,
-        0.99
-      ),
-      rgba(
-        6,
-        3,
-        8,
-        0.995
-      )
+      rgba(20, 8, 25, 0.99),
+      rgba(7, 3, 9, 0.995)
     );
 
-  border:
-    1px solid
-    rgba(
-      230,
-      191,
-      93,
-      0.31
-    );
+  border: 1px solid rgba(230, 191, 93, 0.33);
 
   box-shadow:
-    0 19px 42px
-    rgba(
-      0,
-      0,
-      0,
-      0.38
-    ),
-
-    inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.055
-    );
+    0 19px 42px rgba(0, 0, 0, 0.38),
+    0 0 18px rgba(125, 44, 183, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .recent-win-card::before {
@@ -3404,6 +3322,25 @@ body::after {
 /* =========================================
    LARGER SCREENS
 ========================================= */
+@keyframes heroBreath {
+  0%, 100% {
+    box-shadow:
+      0 28px 70px rgba(0, 0, 0, 0.58),
+      0 0 20px rgba(103, 31, 160, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  50% {
+    box-shadow:
+      0 28px 70px rgba(0, 0, 0, 0.58),
+      0 0 30px rgba(125, 44, 183, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+}
+
+.hero-panel {
+  animation: heroBreath 4.5s ease-in-out infinite;
+}
 
 @media (min-width: 700px) {
 
