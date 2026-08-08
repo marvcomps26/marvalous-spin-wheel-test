@@ -1424,7 +1424,7 @@ span:last-child {
 
 
 /* =========================================================
-   SPIN BUTTON
+   MARV CENTRE SPIN BUTTON
 ========================================================= */
 
 .spin-button {
@@ -1432,107 +1432,157 @@ span:last-child {
 
   z-index: 30;
 
-  width: 116px;
-  height: 116px;
+  width: 150px;
+  height: 150px;
 
   padding: 0;
 
-  display: grid;
-  place-items: center;
+  border: none;
+  background: transparent;
 
-  border:
-    2px solid
-    rgba(255, 245, 192, 0.95);
-
-  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   cursor: pointer;
 
-  background:
-    radial-gradient(
-      circle at 35% 22%,
-      rgba(255, 255, 255, 0.73),
-      transparent 20%
-    ),
-    linear-gradient(
-      145deg,
-      #fff0a1,
-      #e7b23a 32%,
-      #b67111 68%,
-      #f2c64e
-    );
-
-  box-shadow:
-    0 0 0 5px
-    rgba(48, 17, 13, 0.96),
-
-    0 0 0 8px
-    rgba(255, 212, 68, 0.75),
-
-    0 0 24px
-    rgba(255, 202, 48, 0.42),
-
-    0 0 35px
-    rgba(179, 47, 255, 0.18),
-
-    0 15px 28px
-    rgba(0, 0, 0, 0.57),
-
-    inset 0 2px 2px
-    rgba(255, 255, 255, 0.77),
-
-    inset 0 -8px 13px
-    rgba(95, 46, 0, 0.31);
+  overflow: visible;
 
   transition:
     transform 0.18s ease,
     filter 0.18s ease;
 }
 
-.spin-button::before {
-  content: "";
-
+.spin-marv-circle {
   position: absolute;
 
-  inset: 8px;
+  width: 132px;
+  height: 132px;
+
+  top: 0;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
 
   border-radius: 50%;
 
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      #4d1272,
+      #17041f 72%
+    );
+
   border:
-    1px solid
-    rgba(105, 57, 4, 0.57);
+    3px solid
+    rgba(255, 241, 181, 0.95);
+
+  box-shadow:
+    0 0 0 6px
+    rgba(59, 20, 11, 0.95),
+
+    0 0 0 9px
+    rgba(255, 211, 69, 0.72),
+
+    0 0 23px
+    rgba(255, 204, 52, 0.34),
+
+    0 0 38px
+    rgba(179, 49, 255, 0.22),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.22);
 }
 
-.spin-button-inner {
-  position: relative;
+.spin-marv-image {
+  width: 100%;
+  height: 100%;
 
-  z-index: 3;
+  display: block;
+
+  object-fit: cover;
+
+  object-position:
+    center center;
+}
+
+.spin-marv-label {
+  position: absolute;
+
+  z-index: 4;
+
+  left: 50%;
+  bottom: -2px;
+
+  transform:
+    translateX(-50%);
+
+  min-width: 108px;
+  height: 40px;
+
+  padding:
+    0 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  border:
+    2px solid
+    rgba(255, 240, 179, 0.95);
 
   color:
-    #1f1000;
+    #2c1500;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff2ad 0%,
+      #e8b63f 31%,
+      #bb7614 66%,
+      #f3c64d 100%
+    );
+
+  box-shadow:
+    0 8px 18px
+    rgba(0, 0, 0, 0.38),
+
+    0 0 12px
+    rgba(255, 203, 53, 0.24),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.72);
 
   font-family:
     "DM Serif Display",
     Georgia,
     serif;
 
-  font-size: 28px;
+  font-size: 27px;
 
   line-height: 1;
 
   font-weight: 700;
 
+  letter-spacing:
+    0.3px;
+
   text-shadow:
     0 1px 0
-    rgba(255, 255, 255, 0.42),
-
-    0 2px 2px
-    rgba(93, 47, 0, 0.18);
+    rgba(255, 255, 255, 0.35);
 }
 
 .spin-button:active {
   transform:
-    scale(0.95);
+    scale(0.96);
 }
 
 .spin-button:disabled {
@@ -1540,58 +1590,41 @@ span:last-child {
     not-allowed;
 
   filter:
-    grayscale(0.3)
-    brightness(0.76);
+    grayscale(0.25)
+    brightness(0.82);
 }
 
-@keyframes spinButtonGlow {
+@keyframes marvSpinGlow {
   0%,
   100% {
-    box-shadow:
-      0 0 0 5px
-      rgba(48, 17, 13, 0.96),
-
-      0 0 0 8px
-      rgba(255, 212, 68, 0.67),
-
-      0 0 20px
-      rgba(255, 201, 45, 0.31),
-
-      0 0 30px
-      rgba(179, 47, 255, 0.14),
-
-      0 15px 28px
-      rgba(0, 0, 0, 0.57);
+    filter:
+      drop-shadow(
+        0 0 6px
+        rgba(255, 205, 54, 0.10)
+      );
   }
 
   50% {
-    box-shadow:
-      0 0 0 5px
-      rgba(48, 17, 13, 0.96),
-
-      0 0 0 8px
-      rgba(255, 220, 88, 0.86),
-
-      0 0 31px
-      rgba(255, 204, 49, 0.56),
-
-      0 0 45px
-      rgba(186, 48, 255, 0.25),
-
-      0 15px 28px
-      rgba(0, 0, 0, 0.57);
+    filter:
+      drop-shadow(
+        0 0 15px
+        rgba(190, 53, 255, 0.27)
+      );
   }
 }
 
 .spin-button:not(:disabled) {
   animation:
-    spinButtonGlow
-    2.7s
+    marvSpinGlow
+    2.6s
     ease-in-out
     infinite;
 }
 
 
+
+
+   
 /* =========================================================
    STATUS
 ========================================================= */
@@ -3431,13 +3464,20 @@ span:last-child {
   }
 
   .spin-button {
-    width: 101px;
-    height: 101px;
-  }
+  width: 136px;
+  height: 136px;
+}
 
-  .spin-button-inner {
-    font-size: 24px;
-  }
+.spin-marv-circle {
+  width: 119px;
+  height: 119px;
+}
+
+.spin-marv-label {
+  min-width: 98px;
+  height: 36px;
+  font-size: 24px;
+}
 
   .wheel-light {
     width: 9px;
