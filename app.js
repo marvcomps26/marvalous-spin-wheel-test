@@ -1,3 +1,13 @@
+/* =========================================
+   MARVALOUS PREMIUM SPIN WHEEL
+   FULL APP.JS REPLACEMENT
+========================================= */
+
+
+/* =========================================
+   GOOGLE SHEET + CLAIM ENDPOINT
+========================================= */
+
 const SETTINGS_CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vSlaiXI-x0C_wLvxmELI21rTu9uFR87MYtx9gqV_z_Z3hZ5nOCQBnb9No6i9MtZyqBD3c9wTo1tmz6x/pub?output=csv";
 
@@ -5,25 +15,40 @@ const CLAIM_URL =
   "https://script.google.com/macros/s/AKfycbwqv0mOcwHVa2AaGzvwMLjw-nqV4LonCg3-MXpDcgcMbhmw2ORo4JmO8JiCxXZkBScC/exec";
 
 
-/* TEST MODE
+/* =========================================
+   TEST MODE
 
-Keep this as true while testing.
-Change it to false before putting the game live.
-*/
+   true  = unlimited spins
+   false = one spin per day
+========================================= */
 
 const TEST_MODE = true;
 
 
-/* ELEMENTS */
+/* =========================================
+   ELEMENTS
+========================================= */
 
-const wheel = document.getElementById("wheel");
-const spinButton = document.getElementById("spinButton");
-const statusText = document.getElementById("statusText");
-const recentWin = document.getElementById("recentWin");
+const wheel =
+  document.getElementById("wheel");
 
-const resultModal = document.getElementById("resultModal");
-const resultTitle = document.getElementById("resultTitle");
-const resultMessage = document.getElementById("resultMessage");
+const spinButton =
+  document.getElementById("spinButton");
+
+const statusText =
+  document.getElementById("statusText");
+
+const recentWin =
+  document.getElementById("recentWin");
+
+const resultModal =
+  document.getElementById("resultModal");
+
+const resultTitle =
+  document.getElementById("resultTitle");
+
+const resultMessage =
+  document.getElementById("resultMessage");
 
 const closeResultButton =
   document.getElementById("closeResultButton");
@@ -31,40 +56,56 @@ const closeResultButton =
 const resultCloseX =
   document.getElementById("resultCloseX");
 
-const wheelLabels = Array.from(
-  document.querySelectorAll(".wheel-label")
-);
+const resultIcon =
+  document.querySelector(".result-icon");
+
+const wheelLabels =
+  Array.from(
+    document.querySelectorAll(".wheel-label")
+  );
 
 
-/* GAME STATE */
+/* =========================================
+   GAME STATE
+========================================= */
 
 let prizes = [];
+
 let wheelPrizes = [];
+
 let currentPrize = null;
 
 let spinning = false;
+
 let currentRotation = 0;
 
 
-/* DAILY PLAY KEYS */
+/* =========================================
+   DAILY PLAY KEYS
+========================================= */
 
 function getLocalDateKey() {
   const now = new Date();
 
-  const year = now.getFullYear();
+  const year =
+    now.getFullYear();
 
-  const month = String(
-    now.getMonth() + 1
-  ).padStart(2, "0");
+  const month =
+    String(
+      now.getMonth() + 1
+    ).padStart(2, "0");
 
-  const day = String(
-    now.getDate()
-  ).padStart(2, "0");
+  const day =
+    String(
+      now.getDate()
+    ).padStart(2, "0");
 
   return `${year}-${month}-${day}`;
 }
 
-const todayKey = getLocalDateKey();
+
+const todayKey =
+  getLocalDateKey();
 
 const playKey =
   `marvalous_spin_played_${todayKey}`;
@@ -73,12 +114,15 @@ const resultKey =
   `marvalous_spin_result_${todayKey}`;
 
 
-/* CSV READER */
+/* =========================================
+   CSV READER
+========================================= */
 
 function csvSplit(row) {
-  const matched = row.match(
-    /(".*?"|[^",]+)(?=\s*,|\s*$)/g
-  );
+  const matched =
+    row.match(
+      /(".*?"|[^",]+)(?=\s*,|\s*$)/g
+    );
 
   return matched
     ? matched.map(value =>
@@ -90,21 +134,25 @@ function csvSplit(row) {
 }
 
 
-/* LOAD PRIZES FROM GOOGLE SHEET */
+/* =========================================
+   LOAD PRIZES FROM GOOGLE SHEET
+========================================= */
 
 async function loadSettings() {
-  statusText.textContent =
-    "Loading today’s wheel...";
+  setStatus(
+    "Loading today’s wheel..."
+  );
 
   spinButton.disabled = true;
 
   try {
-    const response = await fetch(
-      `${SETTINGS_CSV_URL}&t=${Date.now()}`,
-      {
-        cache: "no-store"
-      }
-    );
+    const response =
+      await fetch(
+        `${SETTINGS_CSV_URL}&t=${Date.now()}`,
+        {
+          cache: "no-store"
+        }
+      );
 
     if (!response.ok) {
       throw new Error(
@@ -112,19 +160,28 @@ async function loadSettings() {
       );
     }
 
-    const text = await response.text();
+    const text =
+      await response.text();
 
-    const lines = text
-      .trim()
-      .split(/\r?\n/);
+    const lines =
+      text
+        .trim()
+        .split(/\r?\n/);
 
     prizes = [];
 
-    /*
-      This uses the same Google Sheet layout
-      as the Ice Break game.
 
-      Prize rows begin on row 5.
+    /*
+      SAME SHEET LAYOUT AS BEFORE
+
+      Prize rows begin on row 5
+
+      Column A = Prize
+      Column B = Chance
+      Column C = Claim type
+      Column D = Minimum spend
+      Column E = Expiry
+      Column F = Code
     */
 
     for (
@@ -132,17 +189,28 @@ async function loadSettings() {
       index < lines.length;
       index++
     ) {
+
       if (!lines[index].trim()) {
         continue;
       }
 
-      const row = csvSplit(lines[index]);
+
+      const row =
+        csvSplit(
+          lines[index]
+        );
+
 
       const prizeName =
-        (row[0] || "").trim();
+        (row[0] || "")
+          .trim();
+
 
       const chance =
-        Number.parseFloat(row[1]);
+        Number.parseFloat(
+          row[1]
+        );
+
 
       if (
         !prizeName ||
@@ -151,19 +219,33 @@ async function loadSettings() {
         continue;
       }
 
+
       prizes.push({
-        prize: prizeName,
-        chance,
+        prize:
+          prizeName,
+
+        chance:
+          chance,
+
         claimType:
-          (row[2] || "").trim(),
+          (row[2] || "")
+            .trim(),
+
         minSpend:
-          (row[3] || "").trim(),
+          (row[3] || "")
+            .trim(),
+
         expiry:
-          (row[4] || "").trim(),
+          (row[4] || "")
+            .trim(),
+
         code:
-          (row[5] || "").trim()
+          (row[5] || "")
+            .trim()
       });
+
     }
+
 
     if (!prizes.length) {
       throw new Error(
@@ -171,237 +253,409 @@ async function loadSettings() {
       );
     }
 
+
     prepareWheelPrizes();
+
     updateWheelLabels();
+
     restoreDailyState();
 
+
   } catch (error) {
+
     console.error(
       "Wheel settings failed:",
       error
     );
 
-    statusText.textContent =
-      "The wheel could not load. Please refresh and try again.";
+
+    setStatus(
+      "The wheel could not load. Please refresh and try again."
+    );
 
     spinButton.disabled = true;
+
   }
 }
 
 
-/* PREPARE EIGHT WHEEL SEGMENTS */
+/* =========================================
+   PREPARE 8 WHEEL SEGMENTS
+========================================= */
 
 function prepareWheelPrizes() {
-  wheelPrizes = prizes.slice(0, 8);
+  wheelPrizes =
+    prizes.slice(0, 8);
 
-  while (wheelPrizes.length < 8) {
+
+  while (
+    wheelPrizes.length < 8
+  ) {
+
     wheelPrizes.push({
-      prize: "TRY AGAIN",
-      chance: 0,
-      claimType: "none",
-      minSpend: "",
-      expiry: "",
-      code: ""
+      prize:
+        "TRY AGAIN",
+
+      chance:
+        0,
+
+      claimType:
+        "none",
+
+      minSpend:
+        "",
+
+      expiry:
+        "",
+
+      code:
+        ""
     });
+
   }
 }
 
 
-/* UPDATE WHEEL LABELS */
+/* =========================================
+   UPDATE WHEEL LABELS
+========================================= */
 
 function updateWheelLabels() {
+
   wheelLabels.forEach(
     (label, index) => {
+
       const prize =
         wheelPrizes[index];
+
 
       label.textContent =
         shortenWheelLabel(
           prize?.prize ||
           "TRY AGAIN"
         );
+
+
+      /*
+        Optional styling hook
+        for gold segments.
+      */
+
+      label.dataset.segment =
+        String(index + 1);
+
     }
   );
 }
 
+
+/* =========================================
+   SHORTEN LABEL TEXT
+========================================= */
+
 function shortenWheelLabel(value) {
+
   const text =
-    String(value || "").trim();
+    String(value || "")
+      .trim();
+
 
   if (!text) {
     return "TRY AGAIN";
   }
 
-  if (/try again/i.test(text)) {
+
+  if (
+    /try again/i.test(text)
+  ) {
     return "TRY AGAIN";
   }
 
-  if (/mystery/i.test(text)) {
+
+  if (
+    /mystery/i.test(text)
+  ) {
     return "MYSTERY";
   }
 
-  if (/site credit/i.test(text)) {
+
+  if (
+    /site credit/i.test(text)
+  ) {
+
     return text.replace(
       /site credit/i,
       "CREDIT"
     );
+
   }
 
-  if (text.length <= 16) {
+
+  if (
+    text.length <= 16
+  ) {
     return text;
   }
+
 
   return `${text.slice(0, 14)}…`;
 }
 
 
-/* RESTORE PLAY STATUS */
+/* =========================================
+   RESTORE DAILY STATE
+========================================= */
 
 function restoreDailyState() {
+
   const savedResult =
-    localStorage.getItem(resultKey);
+    localStorage.getItem(
+      resultKey
+    );
+
 
   if (savedResult) {
     recentWin.textContent =
       savedResult;
   }
 
+
   /*
-    Test mode always allows another spin.
+    TEST MODE
   */
 
   if (TEST_MODE) {
+
     spinButton.disabled = false;
 
-    statusText.textContent =
-      "Test mode: unlimited spins enabled";
+    setStatus(
+      "Test mode: unlimited spins enabled"
+    );
 
     return;
+
   }
+
+
+  /*
+    LIVE MODE
+  */
 
   const hasPlayed =
-    localStorage.getItem(playKey) === "yes";
+    localStorage.getItem(
+      playKey
+    ) === "yes";
+
 
   if (hasPlayed) {
+
     spinButton.disabled = true;
 
-    statusText.textContent =
-      "You’ve used today’s spin. Come back tomorrow.";
+    setStatus(
+      "You’ve used today’s spin. Come back tomorrow."
+    );
 
     return;
+
   }
+
 
   spinButton.disabled = false;
 
-  statusText.textContent =
-    "Your free daily spin is ready";
+  setStatus(
+    "Your daily spin is ready"
+  );
 }
 
 
-/* PICK PRIZE USING GOOGLE SHEET ODDS */
+/* =========================================
+   STATUS HELPER
+========================================= */
+
+function setStatus(message) {
+
+  if (!statusText) {
+    return;
+  }
+
+  statusText.textContent =
+    message;
+}
+
+
+/* =========================================
+   PICK PRIZE USING SHEET ODDS
+========================================= */
 
 function pickPrizeIndex() {
+
   const totalChance =
     wheelPrizes.reduce(
       (total, item) =>
         total +
         Math.max(
-          Number(item.chance || 0),
+          Number(
+            item.chance || 0
+          ),
           0
         ),
       0
     );
 
+
   if (totalChance <= 0) {
+
     const tryAgainIndex =
-      wheelPrizes.findIndex(item =>
-        /try again/i.test(
-          item.prize
-        )
+      wheelPrizes.findIndex(
+        item =>
+          /try again/i.test(
+            item.prize
+          )
       );
 
-    return tryAgainIndex >= 0
-      ? tryAgainIndex
-      : 0;
+
+    return (
+      tryAgainIndex >= 0
+        ? tryAgainIndex
+        : 0
+    );
+
   }
 
+
   let roll =
-    Math.random() * totalChance;
+    Math.random() *
+    totalChance;
+
 
   for (
     let index = 0;
     index < wheelPrizes.length;
     index++
   ) {
+
     roll -= Math.max(
       Number(
-        wheelPrizes[index].chance || 0
+        wheelPrizes[index]
+          .chance || 0
       ),
       0
     );
 
+
     if (roll <= 0) {
       return index;
     }
+
   }
 
-  return wheelPrizes.length - 1;
+
+  return (
+    wheelPrizes.length - 1
+  );
 }
 
 
-/* SPIN THE WHEEL */
+/* =========================================
+   SPIN WHEEL
+========================================= */
 
 function spinWheel() {
+
   if (spinning) {
     return;
   }
 
+
   if (
     !TEST_MODE &&
-    localStorage.getItem(playKey) === "yes"
+    localStorage.getItem(
+      playKey
+    ) === "yes"
   ) {
+
     spinButton.disabled = true;
 
-    statusText.textContent =
-      "You’ve already used today’s spin.";
+    setStatus(
+      "You’ve already used today’s spin."
+    );
 
     return;
+
   }
+
 
   if (!wheelPrizes.length) {
-    statusText.textContent =
-      "The prizes are still loading.";
+
+    setStatus(
+      "The prizes are still loading."
+    );
 
     return;
+
   }
 
+
   spinning = true;
+
   spinButton.disabled = true;
 
-  statusText.textContent =
-    "The wheel is spinning...";
+
+  setStatus(
+    "The wheel is spinning..."
+  );
+
+
+  /*
+    Choose winning prize BEFORE
+    animation starts.
+  */
 
   const winningIndex =
     pickPrizeIndex();
 
+
   currentPrize =
-    wheelPrizes[winningIndex];
+    wheelPrizes[
+      winningIndex
+    ];
+
 
   const segmentAngle =
-    360 / wheelPrizes.length;
+    360 /
+    wheelPrizes.length;
+
+
+  /*
+    Centre of selected segment.
+  */
 
   const segmentCentre =
-    winningIndex * segmentAngle +
+    winningIndex *
+      segmentAngle +
     segmentAngle / 2;
 
+
+  /*
+    Pointer sits at 12 o'clock.
+  */
+
   const targetAngle =
-    (360 - segmentCentre) % 360;
+    (
+      360 -
+      segmentCentre
+    ) % 360;
+
 
   const currentNormalised =
     (
-      (currentRotation % 360) +
+      (
+        currentRotation %
+        360
+      ) +
       360
     ) % 360;
+
 
   const alignment =
     (
@@ -410,41 +664,95 @@ function spinWheel() {
       360
     ) % 360;
 
+
+  /*
+    7–9 complete turns.
+  */
+
   const extraTurns =
     7 +
     Math.floor(
       Math.random() * 3
     );
 
+
   currentRotation +=
     extraTurns * 360 +
     alignment;
 
+
+  /*
+    Premium easing.
+  */
+
   wheel.style.transition =
     "transform 5.4s cubic-bezier(0.10, 0.68, 0.08, 1)";
+
 
   wheel.style.transform =
     `rotate(${currentRotation}deg)`;
 
+
+  /*
+    Optional phone vibration
+    at start.
+  */
+
+  if (
+    navigator.vibrate
+  ) {
+    navigator.vibrate(18);
+  }
+
+
+  /*
+    Store play immediately
+    in live mode.
+  */
+
   if (!TEST_MODE) {
+
     localStorage.setItem(
       playKey,
       "yes"
     );
+
   }
 
-  window.setTimeout(() => {
-    showResult();
-  }, 5550);
+
+  /*
+    Show result after wheel stops.
+  */
+
+  window.setTimeout(
+    () => {
+
+      if (
+        navigator.vibrate
+      ) {
+        navigator.vibrate(
+          [20, 35, 45]
+        );
+      }
+
+      showResult();
+
+    },
+    5550
+  );
 }
 
 
-/* CHECK WHETHER RESULT IS A WIN */
+/* =========================================
+   CHECK WHETHER RESULT IS A WIN
+========================================= */
 
 function isWinningPrize(prize) {
+
   if (!prize) {
     return false;
   }
+
 
   const name =
     String(
@@ -453,12 +761,14 @@ function isWinningPrize(prize) {
       .trim()
       .toUpperCase();
 
+
   const claimType =
     String(
       prize.claimType || ""
     )
       .trim()
       .toLowerCase();
+
 
   return (
     name !== "TRY AGAIN" &&
@@ -468,61 +778,106 @@ function isWinningPrize(prize) {
 }
 
 
-/* SHOW RESULT */
+/* =========================================
+   SHOW RESULT
+========================================= */
 
 function showResult() {
+
+  if (!currentPrize) {
+    return;
+  }
+
+
   const won =
-    isWinningPrize(currentPrize);
+    isWinningPrize(
+      currentPrize
+    );
+
 
   addStats(won);
+
 
   localStorage.setItem(
     resultKey,
     currentPrize.prize
   );
 
+
   recentWin.textContent =
     currentPrize.prize;
 
+
   if (won) {
+
     showWinningResult();
+
     launchConfetti();
+
   } else {
+
     showTryAgainResult();
+
   }
 
-  resultModal.classList.add("show");
+
+  resultModal.classList.add(
+    "show"
+  );
+
 
   spinning = false;
 
+
   /*
-    Re-enable immediately in test mode.
-    In live mode it remains locked.
+    Test mode unlocks again.
   */
 
   if (TEST_MODE) {
+
     spinButton.disabled = false;
 
-    statusText.textContent =
-      "Test mode: spin again whenever you’re ready";
+    setStatus(
+      "Test mode: spin again whenever you’re ready"
+    );
+
   }
 }
 
 
-/* WINNING RESULT */
+/* =========================================
+   WINNING RESULT
+========================================= */
 
 function showWinningResult() {
+
   resultTitle.textContent =
     "You’re a winner!";
+
+
+  /*
+    Gold star for winning result.
+  */
+
+  if (resultIcon) {
+    resultIcon.textContent =
+      "★";
+  }
+
 
   const codeSection =
     currentPrize.code
       ? `
         <div class="claim-code-box">
-          <span>Your discount code</span>
+
+          <span>
+            Your discount code
+          </span>
 
           <strong id="winningCode">
-            ${escapeHtml(currentPrize.code)}
+            ${escapeHtml(
+              currentPrize.code
+            )}
           </strong>
 
           <button
@@ -532,9 +887,11 @@ function showWinningResult() {
           >
             Copy code
           </button>
+
         </div>
       `
       : "";
+
 
   const minimumSpend =
     currentPrize.minSpend &&
@@ -551,6 +908,7 @@ function showWinningResult() {
       `
       : "";
 
+
   const expiry =
     currentPrize.expiry &&
     currentPrize.expiry
@@ -565,16 +923,24 @@ function showWinningResult() {
       `
       : "";
 
+
   resultMessage.innerHTML = `
+
     <strong class="claim-prize-name">
-      ${escapeHtml(currentPrize.prize)}
+      ${escapeHtml(
+        currentPrize.prize
+      )}
     </strong>
 
     ${codeSection}
+
     ${minimumSpend}
+
     ${expiry}
 
+
     <div class="claim-form">
+
       <label for="claimName">
         Your name
       </label>
@@ -585,6 +951,7 @@ function showWinningResult() {
         autocomplete="name"
         placeholder="Full name"
       >
+
 
       <label for="claimEmail">
         Your email
@@ -597,6 +964,7 @@ function showWinningResult() {
         placeholder="Email address"
       >
 
+
       <button
         id="claimButton"
         type="button"
@@ -605,244 +973,389 @@ function showWinningResult() {
         Claim prize
       </button>
 
+
       <p
         id="claimStatus"
         class="claim-status"
         aria-live="polite"
       ></p>
+
     </div>
   `;
 
+
+  /*
+    Hide standard Continue button
+    until claim succeeds.
+  */
+
   closeResultButton.style.display =
     "none";
+
+
+  /*
+    Claim button listener.
+  */
 
   const claimButton =
     document.getElementById(
       "claimButton"
     );
 
+
   if (claimButton) {
+
     claimButton.addEventListener(
       "click",
       submitClaim
     );
+
   }
+
+
+  /*
+    Copy button listener.
+  */
 
   const copyButton =
     document.getElementById(
       "copyCodeButton"
     );
 
+
   if (copyButton) {
+
     copyButton.addEventListener(
       "click",
       copyPrizeCode
     );
+
   }
 }
 
 
-/* TRY AGAIN RESULT */
+/* =========================================
+   TRY AGAIN RESULT
+========================================= */
 
 function showTryAgainResult() {
+
   resultTitle.textContent =
     "Better luck tomorrow";
 
+
+  if (resultIcon) {
+    resultIcon.textContent =
+      "✦";
+  }
+
+
   resultMessage.innerHTML = `
-    No prize on this spin.
-    <br><br>
-    Come back tomorrow for another free
-    chance to win a Marvalous reward.
+    <p>
+      No reward on this spin.
+      <br><br>
+      Come back tomorrow for another
+      free chance to discover a
+      Marvalous reward.
+    </p>
   `;
+
 
   closeResultButton.style.display =
     "block";
+
 
   closeResultButton.textContent =
     "Done";
 }
 
 
-/* SUBMIT WINNER CLAIM */
+/* =========================================
+   SUBMIT WINNER CLAIM
+========================================= */
 
 async function submitClaim() {
+
   const nameInput =
     document.getElementById(
       "claimName"
     );
+
 
   const emailInput =
     document.getElementById(
       "claimEmail"
     );
 
+
   const claimButton =
     document.getElementById(
       "claimButton"
     );
+
 
   const claimStatus =
     document.getElementById(
       "claimStatus"
     );
 
+
+  if (
+    !nameInput ||
+    !emailInput ||
+    !claimButton ||
+    !claimStatus
+  ) {
+    return;
+  }
+
+
   const name =
     nameInput.value.trim();
+
 
   const email =
     emailInput.value.trim();
 
-  if (!name || !email) {
+
+  /*
+    Required fields.
+  */
+
+  if (
+    !name ||
+    !email
+  ) {
+
     claimStatus.textContent =
       "Please enter your name and email.";
 
     return;
+
   }
 
+
+  /*
+    Basic email check.
+  */
+
   if (
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-      email
-    )
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      .test(email)
   ) {
+
     claimStatus.textContent =
       "Please enter a valid email address.";
 
     return;
+
   }
 
+
   claimButton.disabled = true;
+
 
   claimButton.textContent =
     "Sending...";
 
+
   claimStatus.textContent =
     "Sending your claim...";
 
+
   try {
-    const response = await fetch(
-      CLAIM_URL,
-      {
-        method: "POST",
 
-        headers: {
-          "Content-Type":
-            "text/plain;charset=utf-8"
-        },
+    const response =
+      await fetch(
+        CLAIM_URL,
+        {
+          method:
+            "POST",
 
-        body: JSON.stringify({
-          name,
-          email,
+          headers: {
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
 
-          prize:
-            currentPrize.prize,
+          body:
+            JSON.stringify({
 
-          dailyCode:
-            TEST_MODE
-              ? `SPIN-TEST-${todayKey}`
-              : `SPIN-${todayKey}`,
+              name:
+                name,
 
-          minSpend:
-            currentPrize.minSpend || "",
+              email:
+                email,
 
-          expiry:
-            currentPrize.expiry || "",
+              prize:
+                currentPrize.prize,
 
-          code:
-            currentPrize.code || "",
+              dailyCode:
+                TEST_MODE
+                  ? `SPIN-TEST-${todayKey}`
+                  : `SPIN-${todayKey}`,
 
-          game:
-            "Marv's Spin the Wheel",
+              minSpend:
+                currentPrize.minSpend || "",
 
-          testMode:
-            TEST_MODE
-        })
-      }
-    );
+              expiry:
+                currentPrize.expiry || "",
+
+              code:
+                currentPrize.code || "",
+
+              game:
+                "Marv's Spin the Wheel",
+
+              testMode:
+                TEST_MODE
+            })
+        }
+      );
+
 
     if (!response.ok) {
+
       throw new Error(
         "Claim request failed."
       );
+
     }
+
+
+    /*
+      SUCCESS
+    */
 
     resultTitle.textContent =
       TEST_MODE
         ? "Test claim sent!"
         : "Claim sent!";
 
+
+    if (resultIcon) {
+      resultIcon.textContent =
+        "✓";
+    }
+
+
     resultMessage.innerHTML = `
-      Your prize claim has been logged
-      successfully 💜
-      <br><br>
-      ${
-        currentPrize.code
-          ? "Your discount code is ready to use."
-          : "We’ll check your claim and apply your reward shortly."
-      }
+      <p>
+        Your prize claim has been
+        logged successfully 💜
+        <br><br>
+
+        ${
+          currentPrize.code
+            ? "Your discount code is ready to use."
+            : "We’ll check your claim and apply your reward shortly."
+        }
+      </p>
     `;
+
 
     closeResultButton.style.display =
       "block";
 
+
     closeResultButton.textContent =
       "Done";
 
+
   } catch (error) {
+
     console.error(
       "Claim failed:",
       error
     );
 
+
     claimButton.disabled = false;
+
 
     claimButton.textContent =
       "Claim prize";
 
+
     claimStatus.textContent =
       "Something went wrong. Please try again.";
+
   }
 }
 
 
-/* COPY DISCOUNT CODE */
+/* =========================================
+   COPY DISCOUNT CODE
+========================================= */
 
 async function copyPrizeCode() {
+
   const button =
     document.getElementById(
       "copyCodeButton"
     );
 
-  if (!currentPrize?.code) {
+
+  if (
+    !currentPrize?.code
+  ) {
     return;
   }
 
+
   try {
-    await navigator.clipboard.writeText(
-      currentPrize.code
-    );
+
+    await navigator.clipboard
+      .writeText(
+        currentPrize.code
+      );
+
 
     if (button) {
+
       button.textContent =
         "Copied!";
+
     }
 
+
+    window.setTimeout(
+      () => {
+
+        if (button) {
+          button.textContent =
+            "Copy code";
+        }
+
+      },
+      1800
+    );
+
+
   } catch (error) {
+
     console.error(
       "Copy failed:",
       error
     );
 
+
     if (button) {
+
       button.textContent =
         currentPrize.code;
+
     }
+
   }
 }
 
 
-/* LOCAL TEST STATS */
+/* =========================================
+   LOCAL STATS
+========================================= */
 
 function addStats(won) {
+
   const plays =
     Number(
       localStorage.getItem(
@@ -850,12 +1363,15 @@ function addStats(won) {
       ) || 0
     ) + 1;
 
+
   localStorage.setItem(
     "marvalousSpinTotalPlays",
     String(plays)
   );
 
+
   if (won) {
+
     const wins =
       Number(
         localStorage.getItem(
@@ -863,23 +1379,29 @@ function addStats(won) {
         ) || 0
       ) + 1;
 
+
     localStorage.setItem(
       "marvalousSpinTotalWins",
       String(wins)
     );
+
   }
+
 
   const lastPlayDate =
     localStorage.getItem(
       "marvalousSpinLastPlayDate"
     );
 
+
   const yesterday =
     new Date();
+
 
   yesterday.setDate(
     yesterday.getDate() - 1
   );
+
 
   const yesterdayKey = [
     yesterday.getFullYear(),
@@ -893,6 +1415,7 @@ function addStats(won) {
     ).padStart(2, "0")
   ].join("-");
 
+
   let streak =
     Number(
       localStorage.getItem(
@@ -900,18 +1423,29 @@ function addStats(won) {
       ) || 0
     );
 
-  if (lastPlayDate === yesterdayKey) {
-    streak += 1;
-  } else if (
-    lastPlayDate !== todayKey
+
+  if (
+    lastPlayDate ===
+    yesterdayKey
   ) {
+
+    streak += 1;
+
+  } else if (
+    lastPlayDate !==
+    todayKey
+  ) {
+
     streak = 1;
+
   }
+
 
   localStorage.setItem(
     "marvalousSpinStreak",
     String(streak)
   );
+
 
   localStorage.setItem(
     "marvalousSpinLastPlayDate",
@@ -920,33 +1454,47 @@ function addStats(won) {
 }
 
 
-/* CONFETTI */
+/* =========================================
+   CONFETTI
+========================================= */
 
 function launchConfetti() {
+
   const colours = [
-    "#ffd45a",
-    "#bb3dff",
-    "#ff35c8",
+    "#e6bf5d",
+    "#fff1b4",
+    "#7b2ab9",
     "#ffffff",
-    "#7718ff"
+    "#c99735"
   ];
+
 
   for (
     let index = 0;
-    index < 85;
+    index < 75;
     index++
   ) {
+
     const piece =
-      document.createElement("span");
+      document.createElement(
+        "span"
+      );
+
 
     piece.className =
       "confetti-piece";
 
+
     piece.style.left =
       `${Math.random() * 100}vw`;
 
+
     piece.style.top =
-      `${-20 - Math.random() * 100}px`;
+      `${
+        -20 -
+        Math.random() * 100
+      }px`;
+
 
     piece.style.background =
       colours[
@@ -956,83 +1504,189 @@ function launchConfetti() {
         )
       ];
 
+
     piece.style.setProperty(
       "--fall-x",
-      `${Math.random() * 180 - 90}px`
+      `${
+        Math.random() * 180 -
+        90
+      }px`
     );
 
+
     piece.style.animationDelay =
-      `${Math.random() * 0.4}s`;
+      `${
+        Math.random() *
+        0.4
+      }s`;
 
-    document.body.appendChild(piece);
 
-    window.setTimeout(() => {
-      piece.remove();
-    }, 2500);
+    piece.style.transform =
+      `rotate(${
+        Math.random() * 180
+      }deg)`;
+
+
+    document.body.appendChild(
+      piece
+    );
+
+
+    window.setTimeout(
+      () => {
+        piece.remove();
+      },
+      2500
+    );
+
   }
 }
 
 
-/* MODAL */
+/* =========================================
+   MODAL
+========================================= */
 
 function closeResult() {
-  resultModal.classList.remove("show");
+
+  resultModal.classList.remove(
+    "show"
+  );
+
+
+  /*
+    Reset modal scroll.
+  */
+
+  resultModal.scrollTop = 0;
+
+
+  /*
+    Test mode can spin again.
+  */
 
   if (TEST_MODE) {
+
     spinButton.disabled = false;
 
-    statusText.textContent =
-      "Test mode: spin again whenever you’re ready";
+    setStatus(
+      "Test mode: spin again whenever you’re ready"
+    );
+
   }
 }
 
+
+/* =========================================
+   MODAL BUTTON EVENTS
+========================================= */
+
 if (closeResultButton) {
-  closeResultButton.addEventListener(
-    "click",
-    closeResult
-  );
+
+  closeResultButton
+    .addEventListener(
+      "click",
+      closeResult
+    );
+
 }
+
 
 if (resultCloseX) {
-  resultCloseX.addEventListener(
-    "click",
-    closeResult
-  );
+
+  resultCloseX
+    .addEventListener(
+      "click",
+      closeResult
+    );
+
 }
 
-resultModal.addEventListener(
-  "click",
-  event => {
-    if (
-      event.target === resultModal
-    ) {
-      closeResult();
+
+/*
+  Tap dark backdrop to close.
+*/
+
+if (resultModal) {
+
+  resultModal.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        resultModal
+      ) {
+
+        closeResult();
+
+      }
+
     }
+  );
+
+}
+
+
+/*
+  Escape key closes modal
+  on desktop.
+*/
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Escape" &&
+      resultModal.classList
+        .contains("show")
+    ) {
+
+      closeResult();
+
+    }
+
   }
 );
 
 
-/* SAFE DYNAMIC TEXT */
+/* =========================================
+   SAFE DYNAMIC TEXT
+========================================= */
 
 function escapeHtml(value = "") {
+
   return String(value).replace(
     /[&<>"']/g,
     character => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
+      "&":
+        "&amp;",
+
+      "<":
+        "&lt;",
+
+      ">":
+        "&gt;",
+
+      '"':
+        "&quot;",
+
+      "'":
+        "&#039;"
     })[character]
   );
 }
 
 
-/* START */
+/* =========================================
+   START
+========================================= */
 
 spinButton.addEventListener(
   "click",
   spinWheel
 );
+
 
 loadSettings();
