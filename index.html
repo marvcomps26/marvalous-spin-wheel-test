@@ -20,7 +20,6 @@
 
   <title>Marv’s Spin the Wheel</title>
 
-  <!-- Premium serif for major headings -->
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@500;600;700;800&display=swap"
     rel="stylesheet"
@@ -34,10 +33,6 @@
 
 <body>
 
-  <!--
-    Decorative background only.
-    No functionality attached.
-  -->
   <div
     class="page-ambient"
     aria-hidden="true"
@@ -47,9 +42,9 @@
   <main class="game-shell">
 
 
-    <!-- =========================
-         PREMIUM HEADER
-    ========================== -->
+    <!-- =========================================
+         HEADER
+    ========================================== -->
 
     <header class="game-header">
 
@@ -75,31 +70,10 @@
 
       </div>
 
-    </header>
 
+      <div class="header-daily-badge">
 
-
-    <!-- =========================
-         MAIN HERO / GAME CARD
-    ========================== -->
-
-    <section class="hero-panel">
-
-
-      <!-- top gold accent line -->
-      <div
-        class="hero-top-shine"
-        aria-hidden="true"
-      ></div>
-
-
-      <!-- Daily badge -->
-      <div class="daily-badge">
-
-        <span
-          class="badge-sparkle"
-          aria-hidden="true"
-        >
+        <span aria-hidden="true">
           ✦
         </span>
 
@@ -107,21 +81,48 @@
           ONE SPIN PER DAY
         </span>
 
-        <span
-          class="badge-sparkle"
-          aria-hidden="true"
-        >
+        <span aria-hidden="true">
           ✦
         </span>
 
       </div>
 
+    </header>
 
 
-      <!-- Main heading -->
+
+    <!-- =========================================
+         HERO / GAME PANEL
+    ========================================== -->
+
+    <section class="hero-panel">
+
+
+      <div
+        class="hero-top-shine"
+        aria-hidden="true"
+      ></div>
+
+
+      <div
+        class="hero-sparkle hero-sparkle-left"
+        aria-hidden="true"
+      >
+        ✦
+      </div>
+
+      <div
+        class="hero-sparkle hero-sparkle-right"
+        aria-hidden="true"
+      >
+        ✦
+      </div>
+
+
       <div class="hero-copy">
 
         <h2>
+
           <span class="hero-line-white">
             SPIN FOR A
           </span>
@@ -133,6 +134,7 @@
           <span class="hero-line-gold">
             REWARD!
           </span>
+
         </h2>
 
 
@@ -144,14 +146,13 @@
 
 
 
-      <!-- =========================
+      <!-- =========================================
            WHEEL
-      ========================== -->
+      ========================================== -->
 
       <div class="wheel-area">
 
 
-        <!-- Pointer -->
         <div
           class="wheel-pointer"
           aria-hidden="true"
@@ -161,11 +162,9 @@
 
 
 
-        <!-- Outer premium wheel frame -->
         <div class="wheel-frame">
 
 
-          <!-- Decorative illuminated ring -->
           <div
             class="wheel-light-ring"
             aria-hidden="true"
@@ -188,21 +187,10 @@
 
 
 
-          <!--
-            IMPORTANT:
-            Keep id="wheel".
-            Your JavaScript rotates this exact element.
-          -->
           <div
             id="wheel"
             class="wheel"
           >
-
-
-            <!--
-              Keep all 8 wheel-label elements.
-              Your JS fills these from the Google Sheet.
-            -->
 
             <div class="wheel-label label-1">
               20% OFF
@@ -236,16 +224,10 @@
               TRY AGAIN
             </div>
 
-
           </div>
 
 
 
-          <!--
-            IMPORTANT:
-            Keep id="spinButton".
-            app.js uses this.
-          -->
           <button
             id="spinButton"
             class="spin-button"
@@ -266,9 +248,9 @@
 
 
 
-      <!-- =========================
-           DAILY STATUS
-      ========================== -->
+      <!-- =========================================
+           STATUS
+      ========================================== -->
 
       <div
         class="game-status"
@@ -282,10 +264,6 @@
           ✓
         </div>
 
-        <!--
-          IMPORTANT:
-          Keep id="statusText".
-        -->
         <span id="statusText">
           Your daily spin is ready
         </span>
@@ -297,9 +275,9 @@
 
 
 
-    <!-- =========================
+    <!-- =========================================
          INFO CARDS
-    ========================== -->
+    ========================================== -->
 
     <section class="info-grid">
 
@@ -327,6 +305,14 @@
             for another spin.
           </small>
 
+        </div>
+
+
+        <div
+          class="info-card-icon"
+          aria-hidden="true"
+        >
+          ◫
         </div>
 
       </article>
@@ -358,6 +344,14 @@
 
         </div>
 
+
+        <div
+          class="info-card-icon"
+          aria-hidden="true"
+        >
+          🎁
+        </div>
+
       </article>
 
 
@@ -365,9 +359,9 @@
 
 
 
-    <!-- =========================
-         LATEST SPIN CARD
-    ========================== -->
+    <!-- =========================================
+         LATEST SPIN
+    ========================================== -->
 
     <section class="recent-win-card">
 
@@ -396,11 +390,6 @@
         </div>
 
 
-        <!--
-          IMPORTANT:
-          Keep id="recentWin".
-          app.js updates this.
-        -->
         <h2 id="recentWin">
           Nothing yet
         </h2>
@@ -409,6 +398,14 @@
         <p>
           Your latest reward will appear here.
         </p>
+
+
+        <button
+          class="view-rewards-button"
+          type="button"
+        >
+          VIEW ALL REWARDS
+        </button>
 
       </div>
 
@@ -420,6 +417,7 @@
       >
 
         <div class="recent-win-orbit orbit-1"></div>
+
         <div class="recent-win-orbit orbit-2"></div>
 
         <div class="recent-win-icon">
@@ -432,13 +430,82 @@
     </section>
 
 
+
+    <!-- =========================================
+         BOTTOM PREMIUM STRIP
+    ========================================== -->
+
+    <section class="premium-footer-strip">
+
+      <div class="footer-item">
+
+        <span
+          class="footer-icon"
+          aria-hidden="true"
+        >
+          ✦
+        </span>
+
+        <span>
+          DAILY REWARDS
+        </span>
+
+      </div>
+
+
+      <div
+        class="footer-separator"
+        aria-hidden="true"
+      ></div>
+
+
+      <div class="footer-item">
+
+        <span
+          class="footer-icon"
+          aria-hidden="true"
+        >
+          ✦
+        </span>
+
+        <span>
+          VIP FEATURES
+        </span>
+
+      </div>
+
+
+      <div
+        class="footer-separator"
+        aria-hidden="true"
+      ></div>
+
+
+      <div class="footer-item">
+
+        <span
+          class="footer-icon"
+          aria-hidden="true"
+        >
+          ★
+        </span>
+
+        <span>
+          EXCLUSIVE REWARDS
+        </span>
+
+      </div>
+
+    </section>
+
+
   </main>
 
 
 
-  <!-- ====================================
+  <!-- =========================================
        RESULT MODAL
-  ===================================== -->
+    ========================================== -->
 
   <div
     id="resultModal"
@@ -452,17 +519,12 @@
     <div class="result-card">
 
 
-      <!-- premium modal top glow -->
       <div
         class="result-top-glow"
         aria-hidden="true"
       ></div>
 
 
-      <!--
-        IMPORTANT:
-        Keep this ID for JS.
-      -->
       <button
         id="resultCloseX"
         class="result-close-x"
@@ -473,11 +535,9 @@
       </button>
 
 
-
       <span class="result-kicker">
         YOUR RESULT
       </span>
-
 
 
       <div
@@ -488,22 +548,11 @@
       </div>
 
 
-
-      <!--
-        IMPORTANT:
-        Keep this ID.
-      -->
       <h2 id="resultTitle">
         You won!
       </h2>
 
 
-
-      <!--
-        IMPORTANT:
-        app.js injects the prize,
-        claim form and code into here.
-      -->
       <div
         id="resultMessage"
         class="result-message"
@@ -512,13 +561,6 @@
       </div>
 
 
-
-      <!--
-        IMPORTANT:
-        Keep this ID.
-        app.js shows/hides this depending
-        on whether a claim form is needed.
-      -->
       <button
         id="closeResultButton"
         class="result-continue-button"
@@ -533,10 +575,6 @@
   </div>
 
 
-
-  <!-- =========================
-       JAVASCRIPT
-  ========================== -->
 
   <script src="app.js"></script>
 
