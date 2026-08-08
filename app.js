@@ -574,10 +574,6 @@ function restoreDailyState() {
   }
 
 
-  /*
-    TEST MODE
-  */
-
   if (TEST_MODE) {
 
     spinButton.disabled =
@@ -592,10 +588,6 @@ function restoreDailyState() {
     return;
   }
 
-
-  /*
-    LIVE MODE
-  */
 
   const hasPlayed =
     localStorage.getItem(
@@ -922,10 +914,6 @@ function spinWheel() {
   playSpinSound();
 
 
-  /*
-    CHOOSE WINNING PRIZE
-  */
-
   const winningIndex =
     pickPrizeIndex();
 
@@ -936,18 +924,10 @@ function spinWheel() {
     ];
 
 
-  /*
-    8 sections = 45 degrees each
-  */
-
   const segmentAngle =
     360 /
     wheelPrizes.length;
 
-
-  /*
-    Find centre of winning segment
-  */
 
   const segmentCentre =
     (
@@ -959,10 +939,6 @@ function spinWheel() {
       2
     );
 
-
-  /*
-    Pointer is at 12 o'clock
-  */
 
   const targetAngle =
     (
@@ -989,10 +965,6 @@ function spinWheel() {
     ) % 360;
 
 
-  /*
-    7–9 complete turns
-  */
-
   const extraTurns =
     7 +
     Math.floor(
@@ -1009,10 +981,6 @@ function spinWheel() {
     alignment;
 
 
-  /*
-    PREMIUM SPIN EASING
-  */
-
   wheel.style.transition =
     "transform 5.4s cubic-bezier(0.10, 0.68, 0.08, 1)";
 
@@ -1020,10 +988,6 @@ function spinWheel() {
   wheel.style.transform =
     `rotate(${currentRotation}deg)`;
 
-
-  /*
-    Phone vibration at start
-  */
 
   if (
     navigator.vibrate
@@ -1036,11 +1000,6 @@ function spinWheel() {
   }
 
 
-  /*
-    Lock daily play immediately
-    when LIVE
-  */
-
   if (
     !TEST_MODE
   ) {
@@ -1052,10 +1011,6 @@ function spinWheel() {
 
   }
 
-
-  /*
-    RESULT AFTER SPIN
-  */
 
   window.setTimeout(
     () => {
@@ -1226,6 +1181,8 @@ function showResult() {
 
 /* =========================================================
    WINNING RESULT
+
+   CODE IS HIDDEN UNTIL CLAIM SUCCESS
 ========================================================= */
 
 function showWinningResult() {
@@ -1244,42 +1201,13 @@ function showWinningResult() {
   }
 
 
-  const codeSection =
-    currentPrize.code
-
-      ? `
-        <div class="claim-code-box">
-
-          <span>
-            Your discount code
-          </span>
-
-          <strong id="winningCode">
-            ${escapeHtml(
-              currentPrize.code
-            )}
-          </strong>
-
-          <button
-            id="copyCodeButton"
-            type="button"
-            class="claim-copy-button"
-          >
-            Copy code
-          </button>
-
-        </div>
-      `
-
-      : "";
-
-
   const minimumSpend =
     currentPrize.minSpend &&
     currentPrize.minSpend !==
       "0" &&
-    currentPrize.minSpend
-      .toLowerCase() !==
+    String(
+      currentPrize.minSpend
+    ).toLowerCase() !==
       "none"
 
       ? `
@@ -1296,8 +1224,9 @@ function showWinningResult() {
 
   const expiry =
     currentPrize.expiry &&
-    currentPrize.expiry
-      .toLowerCase() !==
+    String(
+      currentPrize.expiry
+    ).toLowerCase() !==
       "none"
 
       ? `
@@ -1320,11 +1249,16 @@ function showWinningResult() {
       )}
     </strong>
 
-    ${codeSection}
 
     ${minimumSpend}
 
     ${expiry}
+
+
+    <p class="claim-before-code-message">
+      Enter your details below to claim
+      your reward and reveal your code.
+    </p>
 
 
     <div class="claim-form">
@@ -1358,7 +1292,7 @@ function showWinningResult() {
         type="button"
         class="claim-submit-button"
       >
-        Claim prize
+        Reveal & claim reward
       </button>
 
 
@@ -1372,11 +1306,6 @@ function showWinningResult() {
 
   `;
 
-
-  /*
-    Hide normal continue button
-    until claim is completed
-  */
 
   closeResultButton.style.display =
     "none";
@@ -1396,25 +1325,6 @@ function showWinningResult() {
       .addEventListener(
         "click",
         submitClaim
-      );
-
-  }
-
-
-  const copyButton =
-    document.getElementById(
-      "copyCodeButton"
-    );
-
-
-  if (
-    copyButton
-  ) {
-
-    copyButton
-      .addEventListener(
-        "click",
-        copyPrizeCode
       );
 
   }
@@ -1463,6 +1373,8 @@ function showTryAgainResult() {
 
 /* =========================================================
    SUBMIT WINNER CLAIM
+
+   CODE ONLY REVEALED AFTER SUCCESS
 ========================================================= */
 
 async function submitClaim() {
@@ -1548,11 +1460,11 @@ async function submitClaim() {
 
 
   claimButton.textContent =
-    "Sending...";
+    "Saving claim...";
 
 
   claimStatus.textContent =
-    "Sending your claim...";
+    "Saving your details...";
 
 
   try {
@@ -1621,10 +1533,16 @@ async function submitClaim() {
     }
 
 
+    /*
+      CLAIM SUCCESSFUL.
+
+      Only NOW do we reveal the code.
+    */
+
     resultTitle.textContent =
       TEST_MODE
-        ? "Test claim sent!"
-        : "Claim sent!";
+        ? "Test claim saved!"
+        : "Claim saved!";
 
 
     if (
@@ -1637,21 +1555,49 @@ async function submitClaim() {
     }
 
 
+    const revealedCode =
+      currentPrize.code
+
+        ? `
+          <div class="claim-code-box">
+
+            <span>
+              Your discount code
+            </span>
+
+            <strong id="winningCode">
+              ${escapeHtml(
+                currentPrize.code
+              )}
+            </strong>
+
+            <button
+              id="copyCodeButton"
+              type="button"
+              class="claim-copy-button"
+            >
+              Copy code
+            </button>
+
+          </div>
+        `
+
+        : `
+          <p class="claim-success-message">
+            Your reward has been claimed successfully.
+            We’ll apply it shortly.
+          </p>
+        `;
+
+
     resultMessage.innerHTML = `
-      <p>
-        Your prize claim has been
-        logged successfully 💜
-        <br><br>
 
-        ${
-          currentPrize.code
-
-            ? "Your discount code is ready to use."
-
-            : "We’ll check your claim and apply your reward shortly."
-        }
-
+      <p class="claim-success-message">
+        Your details have been received 💜
       </p>
+
+      ${revealedCode}
+
     `;
 
 
@@ -1663,6 +1609,30 @@ async function submitClaim() {
       "Done";
 
 
+    /*
+      Copy button only exists after
+      successful claim.
+    */
+
+    const copyButton =
+      document.getElementById(
+        "copyCodeButton"
+      );
+
+
+    if (
+      copyButton
+    ) {
+
+      copyButton
+        .addEventListener(
+          "click",
+          copyPrizeCode
+        );
+
+    }
+
+
   } catch (error) {
 
     console.error(
@@ -1671,12 +1641,18 @@ async function submitClaim() {
     );
 
 
+    /*
+      IMPORTANT:
+      Code remains hidden if
+      saving the claim fails.
+    */
+
     claimButton.disabled =
       false;
 
 
     claimButton.textContent =
-      "Claim prize";
+      "Reveal & claim reward";
 
 
     claimStatus.textContent =
@@ -2012,11 +1988,6 @@ function closeResult() {
   }
 
 
-  /*
-    Make sure celebration sound
-    is not still playing if user closes early
-  */
-
   celebrationSound.pause();
 
   celebrationSound.currentTime =
@@ -2040,7 +2011,7 @@ function closeResult() {
 
 
 /* =========================================================
-   MODAL EVENTS
+   RESULT MODAL EVENTS
 ========================================================= */
 
 if (
@@ -2094,7 +2065,7 @@ if (
 
 
 /* =========================================================
-   ESCAPE KEY
+   RESULT ESCAPE KEY
 ========================================================= */
 
 document.addEventListener(
@@ -2161,7 +2132,7 @@ function escapeHtml(
 
 
 /* =========================================================
-   START
+   SPIN BUTTON
 ========================================================= */
 
 if (
@@ -2175,6 +2146,7 @@ if (
     );
 
 }
+
 
 /* =========================================================
    VIEW ALL REWARDS POPUP
@@ -2219,11 +2191,6 @@ function buildRewardsList() {
   }
 
 
-  /*
-    Remove TRY AGAIN / NO PRIZE
-    from the rewards popup.
-  */
-
   const availableRewards =
     wheelPrizes.filter(
       prize => {
@@ -2245,15 +2212,8 @@ function buildRewardsList() {
     );
 
 
-  /*
-    Remove duplicate rewards.
-
-    Example:
-    If 15% OFF appears twice on the wheel,
-    it only appears once in this popup.
-  */
-
-  const uniqueRewards = [];
+  const uniqueRewards =
+    [];
 
   const seenRewards =
     new Set();
@@ -2292,10 +2252,6 @@ function buildRewardsList() {
   );
 
 
-  /*
-    If rewards are still loading.
-  */
-
   if (
     !uniqueRewards.length
   ) {
@@ -2328,17 +2284,13 @@ function buildRewardsList() {
   }
 
 
-  /*
-    Create one premium card
-    for each reward.
-  */
-
   rewardsList.innerHTML =
     uniqueRewards
       .map(
         prize => {
 
-          const detailLines = [];
+          const detailLines =
+            [];
 
 
           if (
@@ -2519,11 +2471,6 @@ if (
 }
 
 
-/*
-  Tap dark background
-  to close popup.
-*/
-
 if (
   rewardsModal
 ) {
@@ -2548,11 +2495,6 @@ if (
 }
 
 
-/*
-  Escape key closes popup
-  on desktop.
-*/
-
 document.addEventListener(
   "keydown",
   event => {
@@ -2572,5 +2514,10 @@ document.addEventListener(
 
   }
 );
+
+
+/* =========================================================
+   START
+========================================================= */
 
 loadSettings();
