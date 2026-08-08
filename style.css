@@ -286,13 +286,10 @@ body::after {
 
   border-radius: 50%;
 
-  border:
-    1px solid
-    rgba(190, 61, 255, 0.28);
+  border: 1px solid rgba(190, 61, 255, 0.28);
 
   box-shadow:
-    0 0 24px
-    rgba(184, 50, 255, 0.28);
+    0 0 24px rgba(184, 50, 255, 0.28);
 }
 
 .brand-medallion-inner {
@@ -314,8 +311,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(255, 255, 255, 0.12);
+    1px solid rgba(255, 255, 255, 0.12);
 
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.14),
@@ -345,15 +341,12 @@ body::after {
 
   margin-bottom: 4px;
 
-  color:
-    var(--gold);
+  color: var(--gold);
 
   font-size: 8px;
-
   font-weight: 900;
 
-  letter-spacing:
-    2.4px;
+  letter-spacing: 2.4px;
 }
 
 .game-header h1 {
@@ -374,20 +367,17 @@ body::after {
     );
 
   line-height: 0.96;
-
   font-weight: 400;
 
-  letter-spacing:
-    -0.7px;
+  letter-spacing: -0.7px;
 
   text-shadow:
-    0 4px 16px
-    rgba(0, 0, 0, 0.42);
+    0 4px 16px rgba(0, 0, 0, 0.42);
 }
 
 
 /* =========================================================
-   HEADER DAILY BADGE
+   HEADER BADGE
 ========================================================= */
 
 .header-daily-badge {
@@ -399,8 +389,7 @@ body::after {
 
   margin-top: 1px;
 
-  padding:
-    0 11px;
+  padding: 0 11px;
 
   display: inline-flex;
   align-items: center;
@@ -410,8 +399,7 @@ body::after {
 
   border-radius: 999px;
 
-  color:
-    #fff2b9;
+  color: #fff2b9;
 
   background:
     linear-gradient(
@@ -421,33 +409,28 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(255, 210, 76, 0.56);
+    1px solid rgba(255, 210, 76, 0.56);
 
   box-shadow:
     0 0 14px rgba(255, 196, 44, 0.10),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   font-size: 6px;
-
   font-weight: 900;
 
-  letter-spacing:
-    1.3px;
+  letter-spacing: 1.3px;
 
   white-space: nowrap;
 }
 
 .header-daily-badge span:first-child,
 .header-daily-badge span:last-child {
-  color:
-    #ffd75b;
+  color: #ffd75b;
 
   font-size: 9px;
 
   text-shadow:
-    0 0 9px
-    rgba(255, 212, 83, 0.65);
+    0 0 9px rgba(255, 212, 83, 0.65);
 }
 
 
@@ -466,8 +449,7 @@ body::after {
 
   text-align: center;
 
-  border-radius:
-    var(--radius-xl);
+  border-radius: var(--radius-xl);
 
   background:
     radial-gradient(
@@ -488,8 +470,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(239, 198, 86, 0.44);
+    1px solid rgba(239, 198, 86, 0.44);
 
   box-shadow:
     0 28px 70px rgba(0, 0, 0, 0.59),
@@ -525,8 +506,7 @@ body::after {
     );
 
   box-shadow:
-    0 0 8px
-    rgba(193, 56, 255, 0.25);
+    0 0 8px rgba(193, 56, 255, 0.25);
 }
 
 .hero-top-shine {
@@ -538,8 +518,7 @@ body::after {
   top: -100px;
   left: 50%;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
   border-radius: 50%;
 
@@ -552,8 +531,7 @@ body::after {
       transparent 70%
     );
 
-  filter:
-    blur(12px);
+  filter: blur(12px);
 }
 
 @keyframes heroBreath {
@@ -596,8 +574,7 @@ body::after {
 
   line-height: 0.91;
 
-  letter-spacing:
-    -0.8px;
+  letter-spacing: -0.8px;
 }
 
 .hero-copy h2 span {
@@ -639,12 +616,10 @@ body::after {
 
   filter:
     drop-shadow(
-      0 4px 8px
-      rgba(0, 0, 0, 0.35)
+      0 4px 8px rgba(0, 0, 0, 0.35)
     )
     drop-shadow(
-      0 0 12px
-      rgba(255, 194, 46, 0.17)
+      0 0 12px rgba(255, 194, 46, 0.17)
     );
 }
 
@@ -659,13 +634,12 @@ body::after {
     rgba(255, 255, 255, 0.72);
 
   font-size: 10px;
-
   line-height: 1.55;
 }
 
 
 /* =========================================================
-   HERO SPARKLES
+   SPARKLES
 ========================================================= */
 
 .hero-sparkle {
@@ -675,8 +649,7 @@ body::after {
 
   top: 176px;
 
-  color:
-    #cb4cff;
+  color: #cb4cff;
 
   font-size: 15px;
 
@@ -700,8 +673,7 @@ body::after {
 .hero-sparkle-right {
   right: 27%;
 
-  animation-delay:
-    -1.05s;
+  animation-delay: -1.05s;
 }
 
 @keyframes sparklePulse {
@@ -709,15 +681,13 @@ body::after {
   100% {
     opacity: 0.45;
 
-    transform:
-      scale(0.85);
+    transform: scale(0.85);
   }
 
   50% {
     opacity: 1;
 
-    transform:
-      scale(1.28);
+    transform: scale(1.28);
   }
 }
 
@@ -737,8 +707,7 @@ body::after {
       420px
     );
 
-  margin:
-    0 auto;
+  margin: 0 auto;
 
   padding:
     33px 0
@@ -776,8 +745,7 @@ body::after {
       transparent 70%
     );
 
-  filter:
-    blur(22px);
+  filter: blur(22px);
 }
 
 
@@ -832,12 +800,10 @@ body::after {
 
   filter:
     drop-shadow(
-      0 4px 5px
-      rgba(0, 0, 0, 0.53)
+      0 4px 5px rgba(0, 0, 0, 0.53)
     )
     drop-shadow(
-      0 0 10px
-      rgba(255, 207, 75, 0.62)
+      0 0 10px rgba(255, 207, 75, 0.62)
     );
 }
 
@@ -881,16 +847,12 @@ body::after {
   transform:
     rotate(45deg);
 
-  background:
-    #fff0a1;
+  background: #fff0a1;
 
-  border:
-    1px solid
-    #9a6007;
+  border: 1px solid #9a6007;
 
   box-shadow:
-    0 0 10px
-    rgba(255, 218, 94, 0.8);
+    0 0 10px rgba(255, 218, 94, 0.8);
 }
 
 
@@ -932,8 +894,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(255, 246, 194, 0.97);
+    1px solid rgba(255, 246, 194, 0.97);
 
   box-shadow:
     0 0 0 4px rgba(255, 215, 82, 0.09),
@@ -977,12 +938,10 @@ body::after {
   pointer-events: none;
 
   border:
-    1px solid
-    rgba(64, 27, 2, 0.6);
+    1px solid rgba(64, 27, 2, 0.6);
 
   box-shadow:
-    inset 0 0 0 1px
-    rgba(255, 246, 202, 0.25);
+    inset 0 0 0 1px rgba(255, 246, 202, 0.25);
 }
 
 
@@ -1022,8 +981,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(255, 246, 206, 0.97);
+    1px solid rgba(255, 246, 206, 0.97);
 
   opacity: 0.42;
 
@@ -1046,8 +1004,7 @@ body::after {
   100% {
     opacity: 0.3;
 
-    transform:
-      scale(0.82);
+    transform: scale(0.82);
   }
 
   10%,
@@ -1067,15 +1024,13 @@ body::after {
   34% {
     opacity: 0.62;
 
-    transform:
-      scale(1);
+    transform: scale(1);
   }
 
   52% {
     opacity: 0.34;
 
-    transform:
-      scale(0.86);
+    transform: scale(0.86);
   }
 }
 
@@ -1151,9 +1106,9 @@ body::after {
   animation-delay: -1.65s;
 }
 
-.wheel-frame.spinning .wheel-light {
-  animation-duration:
-    0.62s;
+.wheel-frame.spinning
+.wheel-light {
+  animation-duration: 0.62s;
 }
 
 
@@ -1189,16 +1144,14 @@ body::after {
     );
 
   border:
-    4px solid
-    rgba(45, 10, 51, 0.97);
+    4px solid rgba(45, 10, 51, 0.97);
 
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.16),
     inset 0 0 20px rgba(255, 217, 101, 0.08),
     inset 0 0 34px rgba(0, 0, 0, 0.27);
 
-  will-change:
-    transform;
+  will-change: transform;
 }
 
 .wheel::before {
@@ -1271,21 +1224,16 @@ body::after {
   color: #ffffff;
 
   text-align: center;
-
   text-transform: uppercase;
 
   font-size: 10px;
-
   line-height: 1.1;
-
   font-weight: 900;
 
-  letter-spacing:
-    0.1px;
+  letter-spacing: 0.1px;
 
   text-shadow:
-    0 2px 5px
-    rgba(0, 0, 0, 0.66);
+    0 2px 5px rgba(0, 0, 0, 0.66);
 
   pointer-events: none;
 }
@@ -1364,8 +1312,8 @@ body::after {
 
   z-index: 30;
 
-  width: 166px;
-  height: 166px;
+  width: 148px;
+  height: 158px;
 
   padding: 0;
 
@@ -1376,9 +1324,9 @@ body::after {
 
   display: block;
 
-  cursor: pointer;
-
   overflow: visible;
+
+  cursor: pointer;
 
   transition:
     transform 0.18s ease,
@@ -1386,13 +1334,13 @@ body::after {
 }
 
 
-/* MAIN MARV CIRCLE */
+/* EXACT CROP WINDOW */
 
 .spin-marv-circle {
   position: absolute;
 
-  width: 148px;
-  height: 148px;
+  width: 132px;
+  height: 132px;
 
   top: 0;
   left: 50%;
@@ -1400,57 +1348,46 @@ body::after {
   transform:
     translateX(-50%);
 
-  display: block;
-
   overflow: hidden;
+
+  display: block;
 
   border-radius: 50%;
 
-  background:
-    radial-gradient(
-      circle at 50% 42%,
-      #56107a 0%,
-      #270437 58%,
-      #0c0210 100%
-    );
-
-  border:
-    3px solid
-    #ffdf73;
+  background: #120217;
 
   box-shadow:
-    0 0 0 5px #3d1608,
-    0 0 0 8px rgba(244, 190, 48, 0.96),
-    0 0 22px rgba(255, 196, 41, 0.42),
-    0 0 37px rgba(174, 43, 255, 0.30),
-    inset 0 0 20px rgba(0, 0, 0, 0.32);
+    0 0 0 3px rgba(62, 24, 5, 0.96),
+    0 0 0 5px rgba(239, 181, 43, 0.82),
+    0 0 19px rgba(255, 198, 42, 0.30),
+    0 0 29px rgba(180, 46, 255, 0.23);
 }
 
 
-/* MARV IMAGE - CROPPED INSIDE CIRCLE */
+/*
+   marv-wheel.png = 1024 x 1536.
+   The actual gold portrait occupies the middle of that tall image.
+   This scales and moves the original image so its existing gold
+   circle fills our 132px crop window.
+*/
 
 .spin-marv-image {
   position: absolute;
 
   z-index: 2;
 
-  width: 158%;
-  height: 158%;
+  width: 184px;
+  height: auto;
 
   max-width: none;
 
   left: 50%;
-  top: 48%;
+  top: -89px;
 
   transform:
-    translate(-50%, -50%);
+    translateX(-50%);
 
   display: block;
-
-  object-fit: cover;
-
-  object-position:
-    center center;
 
   pointer-events: none;
 }
@@ -1464,16 +1401,16 @@ body::after {
   z-index: 10;
 
   left: 50%;
-  bottom: -1px;
+  bottom: 0;
 
   transform:
     translateX(-50%);
 
-  min-width: 120px;
-  height: 43px;
+  min-width: 108px;
+  height: 38px;
 
   padding:
-    0 19px;
+    0 13px;
 
   display: flex;
   align-items: center;
@@ -1482,11 +1419,9 @@ body::after {
   border-radius: 999px;
 
   border:
-    2px solid
-    #fff0a4;
+    2px solid #fff0a4;
 
-  color:
-    #351600;
+  color: #351600;
 
   background:
     linear-gradient(
@@ -1498,69 +1433,47 @@ body::after {
     );
 
   box-shadow:
-    0 0 0 3px
-    rgba(125, 68, 5, 0.88),
-
-    0 8px 17px
-    rgba(0, 0, 0, 0.46),
-
-    0 0 15px
-    rgba(255, 207, 65, 0.36),
-
-    inset 0 2px 1px
-    rgba(255, 255, 255, 0.68),
-
-    inset 0 -4px 6px
-    rgba(106, 52, 0, 0.22);
+    0 0 0 3px rgba(125, 68, 5, 0.88),
+    0 8px 17px rgba(0, 0, 0, 0.46),
+    0 0 15px rgba(255, 207, 65, 0.36),
+    inset 0 2px 1px rgba(255, 255, 255, 0.68),
+    inset 0 -4px 6px rgba(106, 52, 0, 0.22);
 
   font-family:
     "DM Serif Display",
     Georgia,
     serif;
 
-  font-size: 28px;
-
+  font-size: 25px;
   line-height: 1;
-
   font-weight: 700;
 
-  letter-spacing:
-    0.4px;
+  letter-spacing: 0.4px;
 
   text-shadow:
-    0 1px 0
-    rgba(255, 255, 255, 0.40);
+    0 1px 0 rgba(255, 255, 255, 0.40);
 
   white-space: nowrap;
 
   pointer-events: none;
 }
 
-
-/* SMALL GOLD DIAMONDS BESIDE SPIN */
-
 .spin-marv-label::before,
 .spin-marv-label::after {
   content: "◆";
 
-  position: relative;
+  color: #7c4709;
 
-  color:
-    #7c4709;
-
-  font-size: 8px;
+  font-size: 7px;
 }
 
 .spin-marv-label::before {
-  margin-right: 9px;
+  margin-right: 7px;
 }
 
 .spin-marv-label::after {
-  margin-left: 9px;
+  margin-left: 7px;
 }
-
-
-/* BUTTON INTERACTION */
 
 .spin-button:active {
   transform:
@@ -1568,8 +1481,7 @@ body::after {
 }
 
 .spin-button:disabled {
-  cursor:
-    not-allowed;
+  cursor: not-allowed;
 
   filter:
     grayscale(0.25)
@@ -1640,8 +1552,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(242, 201, 89, 0.50);
+    1px solid rgba(242, 201, 89, 0.50);
 
   box-shadow:
     0 0 15px rgba(174, 45, 255, 0.12),
@@ -1649,7 +1560,6 @@ body::after {
     0 10px 24px rgba(0, 0, 0, 0.31);
 
   font-size: 10px;
-
   font-weight: 700;
 }
 
@@ -1664,8 +1574,7 @@ body::after {
 
   border-radius: 50%;
 
-  color:
-    #fff0a2;
+  color: #fff0a2;
 
   background:
     linear-gradient(
@@ -1675,15 +1584,12 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(238, 195, 80, 0.48);
+    1px solid rgba(238, 195, 80, 0.48);
 
   box-shadow:
-    0 0 11px
-    rgba(182, 49, 255, 0.29);
+    0 0 11px rgba(182, 49, 255, 0.29);
 
   font-size: 13px;
-
   font-weight: 900;
 }
 
@@ -1719,8 +1625,7 @@ body::after {
 
   gap: 8px;
 
-  border-radius:
-    var(--radius-lg);
+  border-radius: var(--radius-lg);
 
   background:
     radial-gradient(
@@ -1735,8 +1640,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(191, 63, 248, 0.23);
+    1px solid rgba(191, 63, 248, 0.23);
 
   box-shadow:
     0 15px 34px rgba(0, 0, 0, 0.32),
@@ -1779,8 +1683,7 @@ body::after {
 
   border-radius: 50%;
 
-  color:
-    var(--gold);
+  color: var(--gold);
 
   background:
     linear-gradient(
@@ -1790,12 +1693,10 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(239, 197, 85, 0.40);
+    1px solid rgba(239, 197, 85, 0.40);
 
   box-shadow:
-    0 0 11px
-    rgba(169, 44, 245, 0.16);
+    0 0 11px rgba(169, 44, 245, 0.16);
 
   font-family:
     "DM Serif Display",
@@ -1837,11 +1738,9 @@ body::after {
 
   margin-bottom: 5px;
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
   font-size: 9px;
-
   line-height: 1.25;
 }
 
@@ -1852,7 +1751,6 @@ body::after {
     rgba(255, 255, 255, 0.56);
 
   font-size: 6.8px;
-
   line-height: 1.45;
 }
 
@@ -1895,8 +1793,7 @@ body::after {
 
   gap: 14px;
 
-  border-radius:
-    var(--radius-xl);
+  border-radius: var(--radius-xl);
 
   background:
     radial-gradient(
@@ -1916,8 +1813,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(239, 195, 82, 0.45);
+    1px solid rgba(239, 195, 82, 0.45);
 
   box-shadow:
     0 18px 42px rgba(0, 0, 0, 0.38),
@@ -1966,15 +1862,12 @@ body::after {
 }
 
 .recent-win-heading > span:first-child {
-  color:
-    var(--gold);
+  color: var(--gold);
 
   font-size: 7px;
-
   font-weight: 900;
 
-  letter-spacing:
-    2px;
+  letter-spacing: 2px;
 }
 
 .recent-heading-line {
@@ -1990,8 +1883,7 @@ body::after {
 }
 
 .recent-heading-star {
-  color:
-    #ffd65a;
+  color: #ffd65a;
 
   font-size: 8px;
 }
@@ -2000,8 +1892,7 @@ body::after {
   margin:
     0 0 7px;
 
-  color:
-    #fff7d2;
+  color: #fff7d2;
 
   font-family:
     "DM Serif Display",
@@ -2016,7 +1907,6 @@ body::after {
     );
 
   font-weight: 400;
-
   line-height: 1;
 
   text-shadow:
@@ -2031,11 +1921,9 @@ body::after {
     rgba(255, 255, 255, 0.53);
 
   font-size: 7.5px;
-
   line-height: 1.4;
 
-  letter-spacing:
-    0.1px;
+  letter-spacing: 0.1px;
 }
 
 .view-rewards-button {
@@ -2043,17 +1931,14 @@ body::after {
 
   margin-top: 13px;
 
-  padding:
-    0 14px;
+  padding: 0 14px;
 
   border:
-    1px solid
-    rgba(220, 80, 255, 0.59);
+    1px solid rgba(220, 80, 255, 0.59);
 
   border-radius: 999px;
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
   cursor: pointer;
 
@@ -2069,11 +1954,9 @@ body::after {
     inset 0 1px 0 rgba(255, 255, 255, 0.10);
 
   font-size: 7px;
-
   font-weight: 900;
 
-  letter-spacing:
-    0.9px;
+  letter-spacing: 0.9px;
 }
 
 .recent-win-medallion {
@@ -2096,8 +1979,7 @@ body::after {
   border-radius: 50%;
 
   border:
-    1px solid
-    rgba(245, 198, 70, 0.12);
+    1px solid rgba(245, 198, 70, 0.12);
 }
 
 .orbit-1 {
@@ -2119,8 +2001,7 @@ body::after {
 
   border-radius: 50%;
 
-  color:
-    #ffd65c;
+  color: #ffd65c;
 
   background:
     linear-gradient(
@@ -2130,8 +2011,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(239, 191, 67, 0.54);
+    1px solid rgba(239, 191, 67, 0.54);
 
   box-shadow:
     0 0 18px rgba(255, 184, 32, 0.22),
@@ -2142,7 +2022,7 @@ body::after {
 
 
 /* =========================================================
-   FOOTER STRIP
+   FOOTER
 ========================================================= */
 
 .premium-footer-strip {
@@ -2152,8 +2032,7 @@ body::after {
 
   margin-top: 15px;
 
-  padding:
-    0 10px;
+  padding: 0 10px;
 
   display: flex;
   align-items: center;
@@ -2171,8 +2050,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(239, 194, 75, 0.39);
+    1px solid rgba(239, 194, 75, 0.39);
 
   box-shadow:
     0 12px 28px rgba(0, 0, 0, 0.33),
@@ -2192,24 +2070,20 @@ body::after {
     rgba(255, 255, 255, 0.84);
 
   font-size: 6px;
-
   font-weight: 800;
 
-  letter-spacing:
-    0.45px;
+  letter-spacing: 0.45px;
 
   white-space: nowrap;
 }
 
 .footer-icon {
-  color:
-    #c24cff;
+  color: #c24cff;
 
   font-size: 11px;
 
   text-shadow:
-    0 0 8px
-    rgba(194, 76, 255, 0.45);
+    0 0 8px rgba(194, 76, 255, 0.45);
 }
 
 .footer-separator {
@@ -2291,8 +2165,7 @@ body::after {
 
   text-align: center;
 
-  border-radius:
-    30px;
+  border-radius: 30px;
 
   background:
     radial-gradient(
@@ -2313,8 +2186,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(239, 195, 81, 0.40);
+    1px solid rgba(239, 195, 81, 0.40);
 
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.74),
@@ -2329,7 +2201,8 @@ body::after {
     transform 0.28s ease;
 }
 
-.result-modal.show .result-card {
+.result-modal.show
+.result-card {
   transform:
     translateY(0)
     scale(1);
@@ -2357,11 +2230,6 @@ body::after {
     );
 }
 
-
-/* =========================================================
-   RESULT CLOSE BUTTON
-========================================================= */
-
 .result-close-x {
   position: absolute;
 
@@ -2379,8 +2247,7 @@ body::after {
   place-items: center;
 
   border:
-    1px solid
-    rgba(255, 255, 255, 0.12);
+    1px solid rgba(255, 255, 255, 0.12);
 
   border-radius: 50%;
 
@@ -2395,23 +2262,15 @@ body::after {
   font-size: 24px;
 }
 
-
-/* =========================================================
-   RESULT LOGO
-========================================================= */
-
 .result-kicker {
   display: block;
 
-  color:
-    var(--gold);
+  color: var(--gold);
 
   font-size: 8px;
-
   font-weight: 900;
 
-  letter-spacing:
-    2.3px;
+  letter-spacing: 2.3px;
 }
 
 .result-icon {
@@ -2442,8 +2301,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(255, 239, 177, 0.83);
+    1px solid rgba(255, 239, 177, 0.83);
 
   box-shadow:
     0 0 19px rgba(255, 191, 40, 0.20),
@@ -2466,8 +2324,7 @@ body::after {
     0 0
     9px;
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
   font-family:
     "DM Serif Display",
@@ -2482,7 +2339,6 @@ body::after {
     );
 
   font-weight: 400;
-
   line-height: 1;
 }
 
@@ -2492,17 +2348,15 @@ body::after {
 
   max-width: 330px;
 
-  color:
-    var(--muted);
+  color: var(--muted);
 
   font-size: 11px;
-
   line-height: 1.55;
 }
 
 
 /* =========================================================
-   WIN RESULT CONTENT
+   WIN CONTENT
 ========================================================= */
 
 .claim-prize-name {
@@ -2538,7 +2392,6 @@ body::after {
     );
 
   line-height: 1;
-
   font-weight: 400;
 
   text-transform: uppercase;
@@ -2566,7 +2419,6 @@ body::after {
     rgba(255, 255, 255, 0.64);
 
   font-size: 10px;
-
   line-height: 1.5;
 }
 
@@ -2592,7 +2444,6 @@ body::after {
     rgba(255, 255, 255, 0.72);
 
   font-size: 9px;
-
   font-weight: 800;
 }
 
@@ -2605,23 +2456,19 @@ body::after {
     14px 15px;
 
   border:
-    1px solid
-    rgba(191, 63, 255, 0.29);
+    1px solid rgba(191, 63, 255, 0.29);
 
-  border-radius:
-    16px;
+  border-radius: 16px;
 
   outline: none;
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
   background:
     rgba(3, 1, 5, 0.80);
 
   box-shadow:
-    inset 0 1px 9px
-    rgba(0, 0, 0, 0.30);
+    inset 0 1px 9px rgba(0, 0, 0, 0.30);
 
   font-size: 16px;
 }
@@ -2640,11 +2487,6 @@ body::after {
     0 0 14px rgba(169, 44, 247, 0.12);
 }
 
-
-/* =========================================================
-   CLAIM BUTTON
-========================================================= */
-
 .claim-submit-button {
   width: 100%;
 
@@ -2653,13 +2495,11 @@ body::after {
   margin-top: 16px;
 
   border:
-    1px solid
-    rgba(255, 241, 184, 0.57);
+    1px solid rgba(255, 241, 184, 0.57);
 
   border-radius: 999px;
 
-  color:
-    #241300;
+  color: #241300;
 
   cursor: pointer;
 
@@ -2677,13 +2517,11 @@ body::after {
     inset 0 1px 0 rgba(255, 255, 255, 0.66);
 
   font-size: 10px;
-
   font-weight: 900;
 
   text-transform: uppercase;
 
-  letter-spacing:
-    0.75px;
+  letter-spacing: 0.75px;
 }
 
 .claim-submit-button:disabled {
@@ -2708,7 +2546,7 @@ body::after {
 
 
 /* =========================================================
-   REVEALED CODE
+   CODE
 ========================================================= */
 
 .claim-code-box {
@@ -2718,8 +2556,7 @@ body::after {
   padding:
     18px 15px;
 
-  border-radius:
-    21px;
+  border-radius: 21px;
 
   background:
     radial-gradient(
@@ -2739,8 +2576,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(239, 197, 83, 0.33);
+    1px solid rgba(239, 197, 83, 0.33);
 }
 
 .claim-code-box span {
@@ -2752,7 +2588,6 @@ body::after {
     rgba(255, 255, 255, 0.58);
 
   font-size: 9px;
-
   font-weight: 800;
 
   text-transform: uppercase;
@@ -2763,8 +2598,7 @@ body::after {
 .claim-code-box strong {
   display: block;
 
-  color:
-    #ffe487;
+  color: #ffe487;
 
   font-size:
     clamp(
@@ -2774,7 +2608,6 @@ body::after {
     );
 
   line-height: 1;
-
   font-weight: 900;
 
   letter-spacing: 2px;
@@ -2790,13 +2623,11 @@ body::after {
   margin-top: 14px;
 
   border:
-    1px solid
-    rgba(216, 96, 255, 0.34);
+    1px solid rgba(216, 96, 255, 0.34);
 
   border-radius: 999px;
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
   cursor: pointer;
 
@@ -2808,23 +2639,15 @@ body::after {
     );
 
   box-shadow:
-    0 0 15px
-    rgba(173, 45, 248, 0.23);
+    0 0 15px rgba(173, 45, 248, 0.23);
 
   font-size: 9px;
-
   font-weight: 900;
 
   text-transform: uppercase;
 
-  letter-spacing:
-    0.8px;
+  letter-spacing: 0.8px;
 }
-
-
-/* =========================================================
-   RESULT DONE BUTTON
-========================================================= */
 
 .result-continue-button,
 #closeResultButton {
@@ -2835,13 +2658,11 @@ body::after {
   margin-top: 19px;
 
   border:
-    1px solid
-    rgba(255, 239, 174, 0.53);
+    1px solid rgba(255, 239, 174, 0.53);
 
   border-radius: 999px;
 
-  color:
-    #241300;
+  color: #241300;
 
   cursor: pointer;
 
@@ -2854,18 +2675,16 @@ body::after {
     );
 
   font-size: 9px;
-
   font-weight: 900;
 
   text-transform: uppercase;
 
-  letter-spacing:
-    0.8px;
+  letter-spacing: 0.8px;
 }
 
 
 /* =========================================================
-   VIEW ALL REWARDS MODAL
+   REWARDS MODAL
 ========================================================= */
 
 .rewards-modal {
@@ -2893,11 +2712,8 @@ body::after {
   background:
     rgba(2, 0, 4, 0.88);
 
-  backdrop-filter:
-    blur(17px);
-
-  -webkit-backdrop-filter:
-    blur(17px);
+  backdrop-filter: blur(17px);
+  -webkit-backdrop-filter: blur(17px);
 
   transition:
     opacity 0.25s ease,
@@ -2927,8 +2743,7 @@ body::after {
 
   text-align: center;
 
-  border-radius:
-    30px;
+  border-radius: 30px;
 
   background:
     radial-gradient(
@@ -2944,8 +2759,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(239, 196, 83, 0.41);
+    1px solid rgba(239, 196, 83, 0.41);
 
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.74),
@@ -2967,8 +2781,7 @@ body::after {
   place-items: center;
 
   border:
-    1px solid
-    rgba(255, 255, 255, 0.12);
+    1px solid rgba(255, 255, 255, 0.12);
 
   border-radius: 50%;
 
@@ -2986,15 +2799,12 @@ body::after {
 .rewards-kicker {
   display: block;
 
-  color:
-    var(--gold);
+  color: var(--gold);
 
   font-size: 8px;
-
   font-weight: 900;
 
-  letter-spacing:
-    2.3px;
+  letter-spacing: 2.3px;
 }
 
 .rewards-star {
@@ -3010,8 +2820,7 @@ body::after {
 
   border-radius: 50%;
 
-  color:
-    #ffd65d;
+  color: #ffd65d;
 
   background:
     linear-gradient(
@@ -3021,12 +2830,10 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(239, 194, 74, 0.48);
+    1px solid rgba(239, 194, 74, 0.48);
 
   box-shadow:
-    0 0 18px
-    rgba(179, 45, 252, 0.22);
+    0 0 18px rgba(179, 45, 252, 0.22);
 
   font-size: 22px;
 }
@@ -3036,8 +2843,7 @@ body::after {
     0 0
     7px;
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
   font-family:
     "DM Serif Display",
@@ -3045,7 +2851,6 @@ body::after {
     serif;
 
   font-size: 33px;
-
   font-weight: 400;
 
   line-height: 1;
@@ -3060,7 +2865,6 @@ body::after {
     rgba(255, 255, 255, 0.60);
 
   font-size: 9px;
-
   line-height: 1.5;
 }
 
@@ -3098,8 +2902,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(192, 64, 255, 0.21);
+    1px solid rgba(192, 64, 255, 0.21);
 }
 
 .reward-list-icon {
@@ -3113,8 +2916,7 @@ body::after {
 
   border-radius: 50%;
 
-  color:
-    #ffda64;
+  color: #ffda64;
 
   background:
     linear-gradient(
@@ -3124,8 +2926,7 @@ body::after {
     );
 
   border:
-    1px solid
-    rgba(239, 193, 74, 0.42);
+    1px solid rgba(239, 193, 74, 0.42);
 
   font-size: 16px;
 }
@@ -3139,8 +2940,7 @@ body::after {
 
   margin-bottom: 4px;
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
   font-size: 10px;
 }
@@ -3152,7 +2952,6 @@ body::after {
     rgba(255, 255, 255, 0.54);
 
   font-size: 8px;
-
   line-height: 1.45;
 }
 
@@ -3164,13 +2963,11 @@ body::after {
   margin-top: 16px;
 
   border:
-    1px solid
-    rgba(255, 240, 180, 0.52);
+    1px solid rgba(255, 240, 180, 0.52);
 
   border-radius: 999px;
 
-  color:
-    #261300;
+  color: #261300;
 
   cursor: pointer;
 
@@ -3183,7 +2980,6 @@ body::after {
     );
 
   font-size: 9px;
-
   font-weight: 900;
 
   text-transform: uppercase;
@@ -3264,8 +3060,7 @@ body::after {
   .header-kicker {
     font-size: 7px;
 
-    letter-spacing:
-      2px;
+    letter-spacing: 2px;
   }
 
   .game-header h1 {
@@ -3397,42 +3192,37 @@ body::after {
   }
 
 
-  /* MARV CENTRE - MOBILE */
+  /* MARV MOBILE */
 
- .spin-button {
-  width: 142px;
-  height: 150px;
-}
+  .spin-button {
+    width: 140px;
+    height: 150px;
+  }
 
-.spin-marv-circle {
-  width: 128px;
-  height: 128px;
-}
+  .spin-marv-circle {
+    width: 124px;
+    height: 124px;
+  }
 
-.spin-marv-image {
-  width: 100%;
-  height: 100%;
-  top: 0;
-}
+  .spin-marv-image {
+    width: 173px;
+    height: auto;
 
-.spin-marv-label {
-  min-width: 100px;
-  height: 35px;
+    top: -83px;
+  }
 
-  bottom: 0;
+  .spin-marv-label {
+    min-width: 100px;
+    height: 35px;
 
-  padding: 0 11px;
+    bottom: 0;
 
-  font-size: 23px;
-}
-   
-.spin-marv-label::before {
-  margin-right: 6px;
-}
+    padding:
+      0 11px;
 
-.spin-marv-label::after {
-  margin-left: 6px;
-} 
+    font-size: 23px;
+  }
+
 
   .wheel-light {
     width: 9px;
@@ -3584,4 +3374,4 @@ body::after {
     animation: none;
   }
 
-}
+   }
