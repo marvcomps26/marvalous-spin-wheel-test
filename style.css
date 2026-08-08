@@ -970,100 +970,72 @@ body::after {
   width: 10px;
   height: 10px;
 
-  margin:
-    -5px 0 0
-    -5px;
+  margin: -5px 0 0 -5px;
 
   border-radius: 50%;
 
   background:
     radial-gradient(
       circle,
-      #fff9d0 0 35%,
-      #ffd875 40% 62%,
-      #bd7b16 72% 100%
+      #fffde2 0 35%,
+      #ffe08a 40% 62%,
+      #c98518 72% 100%
     );
 
-  border:
-    1px solid
-    rgba(
-      255,
-      239,
-      180,
-      0.88
-    );
+  border: 1px solid rgba(255, 240, 185, 0.9);
 
   box-shadow:
-    0 0 6px
-    rgba(
-      255,
-      224,
-      129,
-      0.72
-    );
+    0 0 5px rgba(255, 220, 120, 0.45),
+    0 0 12px rgba(255, 210, 90, 0.18);
+
+  opacity: 0.38;
+  transform: scale(0.9);
+
+  animation: wheelLightChase 1.8s linear infinite;
 }
+@keyframes wheelLightChase {
+  0%, 100% {
+    opacity: 0.30;
+    transform: scale(0.88);
+    box-shadow:
+      0 0 4px rgba(255, 220, 120, 0.28),
+      0 0 8px rgba(255, 210, 90, 0.12);
+  }
 
-.light-1 {
-  left: 50%;
-  top: 3%;
+  8%,
+  18% {
+    opacity: 1;
+    transform: scale(1.22);
+    box-shadow:
+      0 0 8px rgba(255, 238, 170, 0.95),
+      0 0 20px rgba(255, 210, 90, 0.65),
+      0 0 34px rgba(255, 210, 90, 0.28);
+  }
+
+  40% {
+    opacity: 0.45;
+    transform: scale(0.95);
+    box-shadow:
+      0 0 5px rgba(255, 220, 120, 0.35),
+      0 0 10px rgba(255, 210, 90, 0.16);
+  }
 }
+.light-1  { animation-delay: 0s; }
+.light-2  { animation-delay: 0.15s; }
+.light-3  { animation-delay: 0.30s; }
+.light-4  { animation-delay: 0.45s; }
+.light-5  { animation-delay: 0.60s; }
+.light-6  { animation-delay: 0.75s; }
+.light-7  { animation-delay: 0.90s; }
+.light-8  { animation-delay: 1.05s; }
+.light-9  { animation-delay: 1.20s; }
+.light-10 { animation-delay: 1.35s; }
+.light-11 { animation-delay: 1.50s; }
+.light-12 { animation-delay: 1.65s; }
 
-.light-2 {
-  left: 74%;
-  top: 9%;
+.wheel-frame.spinning .wheel-light {
+  animation-duration: 0.65s;
 }
-
-.light-3 {
-  left: 91%;
-  top: 26%;
-}
-
-.light-4 {
-  left: 97%;
-  top: 50%;
-}
-
-.light-5 {
-  left: 91%;
-  top: 74%;
-}
-
-.light-6 {
-  left: 74%;
-  top: 91%;
-}
-
-.light-7 {
-  left: 50%;
-  top: 97%;
-}
-
-.light-8 {
-  left: 26%;
-  top: 91%;
-}
-
-.light-9 {
-  left: 9%;
-  top: 74%;
-}
-
-.light-10 {
-  left: 3%;
-  top: 50%;
-}
-
-.light-11 {
-  left: 9%;
-  top: 26%;
-}
-
-.light-12 {
-  left: 26%;
-  top: 9%;
-}
-
-
 /* =========================================
    WHEEL
 ========================================= */
