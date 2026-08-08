@@ -3400,21 +3400,19 @@ body::after {
   /* MARV CENTRE - MOBILE */
 
  .spin-button {
-  width: 138px;
+  width: 142px;
   height: 150px;
 }
 
 .spin-marv-circle {
-  width: 124px;
-  height: 124px;
-  top: 0;
+  width: 128px;
+  height: 128px;
 }
 
 .spin-marv-image {
-  width: 145%;
-  height: 145%;
-
-  top: 48%;
+  width: 100%;
+  height: 100%;
+  top: 0;
 }
 
 .spin-marv-label {
@@ -3423,12 +3421,11 @@ body::after {
 
   bottom: 0;
 
-  padding:
-    0 11px;
+  padding: 0 11px;
 
   font-size: 23px;
 }
-
+   
 .spin-marv-label::before {
   margin-right: 6px;
 }
