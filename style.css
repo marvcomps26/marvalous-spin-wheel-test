@@ -1,12 +1,13 @@
-/* =========================================
+/* =========================================================
    MARVALOUS PREMIUM SPIN WHEEL
-   FULL STYLE.CSS REPLACEMENT
-========================================= */
+   COMPLETE STYLE.CSS
+   PURPLE + GOLD LUXURY VERSION
+========================================================= */
 
 
-/* =========================================
+/* =========================================================
    RESET
-========================================= */
+========================================================= */
 
 * {
   box-sizing: border-box;
@@ -26,38 +27,43 @@ body {
   padding:
     calc(18px + env(safe-area-inset-top))
     14px
-    calc(34px + env(safe-area-inset-bottom));
+    calc(36px + env(safe-area-inset-bottom));
 
   overflow-x: hidden;
 
   color: #ffffff;
-  font-family: "Sora", Arial, sans-serif;
+
+  font-family:
+    "Sora",
+    Arial,
+    sans-serif;
 
   background:
     radial-gradient(
-      circle at 50% -8%,
-      rgba(118, 31, 190, 0.38),
+      ellipse at 50% -3%,
+      rgba(123, 30, 210, 0.48),
       transparent 30%
     ),
     radial-gradient(
-      circle at 85% 20%,
-      rgba(168, 101, 23, 0.08),
-      transparent 25%
+      circle at 92% 10%,
+      rgba(194, 54, 255, 0.19),
+      transparent 24%
     ),
     radial-gradient(
-      circle at 50% 52%,
-      rgba(255, 207, 98, 0.05),
-      transparent 26%
+      circle at 3% 34%,
+      rgba(116, 25, 190, 0.17),
+      transparent 29%
     ),
     radial-gradient(
-      circle at 10% 70%,
-      rgba(108, 31, 164, 0.12),
-      transparent 34%
+      circle at 50% 55%,
+      rgba(255, 190, 44, 0.045),
+      transparent 28%
     ),
     linear-gradient(
       180deg,
-      #100216 0%,
-      #050207 42%,
+      #16031e 0%,
+      #09010d 34%,
+      #040105 67%,
       #020102 100%
     );
 }
@@ -65,7 +71,10 @@ body {
 body,
 button,
 input {
-  font-family: "Sora", Arial, sans-serif;
+  font-family:
+    "Sora",
+    Arial,
+    sans-serif;
 }
 
 button {
@@ -73,66 +82,60 @@ button {
 }
 
 
-/* =========================================
-   ROOT VARIABLES
-========================================= */
+/* =========================================================
+   VARIABLES
+========================================================= */
 
 :root {
-  --bg: #030104;
-
-  --panel:
-    rgba(13, 6, 17, 0.97);
-
-  --panel-soft:
-    rgba(18, 8, 25, 0.94);
-
-  --panel-deep:
-    rgba(6, 3, 8, 0.99);
+  --black: #020102;
 
   --purple:
-    #6f20c5;
-
-  --purple-deep:
-    #34104d;
-
-  --purple-dark:
-    #1a0827;
+    #7624d6;
 
   --purple-bright:
-    #9b4cff;
+    #a83cff;
+
+  --purple-electric:
+    #bf4dff;
+
+  --purple-deep:
+    #320749;
+
+  --purple-dark:
+    #13051b;
 
   --gold:
-    #e6bf5d;
-
-  --gold-soft:
-    #c99735;
+    #efc85f;
 
   --gold-bright:
-    #fff1b4;
+    #fff2ae;
+
+  --gold-light:
+    #ffe38a;
 
   --gold-mid:
-    #d6aa48;
+    #d69c2d;
 
-  --gold-deep:
-    #8a5e18;
+  --gold-dark:
+    #87500a;
 
   --white:
     #ffffff;
 
-  --white-soft:
-    rgba(255, 255, 255, 0.82);
-
   --muted:
-    rgba(255, 255, 255, 0.58);
+    rgba(255, 255, 255, 0.64);
 
-  --muted-strong:
-    rgba(255, 255, 255, 0.72);
+  --muted-soft:
+    rgba(255, 255, 255, 0.46);
 
   --line:
-    rgba(255, 255, 255, 0.075);
+    rgba(255, 255, 255, 0.08);
 
   --gold-line:
-    rgba(230, 191, 93, 0.30);
+    rgba(239, 200, 95, 0.40);
+
+  --purple-line:
+    rgba(188, 65, 255, 0.34);
 
   --radius-xl:
     31px;
@@ -142,15 +145,12 @@ button {
 
   --radius-md:
     17px;
-
-  --shadow-card:
-    0 28px 68px rgba(0, 0, 0, 0.52);
 }
 
 
-/* =========================================
-   BACKGROUND DECORATION
-========================================= */
+/* =========================================================
+   PAGE ATMOSPHERE
+========================================================= */
 
 body::before {
   content: "";
@@ -162,17 +162,34 @@ body::before {
 
   pointer-events: none;
 
-  opacity: 0.08;
+  opacity: 0.24;
 
   background-image:
     radial-gradient(
       circle,
-      rgba(255, 255, 255, 0.78) 0 0.65px,
-      transparent 1px
+      rgba(255, 255, 255, 0.75) 0 0.7px,
+      transparent 1.2px
+    ),
+    radial-gradient(
+      circle,
+      rgba(255, 198, 66, 0.88) 0 0.65px,
+      transparent 1.1px
+    ),
+    radial-gradient(
+      circle,
+      rgba(187, 53, 255, 0.75) 0 0.7px,
+      transparent 1.3px
     );
 
   background-size:
-    62px 62px;
+    73px 73px,
+    121px 121px,
+    167px 167px;
+
+  background-position:
+    0 0,
+    41px 58px,
+    84px 21px;
 }
 
 body::after {
@@ -180,28 +197,31 @@ body::after {
 
   position: fixed;
 
-  width: 480px;
-  height: 480px;
-
-  top: 240px;
-  left: 50%;
-
-  transform: translateX(-50%);
-
   z-index: -2;
 
-  pointer-events: none;
+  width: 520px;
+  height: 520px;
+
+  top: 180px;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
 
   border-radius: 50%;
+
+  pointer-events: none;
 
   background:
     radial-gradient(
       circle,
-      rgba(94, 22, 150, 0.12),
-      transparent 68%
+      rgba(137, 35, 220, 0.22),
+      rgba(101, 19, 170, 0.07) 47%,
+      transparent 70%
     );
 
-  filter: blur(58px);
+  filter:
+    blur(54px);
 }
 
 .page-ambient {
@@ -210,9 +230,9 @@ body::after {
 
   z-index: -1;
 
-  pointer-events: none;
-
   overflow: hidden;
+
+  pointer-events: none;
 }
 
 .page-ambient::before {
@@ -220,51 +240,85 @@ body::after {
 
   position: absolute;
 
-  width: 440px;
-  height: 440px;
+  width: 520px;
+  height: 520px;
 
-  right: -210px;
-  top: 20px;
+  top: -160px;
+  right: -260px;
 
   border-radius: 50%;
 
   background:
     repeating-radial-gradient(
       circle,
-      transparent 0 17px,
-      rgba(125, 45, 183, 0.08) 18px 19px
+      transparent 0 18px,
+      rgba(164, 45, 244, 0.11) 19px 20px
     );
 
-  opacity: 0.55;
+  opacity: 0.72;
+}
+
+.page-ambient::after {
+  content: "";
+
+  position: absolute;
+
+  width: 310px;
+  height: 190px;
+
+  top: 0;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(162, 45, 240, 0.30),
+      transparent 68%
+    );
+
+  filter:
+    blur(38px);
 }
 
 
-/* =========================================
+/* =========================================================
    APP SHELL
-========================================= */
+========================================================= */
 
 .game-shell {
-  width: min(100%, 560px);
+  position: relative;
 
-  margin: 0 auto;
+  width:
+    min(
+      100%,
+      560px
+    );
+
+  margin:
+    0 auto;
 }
 
 
-/* =========================================
+/* =========================================================
    HEADER
-========================================= */
+========================================================= */
 
 .game-header {
+  position: relative;
+
   display: flex;
   align-items: center;
 
-  gap: 17px;
+  gap: 16px;
 
   margin-bottom: 25px;
 
   padding:
     2px 5px
-    6px;
+    7px;
 }
 
 .brand-medallion {
@@ -278,26 +332,36 @@ body::after {
   display: grid;
   place-items: center;
 
-  border-radius: 50%;
-
   padding: 4px;
+
+  border-radius: 50%;
 
   background:
     linear-gradient(
       145deg,
-      #fff1aa 0%,
-      #d9a53f 25%,
-      #765013 44%,
-      #f2d172 65%,
-      #9a671e 83%,
-      #ffe78c 100%
+      #fff2ad 0%,
+      #db9f28 21%,
+      #71400c 38%,
+      #f9d568 57%,
+      #8e520c 77%,
+      #ffe989 100%
     );
 
   box-shadow:
-    0 0 0 3px rgba(230, 191, 93, 0.07),
-    0 0 27px rgba(127, 42, 192, 0.30),
-    0 12px 28px rgba(0, 0, 0, 0.38),
-    inset 0 1px 1px rgba(255, 255, 255, 0.65);
+    0 0 0 3px
+    rgba(255, 212, 81, 0.12),
+
+    0 0 19px
+    rgba(255, 195, 53, 0.26),
+
+    0 0 32px
+    rgba(159, 47, 239, 0.40),
+
+    0 13px 30px
+    rgba(0, 0, 0, 0.46),
+
+    inset 0 1px 1px
+    rgba(255, 255, 255, 0.78);
 }
 
 .brand-medallion::before {
@@ -305,15 +369,42 @@ body::after {
 
   position: absolute;
 
-  inset: -6px;
+  inset: -7px;
 
   border-radius: 50%;
 
   border:
-    1px solid rgba(197, 122, 255, 0.18);
+    1px solid
+    rgba(188, 69, 255, 0.27);
 
   box-shadow:
-    0 0 28px rgba(131, 42, 194, 0.22);
+    0 0 26px
+    rgba(177, 52, 255, 0.32);
+}
+
+.brand-medallion::after {
+  content: "";
+
+  position: absolute;
+
+  width: 20px;
+  height: 20px;
+
+  top: -4px;
+  right: 0;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 244, 178, 0.84),
+      rgba(255, 200, 52, 0.32) 32%,
+      transparent 70%
+    );
+
+  filter:
+    blur(2px);
 }
 
 .brand-medallion-inner {
@@ -327,23 +418,27 @@ body::after {
 
   background:
     radial-gradient(
-      circle at 33% 24%,
+      circle at 35% 23%,
       rgba(255, 255, 255, 0.18),
-      transparent 22%
+      transparent 24%
     ),
     linear-gradient(
       145deg,
-      #5b1b91 0%,
-      #32104b 55%,
-      #16051f 100%
+      #6926ad,
+      #3c0d62 53%,
+      #170420
     );
 
   border:
-    1px solid rgba(255, 255, 255, 0.10);
+    1px solid
+    rgba(255, 255, 255, 0.13);
 
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.12),
-    inset 0 -8px 15px rgba(0, 0, 0, 0.25);
+    inset 0 1px 1px
+    rgba(255, 255, 255, 0.17),
+
+    inset 0 -10px 18px
+    rgba(0, 0, 0, 0.30);
 }
 
 .brand-medallion-inner span {
@@ -358,8 +453,14 @@ body::after {
   line-height: 1;
 
   text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.22),
-    0 3px 8px rgba(0, 0, 0, 0.42);
+    0 1px 0
+    rgba(255, 255, 255, 0.28),
+
+    0 0 13px
+    rgba(255, 210, 80, 0.32),
+
+    0 4px 8px
+    rgba(0, 0, 0, 0.45);
 }
 
 .header-copy {
@@ -371,12 +472,18 @@ body::after {
 
   margin-bottom: 6px;
 
-  color: var(--gold);
+  color:
+    var(--gold);
 
   font-size: 9px;
   font-weight: 800;
 
-  letter-spacing: 2.8px;
+  letter-spacing:
+    2.8px;
+
+  text-shadow:
+    0 0 10px
+    rgba(255, 205, 73, 0.14);
 }
 
 .game-header h1 {
@@ -389,59 +496,89 @@ body::after {
     Georgia,
     serif;
 
-  font-size: clamp(
-    30px,
-    8vw,
-    43px
-  );
+  font-size:
+    clamp(
+      30px,
+      8vw,
+      43px
+    );
 
   line-height: 0.96;
 
   font-weight: 400;
 
-  letter-spacing: -0.8px;
+  letter-spacing:
+    -0.8px;
 
   text-shadow:
-    0 4px 18px rgba(0, 0, 0, 0.42);
+    0 4px 18px
+    rgba(0, 0, 0, 0.44),
+
+    0 0 18px
+    rgba(137, 43, 219, 0.10);
 }
 
 
-/* =========================================
+/* =========================================================
    HERO PANEL
-========================================= */
+========================================================= */
 
 .hero-panel {
   position: relative;
+
   overflow: hidden;
 
-  padding: 28px 18px 21px;
+  padding:
+    29px 18px
+    22px;
+
   text-align: center;
-  border-radius: var(--radius-xl);
+
+  border-radius:
+    var(--radius-xl);
 
   background:
     radial-gradient(
-      circle at 50% 18%,
-      rgba(118, 31, 190, 0.25),
-      transparent 30%
+      circle at 50% 13%,
+      rgba(132, 35, 206, 0.29),
+      transparent 32%
     ),
     radial-gradient(
-      circle at 50% 60%,
-      rgba(255, 208, 96, 0.04),
+      circle at 53% 57%,
+      rgba(111, 24, 178, 0.13),
       transparent 42%
+    ),
+    radial-gradient(
+      circle at 100% 12%,
+      rgba(255, 187, 35, 0.045),
+      transparent 26%
     ),
     linear-gradient(
       180deg,
-      rgba(20, 8, 28, 0.985) 0%,
-      rgba(8, 4, 12, 0.992) 52%,
-      rgba(4, 2, 6, 0.997) 100%
+      rgba(24, 6, 32, 0.99) 0%,
+      rgba(11, 3, 15, 0.995) 48%,
+      rgba(4, 2, 6, 0.998) 100%
     );
 
-  border: 1px solid rgba(230, 191, 93, 0.34);
+  border:
+    1px solid
+    rgba(239, 200, 95, 0.40);
 
   box-shadow:
-    0 28px 70px rgba(0, 0, 0, 0.58),
-    0 0 26px rgba(103, 31, 160, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 29px 72px
+    rgba(0, 0, 0, 0.60),
+
+    0 0 27px
+    rgba(165, 46, 244, 0.17),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.07);
+
+  animation:
+    heroBreath
+    4.4s
+    ease-in-out
+    infinite;
 }
 
 .hero-panel::before {
@@ -450,14 +587,16 @@ body::after {
   position: absolute;
   inset: 0;
 
+  z-index: 0;
+
   pointer-events: none;
 
   background:
     linear-gradient(
-      115deg,
-      transparent 15%,
-      rgba(255, 255, 255, 0.018) 42%,
-      transparent 69%
+      112deg,
+      transparent 13%,
+      rgba(255, 255, 255, 0.025) 39%,
+      transparent 61%
     );
 }
 
@@ -466,11 +605,13 @@ body::after {
 
   position: absolute;
 
-  left: 14%;
-  right: 14%;
   top: 0;
+  left: 9%;
+  right: 9%;
 
   height: 1px;
+
+  z-index: 2;
 
   pointer-events: none;
 
@@ -478,21 +619,30 @@ body::after {
     linear-gradient(
       90deg,
       transparent,
-      rgba(255, 226, 144, 0.60),
+      rgba(255, 211, 92, 0.92),
+      rgba(194, 67, 255, 0.63),
+      rgba(255, 211, 92, 0.92),
       transparent
     );
+
+  box-shadow:
+    0 0 8px
+    rgba(255, 201, 60, 0.20);
 }
 
 .hero-top-shine {
   position: absolute;
 
-  width: 120px;
-  height: 120px;
+  z-index: 0;
 
-  top: -75px;
+  width: 220px;
+  height: 150px;
+
+  top: -110px;
   left: 50%;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
   pointer-events: none;
 
@@ -501,76 +651,120 @@ body::after {
   background:
     radial-gradient(
       circle,
-      rgba(233, 191, 93, 0.14),
-      transparent 72%
+      rgba(188, 55, 255, 0.23),
+      rgba(255, 205, 71, 0.05) 42%,
+      transparent 70%
     );
 
-  filter: blur(10px);
+  filter:
+    blur(11px);
+}
+
+@keyframes heroBreath {
+  0%,
+  100% {
+    box-shadow:
+      0 29px 72px
+      rgba(0, 0, 0, 0.60),
+
+      0 0 23px
+      rgba(153, 43, 229, 0.13),
+
+      inset 0 1px 0
+      rgba(255, 255, 255, 0.07);
+  }
+
+  50% {
+    box-shadow:
+      0 29px 72px
+      rgba(0, 0, 0, 0.60),
+
+      0 0 40px
+      rgba(174, 53, 255, 0.25),
+
+      inset 0 1px 0
+      rgba(255, 255, 255, 0.08);
+  }
 }
 
 
-/* =========================================
+/* =========================================================
    DAILY BADGE
-========================================= */
+========================================================= */
 
 .daily-badge {
   position: relative;
+
   z-index: 3;
 
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
 
-  gap: 10px;
+  gap: 11px;
 
-  min-height: 34px;
+  min-height: 35px;
 
-  margin-bottom: 19px;
+  margin-bottom: 20px;
 
   padding:
     0 17px;
 
-  border-radius: 999px;
+  border-radius:
+    999px;
 
-  color: var(--gold-bright);
+  color:
+    #fff4c1;
 
   background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 216, 100, 0.12),
+      transparent 58%
+    ),
     linear-gradient(
       180deg,
-      rgba(83, 50, 13, 0.52),
-      rgba(19, 11, 3, 0.58)
+      rgba(50, 23, 6, 0.82),
+      rgba(13, 6, 14, 0.88)
     );
 
   border:
-    1px solid rgba(230, 191, 93, 0.50);
+    1px solid
+    rgba(255, 210, 83, 0.58);
 
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    0 5px 18px rgba(0, 0, 0, 0.26);
+    0 0 17px
+    rgba(255, 196, 50, 0.10),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.10);
 
   font-size: 8px;
-  font-weight: 800;
+  font-weight: 900;
 
-  letter-spacing: 2.2px;
+  letter-spacing:
+    2.2px;
 }
 
 .badge-sparkle {
-  color: var(--gold);
+  color:
+    #ffd869;
 
-  font-size: 10px;
+  font-size: 11px;
 
   text-shadow:
-    0 0 8px rgba(230, 191, 93, 0.55);
+    0 0 10px
+    rgba(255, 217, 100, 0.78);
 }
 
 
-/* =========================================
+/* =========================================================
    HERO COPY
-========================================= */
+========================================================= */
 
 .hero-copy {
   position: relative;
+
   z-index: 3;
 }
 
@@ -584,9 +778,10 @@ body::after {
 
   font-weight: 400;
 
-  line-height: 0.92;
+  line-height: 0.91;
 
-  letter-spacing: -0.9px;
+  letter-spacing:
+    -1px;
 }
 
 .hero-copy h2 span {
@@ -604,7 +799,8 @@ body::after {
     );
 
   text-shadow:
-    0 4px 18px rgba(0, 0, 0, 0.42);
+    0 4px 18px
+    rgba(0, 0, 0, 0.48);
 }
 
 .hero-line-gold {
@@ -612,18 +808,18 @@ body::after {
 
   font-size:
     clamp(
-      39px,
-      10vw,
-      58px
+      40px,
+      10.2vw,
+      59px
     );
 
   background:
     linear-gradient(
       180deg,
-      #fff5c9 0%,
-      #efcd72 38%,
-      #c88f2b 79%,
-      #f5d777 100%
+      #fff8ce 0%,
+      #ffd968 34%,
+      #d99a26 69%,
+      #ffdf76 100%
     );
 
   -webkit-background-clip: text;
@@ -631,7 +827,12 @@ body::after {
 
   filter:
     drop-shadow(
-      0 4px 10px rgba(0, 0, 0, 0.33)
+      0 4px 9px
+      rgba(0, 0, 0, 0.35)
+    )
+    drop-shadow(
+      0 0 9px
+      rgba(255, 197, 46, 0.10)
     );
 }
 
@@ -639,16 +840,11 @@ body::after {
   max-width: 390px;
 
   margin:
-    14px auto
+    15px auto
     17px;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.66
-    );
+    rgba(255, 255, 255, 0.72);
 
   font-size: 11px;
 
@@ -658,12 +854,13 @@ body::after {
 }
 
 
-/* =========================================
+/* =========================================================
    WHEEL AREA
-========================================= */
+========================================================= */
 
 .wheel-area {
   position: relative;
+
   z-index: 4;
 
   width:
@@ -676,36 +873,83 @@ body::after {
     0 auto;
 
   padding:
-    30px 0
-    7px;
+    31px 0
+    8px;
 }
 
 .wheel-area::before {
   content: "";
 
   position: absolute;
-  width: 94%;
+
+  z-index: -1;
+
+  width: 104%;
+
   aspect-ratio: 1;
+
   top: 51%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
   border-radius: 50%;
 
   background:
     radial-gradient(
       circle,
-      rgba(255, 201, 84, 0.12),
-      rgba(111, 32, 197, 0.14) 42%,
-      transparent 68%
+      rgba(255, 204, 59, 0.13) 0%,
+      rgba(182, 47, 255, 0.23) 33%,
+      rgba(124, 25, 202, 0.11) 49%,
+      transparent 70%
     );
 
-  filter: blur(22px);
+  filter:
+    blur(23px);
 }
 
-/* =========================================
+.wheel-area::after {
+  content: "";
+
+  position: absolute;
+
+  z-index: -2;
+
+  width: 88%;
+
+  aspect-ratio: 1;
+
+  top: 53%;
+  left: 50%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(188, 60, 255, 0.13);
+
+  box-shadow:
+    0 0 36px
+    rgba(171, 43, 245, 0.26),
+
+    0 0 70px
+    rgba(120, 25, 200, 0.10);
+}
+
+
+/* =========================================================
    POINTER
-========================================= */
+========================================================= */
 
 .wheel-pointer {
   position: absolute;
@@ -715,8 +959,8 @@ body::after {
 
   z-index: 30;
 
-  width: 48px;
-  height: 58px;
+  width: 50px;
+  height: 61px;
 
   transform:
     translateX(-50%);
@@ -734,8 +978,8 @@ body::after {
 
   top: 0;
 
-  width: 43px;
-  height: 49px;
+  width: 46px;
+  height: 51px;
 
   clip-path:
     polygon(
@@ -747,21 +991,21 @@ body::after {
   background:
     linear-gradient(
       135deg,
-      #fff2ab 0%,
-      #e0ac38 25%,
-      #8c5d12 48%,
-      #f1cc65 72%,
-      #b47718 100%
+      #fff4b8 0%,
+      #ffd056 21%,
+      #a9650a 47%,
+      #f8cc50 72%,
+      #9b5b06 100%
     );
 
   filter:
     drop-shadow(
       0 4px 5px
-      rgba(0, 0, 0, 0.52)
+      rgba(0, 0, 0, 0.56)
     )
     drop-shadow(
-      0 0 8px
-      rgba(230, 191, 93, 0.30)
+      0 0 9px
+      rgba(255, 206, 74, 0.64)
     );
 }
 
@@ -770,10 +1014,10 @@ body::after {
 
   position: absolute;
 
-  top: 7px;
+  top: 6px;
 
-  width: 30px;
-  height: 32px;
+  width: 31px;
+  height: 34px;
 
   clip-path:
     polygon(
@@ -785,42 +1029,42 @@ body::after {
   background:
     linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.55),
-      transparent 48%
+      rgba(255, 255, 255, 0.72),
+      transparent 49%
     );
 
-  opacity: 0.65;
+  opacity: 0.69;
 }
 
 .pointer-gem {
   position: absolute;
 
-  width: 8px;
-  height: 8px;
+  z-index: 3;
 
-  top: 43px;
+  width: 9px;
+  height: 9px;
 
-  z-index: 2;
+  top: 45px;
 
   transform:
     rotate(45deg);
 
   background:
-    var(--gold-bright);
+    #fff2a3;
 
   border:
     1px solid
-    rgba(119, 69, 5, 0.65);
+    rgba(139, 81, 1, 0.72);
 
   box-shadow:
-    0 0 8px
-    rgba(255, 224, 129, 0.46);
+    0 0 10px
+    rgba(255, 221, 107, 0.88);
 }
 
 
-/* =========================================
+/* =========================================================
    WHEEL FRAME
-========================================= */
+========================================================= */
 
 .wheel-frame {
   position: relative;
@@ -833,7 +1077,8 @@ body::after {
 
   aspect-ratio: 1;
 
-  margin: 0 auto;
+  margin:
+    0 auto;
 
   padding: 18px;
 
@@ -844,65 +1089,65 @@ body::after {
 
   background:
     linear-gradient(
-      135deg,
-      #fff0a7 0%,
-      #c88729 18%,
-      #6d4410 34%,
-      #f3d278 51%,
-      #a66f20 69%,
-      #f9df91 82%,
-      #9b6219 100%
+      137deg,
+      #fff0a2 0%,
+      #e2aa32 12%,
+      #87510b 28%,
+      #ffe37e 43%,
+      #b77413 59%,
+      #ffdf76 73%,
+      #9a5c0c 88%,
+      #ffd968 100%
     );
 
   border:
     1px solid
-    rgba(
-      255,
-      241,
-      185,
-      0.86
-    );
+    rgba(255, 244, 191, 0.97);
 
   box-shadow:
-    0 0 0 5px
-    rgba(
-      230,
-      191,
-      93,
-      0.07
-    ),
+    0 0 0 4px
+    rgba(255, 212, 75, 0.10),
+
+    0 0 0 7px
+    rgba(126, 23, 174, 0.19),
 
     0 0 28px
-    rgba(
-      230,
-      191,
-      93,
-      0.18
-    ),
+    rgba(255, 205, 63, 0.46),
 
-    0 26px 48px
-    rgba(
-      0,
-      0,
-      0,
-      0.62
-    ),
+    0 0 48px
+    rgba(181, 46, 255, 0.40),
+
+    0 27px 52px
+    rgba(0, 0, 0, 0.66),
 
     inset 0 2px 2px
-    rgba(
-      255,
-      255,
-      255,
-      0.68
-    ),
+    rgba(255, 255, 255, 0.78),
 
-    inset 0 -7px 11px
-    rgba(
-      70,
-      36,
-      0,
-      0.46
-    );
+    inset 0 -8px 12px
+    rgba(76, 38, 0, 0.48);
+}
+
+.wheel-frame::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -5px;
+
+  z-index: -1;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(194, 53, 255, 0.35);
+
+  box-shadow:
+    0 0 20px
+    rgba(183, 49, 255, 0.36),
+
+    0 0 45px
+    rgba(166, 43, 247, 0.21);
 }
 
 .wheel-frame::after {
@@ -912,40 +1157,32 @@ body::after {
 
   inset: 9px;
 
+  z-index: 10;
+
   border-radius: 50%;
 
   pointer-events: none;
 
   border:
     1px solid
-    rgba(
-      55,
-      24,
-      1,
-      0.48
-    );
+    rgba(56, 28, 2, 0.62);
 
   box-shadow:
     inset 0 0 0 1px
-    rgba(
-      255,
-      244,
-      198,
-      0.20
-    );
+    rgba(255, 246, 200, 0.29);
 }
 
 
-/* =========================================
-   WHEEL LIGHTS
-========================================= */
+/* =========================================================
+   FLASHING WHEEL LIGHTS
+========================================================= */
 
 .wheel-light-ring {
   position: absolute;
 
   inset: 0;
 
-  z-index: 11;
+  z-index: 18;
 
   pointer-events: none;
 }
@@ -953,78 +1190,245 @@ body::after {
 .wheel-light {
   position: absolute;
 
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
 
-  margin: -5px 0 0 -5px;
+  margin:
+    -5.5px 0 0
+    -5.5px;
 
   border-radius: 50%;
 
   background:
     radial-gradient(
       circle,
-      #fffde2 0 35%,
-      #ffe08a 40% 62%,
-      #c98518 72% 100%
+      #ffffff 0 19%,
+      #fff9c9 25% 38%,
+      #ffe177 43% 65%,
+      #d99118 72% 100%
     );
 
-  border: 1px solid rgba(255, 240, 185, 0.9);
+  border:
+    1px solid
+    rgba(255, 246, 205, 0.96);
+
+  opacity: 0.44;
+
+  transform:
+    scale(0.84);
 
   box-shadow:
-    0 0 5px rgba(255, 220, 120, 0.45),
-    0 0 12px rgba(255, 210, 90, 0.18);
+    0 0 5px
+    rgba(255, 226, 132, 0.55),
 
-  opacity: 0.38;
-  transform: scale(0.9);
+    0 0 10px
+    rgba(255, 199, 47, 0.24);
 
-  animation: wheelLightChase 1.8s linear infinite;
+  animation:
+    wheelLightChase
+    1.8s
+    linear
+    infinite;
 }
+
 @keyframes wheelLightChase {
-  0%, 100% {
-    opacity: 0.30;
-    transform: scale(0.88);
+  0%,
+  100% {
+    opacity: 0.34;
+
+    transform:
+      scale(0.82);
+
     box-shadow:
-      0 0 4px rgba(255, 220, 120, 0.28),
-      0 0 8px rgba(255, 210, 90, 0.12);
+      0 0 4px
+      rgba(255, 224, 132, 0.32),
+
+      0 0 8px
+      rgba(255, 198, 45, 0.14);
   }
 
-  8%,
-  18% {
+  7% {
+    opacity: 0.62;
+
+    transform:
+      scale(0.97);
+  }
+
+  12%,
+  19% {
     opacity: 1;
-    transform: scale(1.22);
+
+    transform:
+      scale(1.35);
+
     box-shadow:
-      0 0 8px rgba(255, 238, 170, 0.95),
-      0 0 20px rgba(255, 210, 90, 0.65),
-      0 0 34px rgba(255, 210, 90, 0.28);
+      0 0 8px
+      rgba(255, 250, 215, 1),
+
+      0 0 19px
+      rgba(255, 217, 92, 0.95),
+
+      0 0 34px
+      rgba(255, 192, 38, 0.70),
+
+      0 0 50px
+      rgba(177, 46, 255, 0.28);
   }
 
-  40% {
-    opacity: 0.45;
-    transform: scale(0.95);
-    box-shadow:
-      0 0 5px rgba(255, 220, 120, 0.35),
-      0 0 10px rgba(255, 210, 90, 0.16);
+  30% {
+    opacity: 0.69;
+
+    transform:
+      scale(1.04);
+  }
+
+  47% {
+    opacity: 0.38;
+
+    transform:
+      scale(0.87);
   }
 }
-.light-1  { animation-delay: 0s; }
-.light-2  { animation-delay: 0.15s; }
-.light-3  { animation-delay: 0.30s; }
-.light-4  { animation-delay: 0.45s; }
-.light-5  { animation-delay: 0.60s; }
-.light-6  { animation-delay: 0.75s; }
-.light-7  { animation-delay: 0.90s; }
-.light-8  { animation-delay: 1.05s; }
-.light-9  { animation-delay: 1.20s; }
-.light-10 { animation-delay: 1.35s; }
-.light-11 { animation-delay: 1.50s; }
-.light-12 { animation-delay: 1.65s; }
 
-.wheel-frame.spinning .wheel-light {
-  animation-duration: 0.65s;
+
+/* negative delays make the chase active immediately */
+
+.light-1 {
+  left: 50%;
+  top: 3%;
+
+  animation-delay:
+    0s;
 }
-/* =========================================
+
+.light-2 {
+  left: 74%;
+  top: 9%;
+
+  animation-delay:
+    -0.15s;
+}
+
+.light-3 {
+  left: 91%;
+  top: 26%;
+
+  animation-delay:
+    -0.30s;
+}
+
+.light-4 {
+  left: 97%;
+  top: 50%;
+
+  animation-delay:
+    -0.45s;
+}
+
+.light-5 {
+  left: 91%;
+  top: 74%;
+
+  animation-delay:
+    -0.60s;
+}
+
+.light-6 {
+  left: 74%;
+  top: 91%;
+
+  animation-delay:
+    -0.75s;
+}
+
+.light-7 {
+  left: 50%;
+  top: 97%;
+
+  animation-delay:
+    -0.90s;
+}
+
+.light-8 {
+  left: 26%;
+  top: 91%;
+
+  animation-delay:
+    -1.05s;
+}
+
+.light-9 {
+  left: 9%;
+  top: 74%;
+
+  animation-delay:
+    -1.20s;
+}
+
+.light-10 {
+  left: 3%;
+  top: 50%;
+
+  animation-delay:
+    -1.35s;
+}
+
+.light-11 {
+  left: 9%;
+  top: 26%;
+
+  animation-delay:
+    -1.50s;
+}
+
+.light-12 {
+  left: 26%;
+  top: 9%;
+
+  animation-delay:
+    -1.65s;
+}
+
+
+/* lights speed up while JS adds .spinning */
+
+.wheel-frame.spinning
+.wheel-light {
+  animation-duration:
+    0.62s;
+}
+
+
+/* stronger ring while spinning */
+
+.wheel-frame.spinning {
+  box-shadow:
+    0 0 0 4px
+    rgba(255, 212, 75, 0.14),
+
+    0 0 0 7px
+    rgba(149, 31, 215, 0.23),
+
+    0 0 34px
+    rgba(255, 206, 63, 0.61),
+
+    0 0 65px
+    rgba(190, 52, 255, 0.53),
+
+    0 27px 52px
+    rgba(0, 0, 0, 0.66),
+
+    inset 0 2px 2px
+    rgba(255, 255, 255, 0.78),
+
+    inset 0 -8px 12px
+    rgba(76, 38, 0, 0.48);
+}
+
+
+/* =========================================================
    WHEEL
-========================================= */
+========================================================= */
 
 .wheel {
   position: relative;
@@ -1040,46 +1444,39 @@ body::after {
     conic-gradient(
       from -22.5deg,
 
-      #4f168d 0deg 45deg,
-      #c99233 45deg 90deg,
+      #6418c8 0deg 45deg,
 
-      #6121a5 90deg 135deg,
-      #d0a043 135deg 180deg,
+      #dba52f 45deg 90deg,
 
-      #3b1069 180deg 225deg,
-      #bd8128 225deg 270deg,
+      #7624e0 90deg 135deg,
 
-      #6826a7 270deg 315deg,
-      #d0a043 315deg 360deg
+      #daa02b 135deg 180deg,
+
+      #4d0d9c 180deg 225deg,
+
+      #cf9123 225deg 270deg,
+
+      #7a23e0 270deg 315deg,
+
+      #e0ab32 315deg 360deg
     );
 
   border:
     4px solid
-    rgba(
-      40,
-      13,
-      44,
-      0.92
-    );
+    rgba(46, 10, 53, 0.96);
 
   box-shadow:
     inset 0 0 0 1px
-    rgba(
-      255,
-      255,
-      255,
-      0.14
-    ),
+    rgba(255, 255, 255, 0.18),
 
-    inset 0 0 32px
-    rgba(
-      0,
-      0,
-      0,
-      0.28
-    );
+    inset 0 0 33px
+    rgba(0, 0, 0, 0.25),
 
-  will-change: transform;
+    inset 0 0 52px
+    rgba(116, 25, 188, 0.08);
+
+  will-change:
+    transform;
 }
 
 .wheel::before {
@@ -1096,31 +1493,20 @@ body::after {
 
   background:
     radial-gradient(
-      circle at 33% 21%,
-      rgba(
-        255,
-        255,
-        255,
-        0.10
-      ),
-      transparent 25%
+      circle at 33% 20%,
+      rgba(255, 255, 255, 0.18),
+      transparent 24%
     ),
-
+    radial-gradient(
+      circle at 68% 70%,
+      rgba(255, 202, 78, 0.08),
+      transparent 32%
+    ),
     radial-gradient(
       circle,
       transparent 0 48%,
-      rgba(
-        0,
-        0,
-        0,
-        0.10
-      ) 72%,
-      rgba(
-        0,
-        0,
-        0,
-        0.33
-      ) 100%
+      rgba(0, 0, 0, 0.08) 72%,
+      rgba(0, 0, 0, 0.28) 100%
     );
 }
 
@@ -1136,18 +1522,13 @@ body::after {
 
   pointer-events: none;
 
-  opacity: 0.15;
+  opacity: 0.17;
 
   background-image:
     radial-gradient(
       circle,
-      rgba(
-        255,
-        255,
-        255,
-        0.70
-      ) 0 0.45px,
-      transparent 0.8px
+      rgba(255, 255, 255, 0.80) 0 0.5px,
+      transparent 0.9px
     );
 
   background-size:
@@ -1155,9 +1536,9 @@ body::after {
 }
 
 
-/* =========================================
-   PERFECTLY ALIGNED WHEEL LABELS
-========================================= */
+/* =========================================================
+   WHEEL LABELS
+========================================================= */
 
 .wheel-label {
   position: absolute;
@@ -1167,32 +1548,35 @@ body::after {
   left: 50%;
   top: 50%;
 
-  width: 92px;
+  width: 94px;
 
   color: #ffffff;
 
   text-align: center;
+
   text-transform: uppercase;
 
   font-size: 10px;
+
   line-height: 1.1;
 
-  font-weight: 800;
+  font-weight: 900;
 
-  letter-spacing: 0.1px;
+  letter-spacing:
+    0.1px;
 
   text-shadow:
     0 2px 5px
-    rgba(0, 0, 0, 0.62);
+    rgba(0, 0, 0, 0.68),
 
-  transform-origin:
-    50% 50%;
+    0 0 7px
+    rgba(0, 0, 0, 0.30);
 
   pointer-events: none;
 }
 
 
-/* 8 evenly spaced positions */
+/* 8 segments arranged around centre */
 
 .label-1 {
   transform:
@@ -1259,9 +1643,9 @@ body::after {
 }
 
 
-/* =========================================
+/* =========================================================
    SPIN BUTTON
-========================================= */
+========================================================= */
 
 .spin-button {
   position: absolute;
@@ -1278,78 +1662,52 @@ body::after {
 
   border:
     2px solid
-    rgba(
-      255,
-      245,
-      191,
-      0.82
-    );
+    rgba(255, 244, 185, 0.97);
 
   border-radius: 50%;
 
   cursor: pointer;
 
   background:
+    radial-gradient(
+      circle at 35% 22%,
+      rgba(255, 255, 255, 0.75),
+      transparent 20%
+    ),
     linear-gradient(
       145deg,
-      #f9e08d 0%,
-      #d39a33 38%,
-      #9e6518 73%,
-      #ebc35d 100%
+      #fff0a2 0%,
+      #e8b63f 31%,
+      #bb7714 65%,
+      #f3c64e 100%
     );
 
   box-shadow:
     0 0 0 5px
-    rgba(
-      48,
-      19,
-      12,
-      0.88
-    ),
+    rgba(49, 17, 13, 0.95),
 
     0 0 0 8px
-    rgba(
-      230,
-      191,
-      93,
-      0.58
-    ),
-
-    0 14px 28px
-    rgba(
-      0,
-      0,
-      0,
-      0.55
-    ),
+    rgba(255, 211, 67, 0.74),
 
     0 0 22px
-    rgba(
-      230,
-      191,
-      93,
-      0.17
-    ),
+    rgba(255, 202, 48, 0.40),
 
-    inset 0 2px 1px
-    rgba(
-      255,
-      255,
-      255,
-      0.70
-    ),
+    0 0 36px
+    rgba(177, 49, 255, 0.17),
 
-    inset 0 -8px 14px
-    rgba(
-      88,
-      48,
-      2,
-      0.28
-    );
+    0 15px 30px
+    rgba(0, 0, 0, 0.59),
+
+    inset 0 2px 2px
+    rgba(255, 255, 255, 0.79),
+
+    inset 0 -9px 14px
+    rgba(100, 48, 0, 0.33);
 
   transition:
     transform 0.18s ease,
-    filter 0.18s ease;
+    filter 0.18s ease,
+    box-shadow 0.25s ease;
 }
 
 .spin-button::before {
@@ -1363,21 +1721,11 @@ body::after {
 
   border:
     1px solid
-    rgba(
-      107,
-      65,
-      7,
-      0.52
-    );
+    rgba(103, 55, 2, 0.60);
 
   box-shadow:
     inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.40
-    );
+    rgba(255, 255, 255, 0.50);
 }
 
 .spin-button::after {
@@ -1385,27 +1733,22 @@ body::after {
 
   position: absolute;
 
-  width: 29px;
-  height: 17px;
+  width: 31px;
+  height: 18px;
 
   top: 17px;
-  left: 22px;
+  left: 21px;
 
   border-radius: 50%;
 
   transform:
-    rotate(-22deg);
+    rotate(-23deg);
 
   background:
     radial-gradient(
       ellipse,
-      rgba(
-        255,
-        255,
-        255,
-        0.55
-      ),
-      transparent 72%
+      rgba(255, 255, 255, 0.70),
+      transparent 71%
     );
 }
 
@@ -1414,7 +1757,8 @@ body::after {
 
   z-index: 3;
 
-  color: #241300;
+  color:
+    #261300;
 
   font-family:
     "DM Serif Display",
@@ -1425,16 +1769,12 @@ body::after {
 
   line-height: 1;
 
-  letter-spacing: 0.5px;
+  letter-spacing:
+    0.3px;
 
   text-shadow:
     0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.30
-    );
+    rgba(255, 255, 255, 0.40);
 }
 
 .spin-button:active {
@@ -1443,11 +1783,12 @@ body::after {
 }
 
 .spin-button:disabled {
-  cursor: not-allowed;
+  cursor:
+    not-allowed;
 
   filter:
-    grayscale(0.35)
-    brightness(0.74);
+    grayscale(0.28)
+    brightness(0.76);
 }
 
 @keyframes premiumPulse {
@@ -1455,199 +1796,148 @@ body::after {
   100% {
     box-shadow:
       0 0 0 5px
-      rgba(
-        48,
-        19,
-        12,
-        0.88
-      ),
+      rgba(49, 17, 13, 0.95),
 
       0 0 0 8px
-      rgba(
-        230,
-        191,
-        93,
-        0.54
-      ),
+      rgba(255, 211, 67, 0.67),
 
-      0 14px 28px
-      rgba(
-        0,
-        0,
-        0,
-        0.55
-      ),
+      0 0 18px
+      rgba(255, 203, 52, 0.28),
 
-      0 0 19px
-      rgba(
-        230,
-        191,
-        93,
-        0.13
-      ),
+      0 0 29px
+      rgba(173, 45, 255, 0.12),
 
-      inset 0 2px 1px
-      rgba(
-        255,
-        255,
-        255,
-        0.70
-      ),
+      0 15px 30px
+      rgba(0, 0, 0, 0.59),
 
-      inset 0 -8px 14px
-      rgba(
-        88,
-        48,
-        2,
-        0.28
-      );
+      inset 0 2px 2px
+      rgba(255, 255, 255, 0.79),
+
+      inset 0 -9px 14px
+      rgba(100, 48, 0, 0.33);
   }
 
   50% {
     box-shadow:
       0 0 0 5px
-      rgba(
-        48,
-        19,
-        12,
-        0.88
-      ),
+      rgba(49, 17, 13, 0.95),
 
       0 0 0 8px
-      rgba(
-        230,
-        191,
-        93,
-        0.66
-      ),
-
-      0 14px 28px
-      rgba(
-        0,
-        0,
-        0,
-        0.55
-      ),
+      rgba(255, 219, 83, 0.86),
 
       0 0 29px
-      rgba(
-        230,
-        191,
-        93,
-        0.22
-      ),
+      rgba(255, 204, 51, 0.54),
 
-      inset 0 2px 1px
-      rgba(
-        255,
-        255,
-        255,
-        0.70
-      ),
+      0 0 42px
+      rgba(183, 49, 255, 0.24),
 
-      inset 0 -8px 14px
-      rgba(
-        88,
-        48,
-        2,
-        0.28
-      );
+      0 15px 30px
+      rgba(0, 0, 0, 0.59),
+
+      inset 0 2px 2px
+      rgba(255, 255, 255, 0.79),
+
+      inset 0 -9px 14px
+      rgba(100, 48, 0, 0.33);
   }
 }
 
 .spin-button:not(:disabled) {
   animation:
     premiumPulse
-    2.9s
+    2.6s
     ease-in-out
     infinite;
 }
 
 
-/* =========================================
+/* =========================================================
    STATUS PILL
-========================================= */
+========================================================= */
 
 .game-status {
   position: relative;
+
   z-index: 5;
 
-  min-height: 57px;
+  min-height: 58px;
 
   margin:
-    14px auto 0;
+    16px auto 0;
 
   padding:
-    0 19px;
+    0 20px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
   gap: 11px;
 
-  border-radius: 999px;
+  border-radius:
+    999px;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.90
-    );
+    rgba(255, 255, 255, 0.94);
 
   background:
+    radial-gradient(
+      circle at 12% 50%,
+      rgba(129, 30, 206, 0.13),
+      transparent 30%
+    ),
     linear-gradient(
       180deg,
-      rgba(
-        14,
-        7,
-        17,
-        0.98
-      ),
-      rgba(
-        5,
-        3,
-        7,
-        0.99
-      )
+      rgba(17, 6, 21, 0.98),
+      rgba(5, 2, 8, 0.99)
     );
 
   border:
     1px solid
-    rgba(
-      230,
-      191,
-      93,
-      0.39
-    );
+    rgba(244, 203, 94, 0.52);
 
   box-shadow:
-    inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.055
-    ),
+    0 0 15px
+    rgba(171, 45, 255, 0.11),
 
-    0 10px 25px
-    rgba(
-      0,
-      0,
-      0,
-      0.30
-    );
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.07),
+
+    0 11px 27px
+    rgba(0, 0, 0, 0.35);
 
   font-size: 11px;
 
   font-weight: 700;
 }
 
+.game-status::after {
+  content: "";
+
+  position: absolute;
+
+  left: 15%;
+  right: 15%;
+  bottom: -1px;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(188, 50, 255, 0.70),
+      transparent
+    );
+
+  box-shadow:
+    0 0 6px
+    rgba(184, 49, 255, 0.40);
+}
+
 .status-icon {
-  width: 31px;
-  height: 31px;
+  width: 32px;
+  height: 32px;
 
   flex-shrink: 0;
 
@@ -1657,45 +1947,43 @@ body::after {
   border-radius: 50%;
 
   color:
-    var(--gold-bright);
+    #fff1a6;
 
   background:
+    radial-gradient(
+      circle at 33% 24%,
+      rgba(255, 255, 255, 0.15),
+      transparent 23%
+    ),
     linear-gradient(
       145deg,
-      #4b1675,
-      #1d0929
+      #7220be,
+      #2b083c
     );
 
   border:
     1px solid
-    rgba(
-      230,
-      191,
-      93,
-      0.38
-    );
+    rgba(239, 199, 91, 0.53);
 
   box-shadow:
-    inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.08
-    );
+    0 0 11px
+    rgba(181, 49, 255, 0.30),
 
-  font-size: 15px;
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.11);
+
+  font-size: 16px;
 
   font-weight: 900;
 }
 
 
-/* =========================================
+/* =========================================================
    INFO GRID
-========================================= */
+========================================================= */
 
 .info-grid {
-  margin-top: 15px;
+  margin-top: 16px;
 
   display: grid;
 
@@ -1706,36 +1994,76 @@ body::after {
 }
 
 .info-card {
+  position: relative;
+
+  overflow: hidden;
+
   min-width: 0;
+
   min-height: 112px;
-  padding: 15px 13px;
+
+  padding:
+    15px 13px;
 
   display: flex;
   align-items: center;
+
   gap: 10px;
 
-  border-radius: 23px;
+  border-radius:
+    23px;
 
   background:
     radial-gradient(
-      circle at 20% 20%,
-      rgba(111, 32, 197, 0.10),
-      transparent 36%
+      circle at 9% 21%,
+      rgba(137, 34, 217, 0.18),
+      transparent 37%
     ),
     linear-gradient(
       145deg,
-      rgba(23, 10, 29, 0.98),
-      rgba(8, 4, 10, 0.99)
+      rgba(24, 8, 30, 0.99),
+      rgba(7, 3, 10, 0.995)
     );
 
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border:
+    1px solid
+    rgba(184, 64, 243, 0.24);
 
   box-shadow:
-    0 16px 35px rgba(0, 0, 0, 0.30),
-    0 0 16px rgba(95, 27, 146, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 17px 37px
+    rgba(0, 0, 0, 0.34),
+
+    0 0 14px
+    rgba(134, 32, 205, 0.08),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.06);
 }
 
+.info-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 17%;
+  right: 17%;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(228, 107, 255, 0.47),
+      rgba(255, 210, 73, 0.43),
+      transparent
+    );
+
+  box-shadow:
+    0 0 7px
+    rgba(180, 52, 255, 0.30);
+}
 
 .info-number {
   width: 51px;
@@ -1748,50 +2076,34 @@ body::after {
 
   border-radius: 50%;
 
-  color: var(--gold);
+  color:
+    var(--gold);
 
   background:
+    radial-gradient(
+      circle at 34% 25%,
+      rgba(255, 255, 255, 0.12),
+      transparent 23%
+    ),
     linear-gradient(
       145deg,
-      rgba(
-        83,
-        21,
-        123,
-        0.72
-      ),
-      rgba(
-        18,
-        8,
-        24,
-        0.92
-      )
+      rgba(104, 27, 170, 0.92),
+      rgba(27, 6, 37, 0.98)
     );
 
   border:
     1px solid
-    rgba(
-      230,
-      191,
-      93,
-      0.38
-    );
+    rgba(239, 198, 88, 0.48);
 
   box-shadow:
     0 0 0 3px
-    rgba(
-      230,
-      191,
-      93,
-      0.04
-    ),
+    rgba(238, 192, 73, 0.045),
+
+    0 0 14px
+    rgba(169, 43, 247, 0.23),
 
     inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.08
-    );
+    rgba(255, 255, 255, 0.11);
 
   font-family:
     "DM Serif Display",
@@ -1805,7 +2117,7 @@ body::after {
 
 .info-divider {
   width: 1px;
-  height: 54px;
+  height: 55px;
 
   flex-shrink: 0;
 
@@ -1813,12 +2125,7 @@ body::after {
     linear-gradient(
       180deg,
       transparent,
-      rgba(
-        230,
-        191,
-        93,
-        0.28
-      ),
+      rgba(241, 196, 83, 0.34),
       transparent
     );
 }
@@ -1832,17 +2139,21 @@ body::after {
 
   margin-bottom: 7px;
 
-  color: #ffffff;
+  color:
+    #ffffff;
 
   font-size: 10px;
 
   line-height: 1.25;
+
+  font-weight: 700;
 }
 
 .info-copy small {
   display: block;
 
-  color: var(--muted);
+  color:
+    rgba(255, 255, 255, 0.59);
 
   font-size: 7.5px;
 
@@ -1850,48 +2161,61 @@ body::after {
 }
 
 
-/* =========================================
+/* =========================================================
    LATEST SPIN CARD
-========================================= */
+========================================================= */
 
 .recent-win-card {
   position: relative;
+
   overflow: hidden;
 
   min-height: 154px;
-  margin-top: 15px;
-  padding: 22px 20px;
+
+  margin-top: 16px;
+
+  padding:
+    22px 20px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 18px;
 
-  border-radius: var(--radius-xl);
+  border-radius:
+    var(--radius-xl);
 
   background:
     radial-gradient(
-      circle at 100% 58%,
-      rgba(179, 107, 22, 0.14),
-      transparent 40%
+      circle at 83% 54%,
+      rgba(255, 178, 27, 0.16),
+      transparent 35%
     ),
     radial-gradient(
-      circle at 18% 15%,
-      rgba(111, 32, 197, 0.10),
+      circle at 13% 13%,
+      rgba(135, 31, 215, 0.18),
       transparent 32%
     ),
     linear-gradient(
       135deg,
-      rgba(20, 8, 25, 0.99),
-      rgba(7, 3, 9, 0.995)
+      rgba(25, 7, 31, 0.995),
+      rgba(7, 3, 9, 0.998)
     );
 
-  border: 1px solid rgba(230, 191, 93, 0.33);
+  border:
+    1px solid
+    rgba(240, 196, 82, 0.44);
 
   box-shadow:
-    0 19px 42px rgba(0, 0, 0, 0.38),
-    0 0 18px rgba(125, 44, 183, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 20px 44px
+    rgba(0, 0, 0, 0.40),
+
+    0 0 20px
+    rgba(150, 36, 226, 0.12),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.07);
 }
 
 .recent-win-card::before {
@@ -1899,11 +2223,11 @@ body::after {
 
   position: absolute;
 
-  right: -45px;
-  bottom: -55px;
+  width: 194px;
+  height: 194px;
 
-  width: 170px;
-  height: 170px;
+  right: -55px;
+  bottom: -66px;
 
   border-radius: 50%;
 
@@ -1911,13 +2235,33 @@ body::after {
     repeating-radial-gradient(
       circle,
       transparent 0 15px,
-      rgba(
-        230,
-        191,
-        93,
-        0.035
-      ) 16px 17px
+      rgba(255, 198, 57, 0.055) 16px 17px
     );
+}
+
+.recent-win-card::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 13%;
+  right: 13%;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(179, 50, 255, 0.62),
+      rgba(255, 207, 72, 0.66),
+      transparent
+    );
+
+  box-shadow:
+    0 0 7px
+    rgba(186, 50, 255, 0.35);
 }
 
 .recent-win-copy {
@@ -1932,61 +2276,54 @@ body::after {
 
 .recent-win-heading {
   display: flex;
-
   align-items: center;
 
   gap: 8px;
 
-  margin-bottom: 8px;
+  margin-bottom: 9px;
 }
 
 .recent-win-heading > span:first-child {
-  color: var(--gold);
+  color:
+    var(--gold);
 
   font-size: 8px;
 
   font-weight: 900;
 
-  letter-spacing: 2.2px;
+  letter-spacing:
+    2.3px;
 }
 
 .recent-heading-line {
-  width: 56px;
+  width: 58px;
   height: 1px;
 
   background:
     linear-gradient(
       90deg,
-      rgba(
-        230,
-        191,
-        93,
-        0.52
-      ),
+      rgba(239, 195, 79, 0.62),
       transparent
     );
 }
 
 .recent-heading-star {
-  color: var(--gold);
+  color:
+    #ffd85f;
 
   font-size: 8px;
 
   text-shadow:
-    0 0 8px
-    rgba(
-      230,
-      191,
-      93,
-      0.48
-    );
+    0 0 9px
+    rgba(255, 207, 64, 0.74);
 }
 
 .recent-win-card h2 {
   margin:
-    0 0 7px;
+    0 0 8px;
 
-  color: #ffffff;
+  color:
+    #ffffff;
 
   font-family:
     "DM Serif Display",
@@ -1995,22 +2332,28 @@ body::after {
 
   font-size:
     clamp(
-      27px,
+      29px,
       8vw,
-      39px
+      41px
     );
 
   font-weight: 400;
 
   line-height: 1;
 
-  letter-spacing: -0.4px;
+  letter-spacing:
+    -0.5px;
+
+  text-shadow:
+    0 4px 13px
+    rgba(0, 0, 0, 0.38);
 }
 
 .recent-win-card p {
   margin: 0;
 
-  color: var(--muted);
+  color:
+    rgba(255, 255, 255, 0.62);
 
   font-size: 9px;
 
@@ -2022,13 +2365,12 @@ body::after {
 
   z-index: 2;
 
-  width: 90px;
-  height: 90px;
+  width: 92px;
+  height: 92px;
 
   flex-shrink: 0;
 
   display: grid;
-
   place-items: center;
 }
 
@@ -2039,22 +2381,21 @@ body::after {
 
   border:
     1px solid
-    rgba(
-      230,
-      191,
-      93,
-      0.09
-    );
+    rgba(247, 198, 64, 0.11);
 }
 
 .orbit-1 {
-  width: 88px;
-  height: 88px;
+  width: 91px;
+  height: 91px;
+
+  box-shadow:
+    0 0 18px
+    rgba(255, 180, 24, 0.06);
 }
 
 .orbit-2 {
-  width: 72px;
-  height: 72px;
+  width: 73px;
+  height: 73px;
 }
 
 .recent-win-icon {
@@ -2062,66 +2403,78 @@ body::after {
 
   z-index: 3;
 
-  width: 58px;
-  height: 58px;
+  width: 59px;
+  height: 59px;
 
   display: grid;
   place-items: center;
 
   border-radius: 50%;
 
-  color: var(--gold);
+  color:
+    #ffd75e;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(
-        59,
-        25,
-        8,
-        0.74
-      ),
-      rgba(
-        12,
-        6,
-        13,
-        0.94
-      )
+    radial-gradient(
+      circle,
+      rgba(255, 187, 37, 0.13),
+      rgba(41, 12, 28, 0.88)
     );
 
   border:
     1px solid
-    rgba(
-      230,
-      191,
-      93,
-      0.42
-    );
+    rgba(241, 191, 66, 0.58);
 
   box-shadow:
-    0 0 18px
-    rgba(
-      230,
-      191,
-      93,
-      0.11
-    ),
+    0 0 14px
+    rgba(255, 184, 34, 0.24),
+
+    0 0 28px
+    rgba(255, 167, 20, 0.11),
 
     inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.06
-    );
+    rgba(255, 255, 255, 0.08);
 
   font-size: 25px;
+
+  animation:
+    starGlow
+    2.8s
+    ease-in-out
+    infinite;
+}
+
+@keyframes starGlow {
+  0%,
+  100% {
+    transform:
+      scale(1);
+
+    box-shadow:
+      0 0 14px
+      rgba(255, 184, 34, 0.20),
+
+      0 0 28px
+      rgba(255, 167, 20, 0.08);
+  }
+
+  50% {
+    transform:
+      scale(1.045);
+
+    box-shadow:
+      0 0 20px
+      rgba(255, 200, 61, 0.42),
+
+      0 0 39px
+      rgba(255, 164, 22, 0.17);
+  }
 }
 
 
-/* =========================================
-   RESULT MODAL BACKDROP
-========================================= */
+/* =========================================================
+   RESULT MODAL
+========================================================= */
 
 .result-modal {
   position: fixed;
@@ -2131,23 +2484,18 @@ body::after {
   z-index: 9999;
 
   display: flex;
-
   align-items: flex-start;
   justify-content: center;
 
   padding:
     calc(
       14px +
-      env(
-        safe-area-inset-top
-      )
+      env(safe-area-inset-top)
     )
     12px
     calc(
       20px +
-      env(
-        safe-area-inset-bottom
-      )
+      env(safe-area-inset-bottom)
     );
 
   overflow-y: auto;
@@ -2159,18 +2507,13 @@ body::after {
   pointer-events: none;
 
   background:
-    rgba(
-      2,
-      1,
-      3,
-      0.86
-    );
+    rgba(2, 0, 3, 0.87);
 
   backdrop-filter:
-    blur(16px);
+    blur(17px);
 
   -webkit-backdrop-filter:
-    blur(16px);
+    blur(17px);
 
   overscroll-behavior:
     contain;
@@ -2187,11 +2530,6 @@ body::after {
 
   pointer-events: auto;
 }
-
-
-/* =========================================
-   RESULT CARD
-========================================= */
 
 .result-card {
   position: relative;
@@ -2217,67 +2555,35 @@ body::after {
 
   background:
     radial-gradient(
-      circle at 50% -6%,
-      rgba(
-        101,
-        31,
-        139,
-        0.24
-      ),
+      circle at 50% -5%,
+      rgba(161, 42, 244, 0.31),
       transparent 34%
     ),
-
     radial-gradient(
-      circle at 100% 35%,
-      rgba(
-        161,
-        95,
-        17,
-        0.07
-      ),
-      transparent 37%
+      circle at 100% 36%,
+      rgba(255, 184, 24, 0.10),
+      transparent 38%
     ),
-
     linear-gradient(
       180deg,
-      #130918 0%,
-      #08040a 47%,
-      #050306 100%
+      #190722 0%,
+      #09030d 48%,
+      #040205 100%
     );
 
   border:
     1px solid
-    rgba(
-      230,
-      191,
-      93,
-      0.26
-    );
+    rgba(239, 196, 83, 0.39);
 
   box-shadow:
     0 30px 90px
-    rgba(
-      0,
-      0,
-      0,
-      0.74
-    ),
+    rgba(0, 0, 0, 0.75),
 
-    0 0 25px
-    rgba(
-      90,
-      26,
-      121,
-      0.13
-    ),
+    0 0 35px
+    rgba(154, 39, 231, 0.25),
 
     inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.07
-    );
+    rgba(255, 255, 255, 0.08);
 
   transform:
     translateY(18px)
@@ -2285,6 +2591,27 @@ body::after {
 
   transition:
     transform 0.30s ease;
+}
+
+.result-card::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 14%;
+  right: 14%;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(188, 50, 255, 0.75),
+      rgba(255, 211, 84, 0.75),
+      transparent
+    );
 }
 
 .result-modal.show
@@ -2297,10 +2624,10 @@ body::after {
 .result-top-glow {
   position: absolute;
 
-  width: 190px;
-  height: 120px;
+  width: 210px;
+  height: 130px;
 
-  top: -78px;
+  top: -82px;
   left: 50%;
 
   transform:
@@ -2313,20 +2640,16 @@ body::after {
   background:
     radial-gradient(
       circle,
-      rgba(
-        230,
-        191,
-        93,
-        0.09
-      ),
+      rgba(179, 45, 255, 0.28),
+      rgba(255, 192, 42, 0.07) 42%,
       transparent 70%
     );
 }
 
 
-/* =========================================
+/* =========================================================
    MODAL CLOSE
-========================================= */
+========================================================= */
 
 .result-close-x {
   position: absolute;
@@ -2346,67 +2669,51 @@ body::after {
 
   border:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.10
-    );
+    rgba(255, 255, 255, 0.13);
 
   border-radius: 50%;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.78
-    );
+    rgba(255, 255, 255, 0.84);
 
   background:
-    rgba(
-      255,
-      255,
-      255,
-      0.035
-    );
+    rgba(255, 255, 255, 0.055);
 
   box-shadow:
     inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.055
-    );
+    rgba(255, 255, 255, 0.07),
+
+    0 6px 18px
+    rgba(0, 0, 0, 0.25);
 
   cursor: pointer;
 
   font-size: 25px;
-
   line-height: 1;
 }
 
 
-/* =========================================
+/* =========================================================
    RESULT CONTENT
-========================================= */
+========================================================= */
 
 .result-kicker {
   display: block;
 
-  color: var(--gold);
+  color:
+    var(--gold);
 
   font-size: 8px;
 
   font-weight: 900;
 
-  letter-spacing: 2.3px;
+  letter-spacing:
+    2.4px;
 }
 
 .result-icon {
-  width: 82px;
-  height: 82px;
+  width: 83px;
+  height: 83px;
 
   margin:
     17px auto
@@ -2417,50 +2724,33 @@ body::after {
 
   border-radius: 50%;
 
-  color: var(--gold-bright);
+  color:
+    #ffd75e;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(
-        79,
-        27,
-        109,
-        0.48
-      ),
-      rgba(
-        19,
-        8,
-        25,
-        0.85
-      )
+    radial-gradient(
+      circle,
+      rgba(255, 194, 51, 0.13),
+      rgba(88, 20, 126, 0.20) 52%,
+      rgba(19, 5, 25, 0.92)
     );
 
   border:
     1px solid
-    rgba(
-      230,
-      191,
-      93,
-      0.36
-    );
+    rgba(239, 194, 74, 0.50);
 
   box-shadow:
+    0 0 19px
+    rgba(255, 191, 40, 0.20),
+
+    0 0 30px
+    rgba(166, 42, 247, 0.17),
+
     0 13px 30px
-    rgba(
-      0,
-      0,
-      0,
-      0.28
-    ),
+    rgba(0, 0, 0, 0.31),
 
     inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.08
-    );
+    rgba(255, 255, 255, 0.10);
 
   font-size: 31px;
 }
@@ -2470,7 +2760,8 @@ body::after {
     0 0
     9px;
 
-  color: #ffffff;
+  color:
+    #ffffff;
 
   font-family:
     "DM Serif Display",
@@ -2488,15 +2779,18 @@ body::after {
 
   line-height: 1;
 
-  letter-spacing: -0.5px;
+  letter-spacing:
+    -0.5px;
 }
 
 .result-message {
-  margin: 0 auto;
+  margin:
+    0 auto;
 
   max-width: 320px;
 
-  color: var(--muted);
+  color:
+    var(--muted);
 
   font-size: 11px;
 
@@ -2504,9 +2798,9 @@ body::after {
 }
 
 
-/* =========================================
-   CONTINUE BUTTON
-========================================= */
+/* =========================================================
+   RESULT CONTINUE BUTTON
+========================================================= */
 
 .result-continue-button,
 #closeResultButton {
@@ -2518,85 +2812,68 @@ body::after {
 
   border:
     1px solid
-    rgba(
-      255,
-      239,
-      174,
-      0.45
-    );
+    rgba(255, 239, 174, 0.55);
 
-  border-radius: 999px;
+  border-radius:
+    999px;
 
   cursor: pointer;
 
-  color: #241300;
+  color:
+    #241300;
 
   background:
     linear-gradient(
       135deg,
-      #fff1af,
-      #e0b84e 48%,
-      #b5791d
+      #fff2b2,
+      #e9bb48 46%,
+      #bb7718
     );
 
   box-shadow:
     inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.60
-    ),
+    rgba(255, 255, 255, 0.68),
 
-    0 12px 24px
-    rgba(
-      0,
-      0,
-      0,
-      0.30
-    ),
+    0 12px 25px
+    rgba(0, 0, 0, 0.33),
 
-    0 0 17px
-    rgba(
-      230,
-      191,
-      93,
-      0.10
-    );
+    0 0 20px
+    rgba(255, 194, 43, 0.17);
 
   font-size: 10px;
 
   font-weight: 900;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
-  letter-spacing: 0.8px;
+  letter-spacing:
+    0.8px;
 }
 
 
-/* =========================================
-   CLAIM PRIZE NAME
-========================================= */
+/* =========================================================
+   WINNING PRIZE NAME
+========================================================= */
 
 .claim-prize-name {
   display: block;
 
   margin:
     9px 0
-    14px;
+    15px;
 
   color: transparent;
 
   background:
     linear-gradient(
       180deg,
-      #fff2bd 0%,
-      #e3bb58 56%,
-      #a96f1d 100%
+      #fff7c4 0%,
+      #f0c451 54%,
+      #b76f13 100%
     );
 
   -webkit-background-clip: text;
-
   background-clip: text;
 
   font-family:
@@ -2606,35 +2883,36 @@ body::after {
 
   font-size:
     clamp(
-      28px,
+      29px,
       8vw,
-      40px
+      41px
     );
 
   line-height: 1.05;
 
   font-weight: 400;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
-  letter-spacing: -0.3px;
+  letter-spacing:
+    -0.3px;
 
   filter:
     drop-shadow(
       0 4px 8px
-      rgba(
-        0,
-        0,
-        0,
-        0.30
-      )
+      rgba(0, 0, 0, 0.34)
+    )
+    drop-shadow(
+      0 0 9px
+      rgba(255, 195, 38, 0.10)
     );
 }
 
 
-/* =========================================
-   CLAIM CODE BOX
-========================================= */
+/* =========================================================
+   CLAIM CODE
+========================================================= */
 
 .claim-code-box {
   margin:
@@ -2649,56 +2927,33 @@ body::after {
   background:
     radial-gradient(
       circle at 50% 0%,
-      rgba(
-        230,
-        191,
-        93,
-        0.08
-      ),
-      transparent 58%
+      rgba(255, 205, 72, 0.13),
+      transparent 57%
     ),
-
+    radial-gradient(
+      circle at 5% 50%,
+      rgba(145, 35, 223, 0.14),
+      transparent 40%
+    ),
     linear-gradient(
       180deg,
-      rgba(
-        255,
-        255,
-        255,
-        0.035
-      ),
-      rgba(
-        255,
-        255,
-        255,
-        0.012
-      )
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.013)
     );
 
   border:
     1px solid
-    rgba(
-      230,
-      191,
-      93,
-      0.23
-    );
+    rgba(239, 197, 83, 0.33);
 
   box-shadow:
+    0 0 17px
+    rgba(145, 35, 218, 0.10),
+
     inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.055
-    ),
+    rgba(255, 255, 255, 0.065),
 
     0 13px 28px
-    rgba(
-      0,
-      0,
-      0,
-      0.26
-    );
+    rgba(0, 0, 0, 0.28);
 }
 
 .claim-code-box span {
@@ -2706,21 +2961,25 @@ body::after {
 
   margin-bottom: 8px;
 
-  color: var(--muted);
+  color:
+    rgba(255, 255, 255, 0.58);
 
   font-size: 9px;
 
   font-weight: 800;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
-  letter-spacing: 1px;
+  letter-spacing:
+    1px;
 }
 
 .claim-code-box strong {
   display: block;
 
-  color: var(--gold-bright);
+  color:
+    #ffe58c;
 
   font-size:
     clamp(
@@ -2733,79 +2992,77 @@ body::after {
 
   font-weight: 900;
 
-  letter-spacing: 2px;
+  letter-spacing:
+    2px;
 
-  overflow-wrap: anywhere;
+  overflow-wrap:
+    anywhere;
+
+  text-shadow:
+    0 0 13px
+    rgba(255, 198, 43, 0.22);
 }
 
 
-/* =========================================
+/* =========================================================
    COPY BUTTON
-========================================= */
+========================================================= */
 
 .claim-copy-button {
   width: 100%;
 
-  min-height: 44px;
+  min-height: 45px;
 
   margin-top: 13px;
 
   border:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.09
-    );
+    rgba(216, 97, 255, 0.31);
 
-  border-radius: 999px;
+  border-radius:
+    999px;
 
-  color: #ffffff;
+  color:
+    #ffffff;
 
   cursor: pointer;
 
   background:
     linear-gradient(
       145deg,
-      #542080,
-      #2d0e42
+      #7624b9,
+      #3b0c54
     );
 
   box-shadow:
+    0 0 16px
+    rgba(171, 45, 248, 0.22),
+
     inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.07
-    );
+    rgba(255, 255, 255, 0.09);
 
   font-size: 9px;
 
   font-weight: 900;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
-  letter-spacing: 0.8px;
+  letter-spacing:
+    0.8px;
 }
 
 
-/* =========================================
+/* =========================================================
    CLAIM DETAILS
-========================================= */
+========================================================= */
 
 .claim-detail {
   margin:
     8px 0;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.68
-    );
+    rgba(255, 255, 255, 0.70);
 
   font-size: 10px;
 
@@ -2813,9 +3070,9 @@ body::after {
 }
 
 
-/* =========================================
+/* =========================================================
    CLAIM FORM
-========================================= */
+========================================================= */
 
 .claim-form {
   margin-top: 18px;
@@ -2831,12 +3088,7 @@ body::after {
     6px;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.67
-    );
+    rgba(255, 255, 255, 0.72);
 
   font-size: 9px;
 
@@ -2853,36 +3105,22 @@ body::after {
 
   border:
     1px solid
-    rgba(
-      230,
-      191,
-      93,
-      0.14
-    );
+    rgba(189, 65, 255, 0.28);
 
   border-radius:
     16px;
 
   outline: none;
 
-  color: #ffffff;
+  color:
+    #ffffff;
 
   background:
-    rgba(
-      3,
-      2,
-      4,
-      0.72
-    );
+    rgba(4, 1, 6, 0.78);
 
   box-shadow:
     inset 0 1px 9px
-    rgba(
-      0,
-      0,
-      0,
-      0.28
-    );
+    rgba(0, 0, 0, 0.30);
 
   font-size: 16px;
 
@@ -2893,45 +3131,28 @@ body::after {
 
 .claim-form input::placeholder {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.27
-    );
+    rgba(255, 255, 255, 0.30);
 }
 
 .claim-form input:focus {
   border-color:
-    rgba(
-      230,
-      191,
-      93,
-      0.42
-    );
+    rgba(245, 201, 85, 0.59);
 
   box-shadow:
     0 0 0 3px
-    rgba(
-      230,
-      191,
-      93,
-      0.04
-    ),
+    rgba(245, 198, 76, 0.06),
+
+    0 0 15px
+    rgba(169, 44, 247, 0.12),
 
     inset 0 1px 9px
-    rgba(
-      0,
-      0,
-      0,
-      0.26
-    );
+    rgba(0, 0, 0, 0.27);
 }
 
 
-/* =========================================
+/* =========================================================
    CLAIM SUBMIT
-========================================= */
+========================================================= */
 
 .claim-submit-button {
   width: 100%;
@@ -2942,75 +3163,63 @@ body::after {
 
   border:
     1px solid
-    rgba(
-      255,
-      241,
-      184,
-      0.48
-    );
+    rgba(255, 241, 184, 0.60);
 
-  border-radius: 999px;
+  border-radius:
+    999px;
 
-  color: #241300;
+  color:
+    #241300;
 
   cursor: pointer;
 
   background:
     linear-gradient(
       135deg,
-      #fff0ac,
-      #e0b64d,
-      #b4781e
+      #fff2ae,
+      #e4b43e,
+      #b56d12
     );
 
   box-shadow:
     inset 0 1px 0
-    rgba(
-      255,
-      255,
-      255,
-      0.58
-    ),
+    rgba(255, 255, 255, 0.68),
 
     0 11px 23px
-    rgba(
-      0,
-      0,
-      0,
-      0.29
-    );
+    rgba(0, 0, 0, 0.31),
+
+    0 0 17px
+    rgba(255, 194, 38, 0.14);
 
   font-size: 11px;
 
   font-weight: 900;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
-  letter-spacing: 0.8px;
+  letter-spacing:
+    0.8px;
 }
 
 .claim-submit-button:disabled {
   opacity: 0.58;
 
-  cursor: not-allowed;
+  cursor:
+    not-allowed;
 }
 
 .claim-status {
   min-height: 18px;
 
   margin:
-    10px 0
-    0;
+    10px 0 0;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.61
-    );
+    rgba(255, 255, 255, 0.65);
 
-  text-align: center;
+  text-align:
+    center;
 
   font-size: 9px;
 
@@ -3018,9 +3227,9 @@ body::after {
 }
 
 
-/* =========================================
+/* =========================================================
    CONFETTI
-========================================= */
+========================================================= */
 
 .confetti-piece {
   position: fixed;
@@ -3066,9 +3275,9 @@ body::after {
 }
 
 
-/* =========================================
-   SMALL PHONE TUNING
-========================================= */
+/* =========================================================
+   SMALL PHONE
+========================================================= */
 
 @media (max-width: 390px) {
 
@@ -3076,6 +3285,7 @@ body::after {
     padding-left: 10px;
     padding-right: 10px;
   }
+
 
   .game-header {
     gap: 13px;
@@ -3086,32 +3296,40 @@ body::after {
     padding-right: 3px;
   }
 
+
   .brand-medallion {
     width: 64px;
     height: 64px;
   }
 
+
   .brand-medallion-inner span {
     font-size: 33px;
   }
 
+
   .header-kicker {
     font-size: 8px;
 
-    letter-spacing: 2.2px;
+    letter-spacing:
+      2.2px;
   }
+
 
   .game-header h1 {
     font-size: 31px;
   }
+
 
   .hero-panel {
     padding:
       25px 11px
       18px;
 
-    border-radius: 28px;
+    border-radius:
+      28px;
   }
+
 
   .daily-badge {
     min-height: 31px;
@@ -3123,16 +3341,20 @@ body::after {
 
     font-size: 7px;
 
-    letter-spacing: 1.8px;
+    letter-spacing:
+      1.8px;
   }
+
 
   .hero-line-white {
     font-size: 34px;
   }
 
+
   .hero-line-gold {
     font-size: 39px;
   }
+
 
   .hero-copy p {
     margin-bottom: 14px;
@@ -3140,9 +3362,11 @@ body::after {
     font-size: 10px;
   }
 
+
   .wheel-area {
     padding-top: 29px;
   }
+
 
   .wheel-frame {
     width:
@@ -3154,58 +3378,140 @@ body::after {
     padding: 15px;
   }
 
+
   .wheel-label {
-    width: 82px;
+    width: 77px;
 
     font-size: 8px;
   }
+
+
+  .label-1 {
+    transform:
+      translate(-50%, -50%)
+      rotate(0deg)
+      translateY(-98px)
+      rotate(0deg);
+  }
+
+
+  .label-2 {
+    transform:
+      translate(-50%, -50%)
+      rotate(45deg)
+      translateY(-98px)
+      rotate(-45deg);
+  }
+
+
+  .label-3 {
+    transform:
+      translate(-50%, -50%)
+      rotate(90deg)
+      translateY(-98px)
+      rotate(-90deg);
+  }
+
+
+  .label-4 {
+    transform:
+      translate(-50%, -50%)
+      rotate(135deg)
+      translateY(-98px)
+      rotate(-135deg);
+  }
+
+
+  .label-5 {
+    transform:
+      translate(-50%, -50%)
+      rotate(180deg)
+      translateY(-98px)
+      rotate(-180deg);
+  }
+
+
+  .label-6 {
+    transform:
+      translate(-50%, -50%)
+      rotate(225deg)
+      translateY(-98px)
+      rotate(-225deg);
+  }
+
+
+  .label-7 {
+    transform:
+      translate(-50%, -50%)
+      rotate(270deg)
+      translateY(-98px)
+      rotate(-270deg);
+  }
+
+
+  .label-8 {
+    transform:
+      translate(-50%, -50%)
+      rotate(315deg)
+      translateY(-98px)
+      rotate(-315deg);
+  }
+
 
   .spin-button {
     width: 101px;
     height: 101px;
   }
 
+
   .spin-button-inner {
     font-size: 23px;
   }
 
+
   .wheel-light {
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 9px;
 
     margin:
-      -4px 0 0
-      -4px;
+      -4.5px 0 0
+      -4.5px;
   }
+
 
   .wheel-pointer {
     width: 42px;
     height: 54px;
   }
 
+
   .wheel-pointer::before {
     width: 39px;
     height: 45px;
   }
+
 
   .wheel-pointer::after {
     width: 27px;
     height: 30px;
   }
 
+
   .pointer-gem {
     top: 40px;
   }
 
+
   .game-status {
     min-height: 52px;
 
-    margin-top: 13px;
+    margin-top: 14px;
 
     gap: 9px;
 
     font-size: 10px;
   }
+
 
   .status-icon {
     width: 28px;
@@ -3214,18 +3520,21 @@ body::after {
     font-size: 14px;
   }
 
+
   .info-grid {
     gap: 9px;
   }
 
+
   .info-card {
-    min-height: 101px;
+    min-height: 102px;
 
     padding:
       13px 9px;
 
     gap: 7px;
   }
+
 
   .info-number {
     width: 43px;
@@ -3234,62 +3543,76 @@ body::after {
     font-size: 16px;
   }
 
+
   .info-divider {
     height: 46px;
   }
+
 
   .info-copy strong {
     font-size: 8.5px;
   }
 
+
   .info-copy small {
     font-size: 6.5px;
   }
 
+
   .recent-win-card {
-    min-height: 141px;
+    min-height: 143px;
 
     padding:
       19px 16px;
   }
 
-  .recent-win-heading > span:first-child {
+
+  .recent-win-heading
+  > span:first-child {
     font-size: 7px;
   }
 
+
   .recent-heading-line {
-    width: 37px;
+    width: 38px;
   }
+
 
   .recent-win-card h2 {
     font-size: 30px;
   }
 
+
   .recent-win-card p {
     font-size: 8px;
   }
 
+
   .recent-win-medallion {
-    width: 74px;
-    height: 74px;
+    width: 75px;
+    height: 75px;
   }
+
 
   .orbit-1 {
-    width: 74px;
-    height: 74px;
+    width: 75px;
+    height: 75px;
   }
+
 
   .orbit-2 {
-    width: 60px;
-    height: 60px;
+    width: 61px;
+    height: 61px;
   }
 
+
   .recent-win-icon {
-    width: 50px;
-    height: 50px;
+    width: 51px;
+    height: 51px;
 
     font-size: 21px;
   }
+
 
   .result-card {
     padding:
@@ -3302,15 +3625,18 @@ body::after {
       );
   }
 
+
   .result-close-x {
     top: 12px;
     right: 12px;
   }
 
+
   .claim-code-box {
     margin:
       13px 0;
   }
+
 
   .claim-form {
     margin-top: 14px;
@@ -3319,34 +3645,16 @@ body::after {
 }
 
 
-/* =========================================
+/* =========================================================
    LARGER SCREENS
-========================================= */
-@keyframes heroBreath {
-  0%, 100% {
-    box-shadow:
-      0 28px 70px rgba(0, 0, 0, 0.58),
-      0 0 20px rgba(103, 31, 160, 0.10),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  }
-
-  50% {
-    box-shadow:
-      0 28px 70px rgba(0, 0, 0, 0.58),
-      0 0 30px rgba(125, 44, 183, 0.16),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  }
-}
-
-.hero-panel {
-  animation: heroBreath 4.5s ease-in-out infinite;
-}
+========================================================= */
 
 @media (min-width: 700px) {
 
   body {
     padding-top: 30px;
   }
+
 
   .game-shell {
     width:
@@ -3356,19 +3664,23 @@ body::after {
       );
   }
 
+
   .hero-panel {
     padding:
       32px 27px
       25px;
   }
 
+
   .wheel-area {
     width: 440px;
   }
 
+
   .wheel-frame {
     width: 392px;
   }
+
 
   .spin-button {
     width: 122px;
@@ -3378,26 +3690,23 @@ body::after {
 }
 
 
-/* =========================================
-   ACCESSIBILITY / REDUCED MOTION
-========================================= */
+/* =========================================================
+   REDUCED MOTION
+
+   Important:
+   Do NOT disable the wheel spin itself.
+========================================================= */
 
 @media (
   prefers-reduced-motion:
   reduce
 ) {
 
-  *,
-  *::before,
-  *::after {
-    animation-duration:
-      0.01ms !important;
-
-    animation-iteration-count:
-      1 !important;
-
-    transition-duration:
-      0.01ms !important;
+  .hero-panel,
+  .spin-button,
+  .recent-win-icon,
+  .wheel-light {
+    animation: none;
   }
 
-  }
+   }
