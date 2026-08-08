@@ -24,7 +24,32 @@ const CLAIM_URL =
 
 const TEST_MODE = true;
 
+/* =========================================
+   GAME SOUNDS
+========================================= */
 
+const spinSound =
+  new Audio("wheel-spin.mp3");
+
+const celebrationSound =
+  new Audio("celebration.mp3");
+
+
+spinSound.preload = "auto";
+celebrationSound.preload = "auto";
+
+
+spinSound.volume = 0.55;
+celebrationSound.volume = 0.70;
+
+
+/*
+  Spin sound should stop itself when
+  the wheel finishes rather than loop.
+*/
+
+spinSound.loop = false;
+celebrationSound.loop = false;
 /* =========================================
    ELEMENTS
 ========================================= */
@@ -555,6 +580,103 @@ function pickPrizeIndex() {
   );
 }
 
+/* =========================================
+   SOUND HELPERS
+========================================= */
+
+function playSpinSound() {
+
+  try {
+
+    spinSound.pause();
+
+    spinSound.currentTime = 0;
+
+    const playPromise =
+      spinSound.play();
+
+    if (
+      playPromise !== undefined
+    ) {
+
+      playPromise.catch(error => {
+
+        console.log(
+          "Spin sound could not play:",
+          error
+        );
+
+      });
+
+    }
+
+  } catch (error) {
+
+    console.log(
+      "Spin sound error:",
+      error
+    );
+
+  }
+}
+
+
+function stopSpinSound() {
+
+  try {
+
+    spinSound.pause();
+
+    spinSound.currentTime = 0;
+
+  } catch (error) {
+
+    console.log(
+      "Could not stop spin sound:",
+      error
+    );
+
+  }
+
+}
+
+
+function playCelebrationSound() {
+
+  try {
+
+    celebrationSound.pause();
+
+    celebrationSound.currentTime = 0;
+
+    const playPromise =
+      celebrationSound.play();
+
+    if (
+      playPromise !== undefined
+    ) {
+
+      playPromise.catch(error => {
+
+        console.log(
+          "Celebration sound could not play:",
+          error
+        );
+
+      });
+
+    }
+
+  } catch (error) {
+
+    console.log(
+      "Celebration sound error:",
+      error
+    );
+
+  }
+
+}
 
 /* =========================================
    SPIN WHEEL
@@ -604,7 +726,7 @@ function spinWheel() {
   setStatus(
     "The wheel is spinning..."
   );
-
+playSpinSound();
 
   /*
     Choose winning prize BEFORE
@@ -724,24 +846,27 @@ function spinWheel() {
     Show result after wheel stops.
   */
 
-  window.setTimeout(
-    () => {
+window.setTimeout(
+  () => {
 
-      if (
-        navigator.vibrate
-      ) {
-        navigator.vibrate(
-          [20, 35, 45]
-        );
-      }
+    stopSpinSound();
 
-      showResult();
+    if (
+      navigator.vibrate
+    ) {
 
-    },
-    5550
-  );
+      navigator.vibrate(
+        [20, 35, 45]
+      );
+
+    }
+
+    showResult();
+
+  },
+  5550
+);  
 }
-
 
 /* =========================================
    CHECK WHETHER RESULT IS A WIN
@@ -810,13 +935,15 @@ function showResult() {
 
   if (won) {
 
-    showWinningResult();
+  showWinningResult();
 
-    launchConfetti();
+  playCelebrationSound();
 
-  } else {
+  launchConfetti();
 
-    showTryAgainResult();
+} else {
+
+  showTryAgainResult();
 
   }
 
