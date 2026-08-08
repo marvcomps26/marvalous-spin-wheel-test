@@ -2176,5 +2176,401 @@ if (
 
 }
 
+/* =========================================================
+   VIEW ALL REWARDS POPUP
+========================================================= */
+
+const viewRewardsButton =
+  document.querySelector(
+    ".view-rewards-button"
+  );
+
+const rewardsModal =
+  document.getElementById(
+    "rewardsModal"
+  );
+
+const rewardsList =
+  document.getElementById(
+    "rewardsList"
+  );
+
+const rewardsCloseX =
+  document.getElementById(
+    "rewardsCloseX"
+  );
+
+const rewardsCloseButton =
+  document.getElementById(
+    "rewardsCloseButton"
+  );
+
+
+/* =========================================================
+   BUILD REWARDS LIST
+========================================================= */
+
+function buildRewardsList() {
+
+  if (
+    !rewardsList
+  ) {
+    return;
+  }
+
+
+  /*
+    Remove TRY AGAIN / NO PRIZE
+    from the rewards popup.
+  */
+
+  const availableRewards =
+    wheelPrizes.filter(
+      prize => {
+
+        const name =
+          String(
+            prize.prize || ""
+          )
+            .trim()
+            .toUpperCase();
+
+
+        return (
+          name !== "TRY AGAIN" &&
+          name !== "NO PRIZE"
+        );
+
+      }
+    );
+
+
+  /*
+    Remove duplicate rewards.
+
+    Example:
+    If 15% OFF appears twice on the wheel,
+    it only appears once in this popup.
+  */
+
+  const uniqueRewards = [];
+
+  const seenRewards =
+    new Set();
+
+
+  availableRewards.forEach(
+    prize => {
+
+      const key =
+        String(
+          prize.prize || ""
+        )
+          .trim()
+          .toLowerCase();
+
+
+      if (
+        seenRewards.has(
+          key
+        )
+      ) {
+        return;
+      }
+
+
+      seenRewards.add(
+        key
+      );
+
+
+      uniqueRewards.push(
+        prize
+      );
+
+    }
+  );
+
+
+  /*
+    If rewards are still loading.
+  */
+
+  if (
+    !uniqueRewards.length
+  ) {
+
+    rewardsList.innerHTML = `
+      <div class="reward-list-item">
+
+        <div class="reward-list-icon">
+          ✦
+        </div>
+
+        <div class="reward-list-copy">
+
+          <strong>
+            Rewards loading
+          </strong>
+
+          <small>
+            Please wait a moment
+            while today’s rewards load.
+          </small>
+
+        </div>
+
+      </div>
+    `;
+
+
+    return;
+  }
+
+
+  /*
+    Create one premium card
+    for each reward.
+  */
+
+  rewardsList.innerHTML =
+    uniqueRewards
+      .map(
+        prize => {
+
+          const detailLines = [];
+
+
+          if (
+            prize.minSpend &&
+            prize.minSpend !== "0" &&
+            String(
+              prize.minSpend
+            )
+              .toLowerCase() !== "none"
+          ) {
+
+            detailLines.push(
+              `Minimum spend £${escapeHtml(
+                prize.minSpend
+              )}`
+            );
+
+          }
+
+
+          if (
+            prize.expiry &&
+            String(
+              prize.expiry
+            )
+              .toLowerCase() !== "none"
+          ) {
+
+            detailLines.push(
+              `Valid for ${escapeHtml(
+                prize.expiry
+              )}`
+            );
+
+          }
+
+
+          const detailText =
+            detailLines.length
+
+              ? detailLines.join(
+                  " · "
+                )
+
+              : "Available on today’s wheel";
+
+
+          return `
+            <div class="reward-list-item">
+
+              <div
+                class="reward-list-icon"
+                aria-hidden="true"
+              >
+                ★
+              </div>
+
+              <div class="reward-list-copy">
+
+                <strong>
+                  ${escapeHtml(
+                    prize.prize
+                  )}
+                </strong>
+
+                <small>
+                  ${detailText}
+                </small>
+
+              </div>
+
+            </div>
+          `;
+
+        }
+      )
+      .join("");
+}
+
+
+/* =========================================================
+   OPEN REWARDS
+========================================================= */
+
+function openRewardsModal() {
+
+  if (
+    !rewardsModal
+  ) {
+    return;
+  }
+
+
+  buildRewardsList();
+
+
+  rewardsModal
+    .classList
+    .add(
+      "show"
+    );
+
+
+  rewardsModal.scrollTop =
+    0;
+
+
+  document.body.style.overflow =
+    "hidden";
+}
+
+
+/* =========================================================
+   CLOSE REWARDS
+========================================================= */
+
+function closeRewardsModal() {
+
+  if (
+    !rewardsModal
+  ) {
+    return;
+  }
+
+
+  rewardsModal
+    .classList
+    .remove(
+      "show"
+    );
+
+
+  document.body.style.overflow =
+    "";
+}
+
+
+/* =========================================================
+   REWARDS BUTTON EVENTS
+========================================================= */
+
+if (
+  viewRewardsButton
+) {
+
+  viewRewardsButton
+    .addEventListener(
+      "click",
+      openRewardsModal
+    );
+
+}
+
+
+if (
+  rewardsCloseX
+) {
+
+  rewardsCloseX
+    .addEventListener(
+      "click",
+      closeRewardsModal
+    );
+
+}
+
+
+if (
+  rewardsCloseButton
+) {
+
+  rewardsCloseButton
+    .addEventListener(
+      "click",
+      closeRewardsModal
+    );
+
+}
+
+
+/*
+  Tap dark background
+  to close popup.
+*/
+
+if (
+  rewardsModal
+) {
+
+  rewardsModal
+    .addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          rewardsModal
+        ) {
+
+          closeRewardsModal();
+
+        }
+
+      }
+    );
+
+}
+
+
+/*
+  Escape key closes popup
+  on desktop.
+*/
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Escape" &&
+      rewardsModal
+        ?.classList
+        .contains(
+          "show"
+        )
+    ) {
+
+      closeRewardsModal();
+
+    }
+
+  }
+);
 
 loadSettings();
