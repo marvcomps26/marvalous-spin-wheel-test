@@ -1,1594 +1,544 @@
 /* =========================================================
-   MARVALOUS SPIN THE WHEEL
-   PREMIUM REFINED STYLE.CSS
+   MARVALOUS PREMIUM SPIN WHEEL
+   COMPLETE CLEAN APP.JS
 ========================================================= */
 
 
 /* =========================================================
-   RESET
+   GOOGLE SHEET + CLAIM ENDPOINT
 ========================================================= */
 
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
+const SETTINGS_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vSlaiXI-x0C_wLvxmELI21rTu9uFR87MYtx9gqV_z_Z3hZ5nOCQBnb9No6i9MtZyqBD3c9wTo1tmz6x/pub?output=csv";
 
-html {
-  min-height: 100%;
-  background: #030104;
-  scroll-behavior: smooth;
-}
-
-body {
-  min-height: 100%;
-  margin: 0;
-
-  padding:
-    calc(18px + env(safe-area-inset-top))
-    12px
-    calc(34px + env(safe-area-inset-bottom));
-
-  overflow-x: hidden;
-
-  color: #ffffff;
-
-  font-family:
-    "Sora",
-    Arial,
-    sans-serif;
-
-  background:
-    radial-gradient(
-      ellipse at 50% -4%,
-      rgba(126, 31, 207, 0.50),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 95% 9%,
-      rgba(197, 52, 255, 0.19),
-      transparent 24%
-    ),
-    radial-gradient(
-      circle at 5% 38%,
-      rgba(104, 25, 181, 0.15),
-      transparent 29%
-    ),
-    linear-gradient(
-      180deg,
-      #16031f 0%,
-      #09010d 34%,
-      #040105 69%,
-      #020102 100%
-    );
-}
-
-body,
-button,
-input {
-  font-family:
-    "Sora",
-    Arial,
-    sans-serif;
-}
-
-button {
-  font: inherit;
-}
+const CLAIM_URL =
+  "https://script.google.com/macros/s/AKfycbwqv0mOcwHVa2AaGzvwMLjw-nqV4LonCg3-MXpDcgcMbhmw2ORo4JmO8JiCxXZkBScC/exec";
 
 
 /* =========================================================
-   VARIABLES
+   TEST MODE
+
+   true  = unlimited spins
+   false = one spin per day
 ========================================================= */
 
-:root {
-  --gold: #efc65a;
-  --gold-bright: #fff1a8;
-  --gold-deep: #9a5b0b;
-
-  --purple: #7625d5;
-  --purple-bright: #b53dff;
-  --purple-deep: #300645;
-
-  --muted: rgba(255, 255, 255, 0.63);
-
-  --radius-xl: 30px;
-  --radius-lg: 22px;
-}
+const TEST_MODE = true;
 
 
 /* =========================================================
-   PAGE BACKGROUND
+   SOUNDS
 ========================================================= */
 
-body::before {
-  content: "";
+const spinSound =
+  new Audio("./wheel-spin.mp3");
 
-  position: fixed;
-  inset: 0;
+const celebrationSound =
+  new Audio("./celebration.mp3");
 
-  z-index: -3;
+spinSound.preload =
+  "auto";
 
-  pointer-events: none;
+celebrationSound.preload =
+  "auto";
 
-  opacity: 0.22;
+spinSound.volume =
+  0.60;
 
-  background-image:
-    radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.85) 0 0.7px,
-      transparent 1.2px
-    ),
-    radial-gradient(
-      circle,
-      rgba(255, 205, 61, 0.85) 0 0.7px,
-      transparent 1.3px
-    ),
-    radial-gradient(
-      circle,
-      rgba(198, 62, 255, 0.8) 0 0.7px,
-      transparent 1.3px
-    );
+celebrationSound.volume =
+  0.75;
 
-  background-size:
-    74px 74px,
-    119px 119px,
-    163px 163px;
+spinSound.loop =
+  false;
 
-  background-position:
-    0 0,
-    34px 41px,
-    81px 20px;
-}
-
-body::after {
-  content: "";
-
-  position: fixed;
-
-  z-index: -2;
-
-  width: 520px;
-  height: 520px;
-
-  top: 200px;
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  pointer-events: none;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(139, 34, 222, 0.20),
-      rgba(94, 21, 153, 0.07) 48%,
-      transparent 70%
-    );
-
-  filter:
-    blur(55px);
-}
-
-.page-ambient {
-  position: fixed;
-  inset: 0;
-
-  z-index: -1;
-
-  pointer-events: none;
-}
-
-.page-ambient::before {
-  content: "";
-
-  position: absolute;
-
-  width: 480px;
-  height: 260px;
-
-  top: -90px;
-  right: -160px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(189, 48, 255, 0.25),
-      transparent 68%
-    );
-
-  filter:
-    blur(35px);
-}
+celebrationSound.loop =
+  false;
 
 
 /* =========================================================
-   SHELL
+   ELEMENTS
 ========================================================= */
 
-.game-shell {
-  position: relative;
-
-  width: min(100%, 560px);
-
-  margin: 0 auto;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.game-header {
-  display: grid;
-
-  grid-template-columns:
-    auto 1fr;
-
-  align-items: center;
-
-  column-gap: 13px;
-  row-gap: 6px;
-
-  margin-bottom: 22px;
-
-  padding:
-    1px 5px
-    4px;
-}
-
-
-/* =========================================================
-   HEADER LOGO
-========================================================= */
-
-.brand-medallion {
-  position: relative;
-
-  grid-row:
-    1 / span 2;
-
-  width: 74px;
-  height: 74px;
-
-  padding: 3px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      140deg,
-      #fff4b2 0%,
-      #e5aa31 20%,
-      #77440c 37%,
-      #f8d468 57%,
-      #96560d 77%,
-      #ffe887 100%
-    );
-
-  box-shadow:
-    0 0 0 3px
-    rgba(255, 212, 74, 0.11),
-
-    0 0 24px
-    rgba(255, 199, 44, 0.28),
-
-    0 0 38px
-    rgba(164, 43, 242, 0.38),
-
-    0 12px 26px
-    rgba(0, 0, 0, 0.44);
-}
-
-.brand-medallion::before {
-  content: "";
-
-  position: absolute;
-
-  inset: -6px;
-
-  border-radius: 50%;
-
-  border:
-    1px solid
-    rgba(190, 61, 255, 0.28);
-
-  box-shadow:
-    0 0 24px
-    rgba(184, 50, 255, 0.28);
-}
-
-.brand-medallion-inner {
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle at 50% 40%,
-      #6620a1,
-      #2d0741 72%
-    );
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.12);
-
-  box-shadow:
-    inset 0 1px 1px
-    rgba(255, 255, 255, 0.14),
-
-    inset 0 -8px 16px
-    rgba(0, 0, 0, 0.28);
-}
-
-.brand-logo-image {
-  display: block;
-
-  width: 94%;
-  height: 94%;
-
-  object-fit: contain;
-}
-
-
-/* =========================================================
-   HEADER TEXT
-========================================================= */
-
-.header-copy {
-  min-width: 0;
-}
-
-.header-kicker {
-  display: block;
-
-  margin-bottom: 4px;
-
-  color:
-    var(--gold);
-
-  font-size: 8px;
-
-  font-weight: 900;
-
-  letter-spacing:
-    2.4px;
-}
-
-.game-header h1 {
-  margin: 0;
-
-  color: #ffffff;
-
-  font-family:
-    "DM Serif Display",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(
-      29px,
-      8vw,
-      42px
-    );
-
-  line-height: 0.96;
-
-  font-weight: 400;
-
-  letter-spacing:
-    -0.7px;
-
-  text-shadow:
-    0 4px 16px
-    rgba(0, 0, 0, 0.42);
-}
-
-
-/* =========================================================
-   HEADER DAILY BADGE
-========================================================= */
-
-.header-daily-badge {
-  grid-column: 2;
-
-  justify-self: start;
-
-  min-height: 28px;
-
-  margin-top: 1px;
-
-  padding:
-    0 11px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  border-radius: 999px;
-
-  color:
-    #fff2b9;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(56, 24, 6, 0.85),
-      rgba(15, 5, 18, 0.94)
-    );
-
-  border:
-    1px solid
-    rgba(255, 210, 76, 0.56);
-
-  box-shadow:
-    0 0 14px
-    rgba(255, 196, 44, 0.10),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.08);
-
-  font-size: 6px;
-
-  font-weight: 900;
-
-  letter-spacing:
-    1.3px;
-
-  white-space: nowrap;
-}
-
-.header-daily-badge
-span:first-child,
-.header-daily-badge
-span:last-child {
-  color:
-    #ffd75b;
-
-  font-size: 9px;
-
-  text-shadow:
-    0 0 9px
-    rgba(255, 212, 83, 0.65);
-}
-
-
-/* =========================================================
-   HERO PANEL
-========================================================= */
-
-.hero-panel {
-  position: relative;
-
-  overflow: hidden;
-
-  padding:
-    30px 14px
-    22px;
-
-  text-align: center;
-
-  border-radius:
-    var(--radius-xl);
-
-  background:
-    radial-gradient(
-      circle at 50% 12%,
-      rgba(138, 37, 216, 0.31),
-      transparent 31%
-    ),
-    radial-gradient(
-      circle at 50% 57%,
-      rgba(126, 25, 198, 0.12),
-      transparent 43%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(25, 7, 33, 0.99),
-      rgba(10, 3, 14, 0.995) 51%,
-      rgba(4, 2, 6, 1)
-    );
-
-  border:
-    1px solid
-    rgba(239, 198, 86, 0.44);
-
-  box-shadow:
-    0 28px 70px
-    rgba(0, 0, 0, 0.59),
-
-    0 0 30px
-    rgba(161, 44, 240, 0.17),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.07);
-
-  animation:
-    heroBreath
-    4.4s
-    ease-in-out
-    infinite;
-}
-
-.hero-panel::before {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  left: 9%;
-  right: 9%;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(188, 54, 255, 0.7),
-      rgba(255, 212, 79, 0.87),
-      rgba(188, 54, 255, 0.7),
-      transparent
-    );
-
-  box-shadow:
-    0 0 8px
-    rgba(193, 56, 255, 0.25);
-}
-
-.hero-top-shine {
-  position: absolute;
-
-  width: 220px;
-  height: 140px;
-
-  top: -100px;
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  border-radius: 50%;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(183, 48, 255, 0.25),
-      transparent 70%
-    );
-
-  filter:
-    blur(12px);
-}
-
-@keyframes heroBreath {
-  0%,
-  100% {
-    box-shadow:
-      0 28px 70px
-      rgba(0, 0, 0, 0.59),
-
-      0 0 24px
-      rgba(157, 43, 234, 0.13),
-
-      inset 0 1px 0
-      rgba(255, 255, 255, 0.07);
-  }
-
-  50% {
-    box-shadow:
-      0 28px 70px
-      rgba(0, 0, 0, 0.59),
-
-      0 0 41px
-      rgba(178, 50, 255, 0.24),
-
-      inset 0 1px 0
-      rgba(255, 255, 255, 0.08);
-  }
-}
-
-
-/* =========================================================
-   HERO TEXT
-========================================================= */
-
-.hero-copy {
-  position: relative;
-
-  z-index: 3;
-}
-
-.hero-copy h2 {
-  margin: 0;
-
-  font-family:
-    "DM Serif Display",
-    Georgia,
-    serif;
-
-  font-weight: 400;
-
-  line-height: 0.91;
-
-  letter-spacing:
-    -0.8px;
-}
-
-.hero-copy h2 span {
-  display: block;
-}
-
-.hero-line-white {
-  color: #ffffff;
-
-  font-size:
-    clamp(
-      34px,
-      9vw,
-      51px
-    );
-}
-
-.hero-line-gold {
-  color: transparent;
-
-  font-size:
-    clamp(
-      39px,
-      10vw,
-      57px
-    );
-
-  background:
-    linear-gradient(
-      180deg,
-      #fff8cf 0%,
-      #ffdb6c 33%,
-      #d89923 71%,
-      #ffe077 100%
-    );
-
-  -webkit-background-clip: text;
-  background-clip: text;
-
-  filter:
-    drop-shadow(
-      0 4px 8px
-      rgba(0, 0, 0, 0.35)
+const wheelFrame =
+  document.querySelector(
+    ".wheel-frame"
+  );
+
+const wheel =
+  document.getElementById(
+    "wheel"
+  );
+
+const spinButton =
+  document.getElementById(
+    "spinButton"
+  );
+
+const statusText =
+  document.getElementById(
+    "statusText"
+  );
+
+const recentWin =
+  document.getElementById(
+    "recentWin"
+  );
+
+const resultModal =
+  document.getElementById(
+    "resultModal"
+  );
+
+const resultTitle =
+  document.getElementById(
+    "resultTitle"
+  );
+
+const resultMessage =
+  document.getElementById(
+    "resultMessage"
+  );
+
+const closeResultButton =
+  document.getElementById(
+    "closeResultButton"
+  );
+
+const resultCloseX =
+  document.getElementById(
+    "resultCloseX"
+  );
+
+const wheelLabels =
+  Array.from(
+    document.querySelectorAll(
+      ".wheel-label"
     )
-    drop-shadow(
-      0 0 12px
-      rgba(255, 194, 46, 0.17)
+  );
+
+
+/* =========================================================
+   GAME STATE
+========================================================= */
+
+let prizes =
+  [];
+
+let wheelPrizes =
+  [];
+
+let currentPrize =
+  null;
+
+let spinning =
+  false;
+
+let currentRotation =
+  0;
+
+
+/* =========================================================
+   DAILY PLAY KEYS
+========================================================= */
+
+function getLocalDateKey() {
+
+  const now =
+    new Date();
+
+  const year =
+    now.getFullYear();
+
+  const month =
+    String(
+      now.getMonth() + 1
+    ).padStart(
+      2,
+      "0"
     );
+
+  const day =
+    String(
+      now.getDate()
+    ).padStart(
+      2,
+      "0"
+    );
+
+  return (
+    `${year}-${month}-${day}`
+  );
 }
 
-.hero-copy p {
-  max-width: 390px;
 
-  margin:
-    16px auto
-    18px;
+const todayKey =
+  getLocalDateKey();
 
-  color:
-    rgba(255, 255, 255, 0.72);
 
-  font-size: 10px;
+const playKey =
+  `marvalous_spin_played_${todayKey}`;
 
-  line-height: 1.55;
+
+const resultKey =
+  `marvalous_spin_result_${todayKey}`;
+
+
+/* =========================================================
+   CSV READER
+========================================================= */
+
+function csvSplit(row) {
+
+  const matched =
+    row.match(
+      /(".*?"|[^",]+)(?=\s*,|\s*$)/g
+    );
+
+  return matched
+
+    ? matched.map(
+        value =>
+          value
+            .replace(
+              /^"|"$/g,
+              ""
+            )
+            .trim()
+      )
+
+    : [];
 }
 
 
 /* =========================================================
-   HERO SPARKLES
+   LOAD SETTINGS FROM GOOGLE SHEET
 ========================================================= */
 
-.hero-sparkle {
-  position: absolute;
+async function loadSettings() {
 
-  z-index: 3;
+  setStatus(
+    "Loading today’s wheel..."
+  );
 
-  top: 176px;
 
-  color:
-    #cb4cff;
+  if (spinButton) {
 
-  font-size: 15px;
+    spinButton.disabled =
+      true;
 
-  pointer-events: none;
-
-  text-shadow:
-    0 0 9px
-    rgba(207, 70, 255, 0.83),
-
-    0 0 18px
-    rgba(176, 42, 255, 0.43);
-
-  animation:
-    sparklePulse
-    2.1s
-    ease-in-out
-    infinite;
-}
-
-.hero-sparkle-left {
-  left: 27%;
-}
-
-.hero-sparkle-right {
-  right: 27%;
-
-  animation-delay:
-    -1.05s;
-}
-
-@keyframes sparklePulse {
-  0%,
-  100% {
-    opacity: 0.45;
-
-    transform:
-      scale(0.85);
   }
 
-  50% {
-    opacity: 1;
 
-    transform:
-      scale(1.28);
+  try {
+
+    const response =
+      await fetch(
+        `${SETTINGS_CSV_URL}&t=${Date.now()}`,
+        {
+          cache:
+            "no-store"
+        }
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Prize settings could not load."
+      );
+
+    }
+
+
+    const text =
+      await response.text();
+
+
+    const lines =
+      text
+        .trim()
+        .split(
+          /\r?\n/
+        );
+
+
+    prizes =
+      [];
+
+
+    /*
+      GOOGLE SHEET LAYOUT
+
+      Row 5 onwards:
+
+      A = Prize
+      B = Chance
+      C = Claim type
+      D = Minimum spend
+      E = Expiry
+      F = Code
+    */
+
+    for (
+      let index = 4;
+      index < lines.length;
+      index++
+    ) {
+
+      if (
+        !lines[index].trim()
+      ) {
+
+        continue;
+
+      }
+
+
+      const row =
+        csvSplit(
+          lines[index]
+        );
+
+
+      const prizeName =
+        String(
+          row[0] || ""
+        ).trim();
+
+
+      const chance =
+        Number.parseFloat(
+          row[1]
+        );
+
+
+      if (
+        !prizeName ||
+        Number.isNaN(
+          chance
+        )
+      ) {
+
+        continue;
+
+      }
+
+
+      prizes.push({
+
+        prize:
+          prizeName,
+
+        chance:
+          chance,
+
+        claimType:
+          String(
+            row[2] || ""
+          ).trim(),
+
+        minSpend:
+          String(
+            row[3] || ""
+          ).trim(),
+
+        expiry:
+          String(
+            row[4] || ""
+          ).trim(),
+
+        code:
+          String(
+            row[5] || ""
+          ).trim()
+
+      });
+
+    }
+
+
+    if (
+      !prizes.length
+    ) {
+
+      throw new Error(
+        "No prizes were found in the sheet."
+      );
+
+    }
+
+
+    prepareWheelPrizes();
+
+    updateWheelLabels();
+
+    restoreDailyState();
+
+
+  } catch (error) {
+
+    console.error(
+      "Wheel settings failed:",
+      error
+    );
+
+
+    setStatus(
+      "The wheel could not load. Please refresh and try again."
+    );
+
+
+    if (spinButton) {
+
+      spinButton.disabled =
+        true;
+
+    }
+
   }
 }
 
 
 /* =========================================================
-   WHEEL AREA
+   PREPARE 8 WHEEL SEGMENTS
 ========================================================= */
 
-.wheel-area {
-  position: relative;
+function prepareWheelPrizes() {
 
-  z-index: 4;
-
-  width:
-    min(
-      100%,
-      420px
+  wheelPrizes =
+    prizes.slice(
+      0,
+      8
     );
 
-  margin:
-    0 auto;
 
-  padding:
-    33px 0
-    8px;
-}
+  while (
+    wheelPrizes.length < 8
+  ) {
 
-.wheel-area::before {
-  content: "";
+    wheelPrizes.push({
 
-  position: absolute;
+      prize:
+        "TRY AGAIN",
 
-  z-index: -1;
+      chance:
+        0,
 
-  width: 104%;
+      claimType:
+        "none",
 
-  aspect-ratio: 1;
+      minSpend:
+        "",
 
-  top: 52%;
-  left: 50%;
+      expiry:
+        "",
 
-  transform:
-    translate(
-      -50%,
-      -50%
-    );
+      code:
+        ""
 
-  border-radius: 50%;
+    });
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(255, 205, 56, 0.14),
-      rgba(184, 47, 255, 0.24) 35%,
-      rgba(119, 20, 192, 0.10) 52%,
-      transparent 70%
-    );
-
-  filter:
-    blur(22px);
+  }
 }
 
 
 /* =========================================================
-   POINTER
+   UPDATE WHEEL LABELS
 ========================================================= */
 
-.wheel-pointer {
-  position: absolute;
+function updateWheelLabels() {
 
-  top: 0;
-  left: 50%;
+  wheelLabels.forEach(
+    (
+      label,
+      index
+    ) => {
 
-  z-index: 40;
+      const prize =
+        wheelPrizes[
+          index
+        ];
 
-  width: 48px;
-  height: 59px;
 
-  transform:
-    translateX(-50%);
+      label.textContent =
+        shortenWheelLabel(
+          prize?.prize ||
+          "TRY AGAIN"
+        );
 
-  pointer-events: none;
+    }
+  );
 }
 
-.wheel-pointer::before {
-  content: "";
 
-  position: absolute;
+/* =========================================================
+   SHORTEN LONG WHEEL TEXT
+========================================================= */
 
-  width: 44px;
-  height: 50px;
+function shortenWheelLabel(
+  value
+) {
 
-  top: 0;
-  left: 2px;
+  const text =
+    String(
+      value || ""
+    ).trim();
 
-  clip-path:
-    polygon(
-      50% 100%,
-      0 0,
-      100% 0
-    );
 
-  background:
-    linear-gradient(
-      135deg,
-      #fff4b4,
-      #ffd25b 23%,
-      #a56608 48%,
-      #f8c94c 72%,
-      #965607
-    );
+  if (!text) {
 
-  filter:
-    drop-shadow(
-      0 4px 5px
-      rgba(0, 0, 0, 0.53)
+    return "TRY AGAIN";
+
+  }
+
+
+  if (
+    /try again/i.test(
+      text
     )
-    drop-shadow(
-      0 0 10px
-      rgba(255, 207, 75, 0.62)
-    );
-}
+  ) {
 
-.wheel-pointer::after {
-  content: "";
+    return "TRY AGAIN";
 
-  position: absolute;
-
-  top: 7px;
-  left: 10px;
-
-  width: 28px;
-  height: 31px;
-
-  clip-path:
-    polygon(
-      50% 100%,
-      4% 0,
-      96% 0
-    );
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.72),
-      transparent 50%
-    );
-}
-
-.pointer-gem {
-  position: absolute;
-
-  z-index: 3;
-
-  width: 9px;
-  height: 9px;
-
-  top: 44px;
-  left: 20px;
-
-  transform:
-    rotate(45deg);
-
-  background:
-    #fff0a1;
-
-  border:
-    1px solid
-    #9a6007;
-
-  box-shadow:
-    0 0 10px
-    rgba(255, 218, 94, 0.8);
-}
-
-
-/* =========================================================
-   WHEEL FRAME
-========================================================= */
-
-.wheel-frame {
-  position: relative;
-
-  width:
-    min(
-      100%,
-      370px
-    );
-
-  aspect-ratio: 1;
-
-  margin: 0 auto;
-
-  padding: 18px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      137deg,
-      #fff3ac 0%,
-      #e1a832 13%,
-      #86500a 29%,
-      #ffe37c 44%,
-      #b67312 60%,
-      #ffdf75 75%,
-      #96570a 89%,
-      #ffd75d 100%
-    );
-
-  border:
-    1px solid
-    rgba(255, 246, 194, 0.97);
-
-  box-shadow:
-    0 0 0 4px
-    rgba(255, 215, 82, 0.09),
-
-    0 0 0 7px
-    rgba(152, 34, 218, 0.16),
-
-    0 0 33px
-    rgba(255, 205, 57, 0.48),
-
-    0 0 56px
-    rgba(187, 48, 255, 0.41),
-
-    0 27px 52px
-    rgba(0, 0, 0, 0.64),
-
-    inset 0 2px 2px
-    rgba(255, 255, 255, 0.78),
-
-    inset 0 -8px 12px
-    rgba(74, 36, 0, 0.48);
-}
-
-.wheel-frame::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 13px;
-
-  z-index: 12;
-
-  border-radius: 50%;
-
-  pointer-events: none;
-
-  box-shadow:
-    inset 0 0 0 1px
-    rgba(255, 229, 131, 0.38),
-
-    inset 0 0 17px
-    rgba(255, 202, 62, 0.14);
-}
-
-.wheel-frame::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 9px;
-
-  z-index: 11;
-
-  border-radius: 50%;
-
-  pointer-events: none;
-
-  border:
-    1px solid
-    rgba(64, 27, 2, 0.6);
-
-  box-shadow:
-    inset 0 0 0 1px
-    rgba(255, 246, 202, 0.25);
-}
-
-
-/* =========================================================
-   WHEEL LIGHTS
-========================================================= */
-
-.wheel-light-ring {
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 18;
-
-  pointer-events: none;
-}
-
-.wheel-light {
-  position: absolute;
-
-  width: 11px;
-  height: 11px;
-
-  margin:
-    -5.5px 0 0
-    -5.5px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      #ffffff 0 22%,
-      #fff7c7 28% 41%,
-      #ffdf72 47% 66%,
-      #d88c12 75% 100%
-    );
-
-  border:
-    1px solid
-    rgba(255, 246, 206, 0.97);
-
-  opacity: 0.42;
-
-  transform:
-    scale(0.84);
-
-  box-shadow:
-    0 0 5px
-    rgba(255, 226, 129, 0.52),
-
-    0 0 10px
-    rgba(255, 196, 38, 0.23);
-
-  animation:
-    lightChase
-    1.8s
-    linear
-    infinite;
-}
-
-@keyframes lightChase {
-  0%,
-  100% {
-    opacity: 0.3;
-
-    transform:
-      scale(0.82);
   }
 
-  10%,
-  19% {
-    opacity: 1;
 
-    transform:
-      scale(1.35);
+  if (
+    /mystery/i.test(
+      text
+    )
+  ) {
 
-    box-shadow:
-      0 0 9px
-      #fffbe3,
+    return "MYSTERY";
 
-      0 0 20px
-      rgba(255, 217, 87, 0.96),
-
-      0 0 35px
-      rgba(255, 191, 32, 0.74),
-
-      0 0 50px
-      rgba(183, 45, 255, 0.30);
   }
 
-  34% {
-    opacity: 0.62;
 
-    transform:
-      scale(1);
-  }
+  if (
+    /site credit/i.test(
+      text
+    )
+  ) {
 
-  52% {
-    opacity: 0.34;
-
-    transform:
-      scale(0.86);
-  }
-}
-
-.light-1 {
-  left: 50%;
-  top: 3%;
-  animation-delay: 0s;
-}
-
-.light-2 {
-  left: 74%;
-  top: 9%;
-  animation-delay: -0.15s;
-}
-
-.light-3 {
-  left: 91%;
-  top: 26%;
-  animation-delay: -0.30s;
-}
-
-.light-4 {
-  left: 97%;
-  top: 50%;
-  animation-delay: -0.45s;
-}
-
-.light-5 {
-  left: 91%;
-  top: 74%;
-  animation-delay: -0.60s;
-}
-
-.light-6 {
-  left: 74%;
-  top: 91%;
-  animation-delay: -0.75s;
-}
-
-.light-7 {
-  left: 50%;
-  top: 97%;
-  animation-delay: -0.90s;
-}
-
-.light-8 {
-  left: 26%;
-  top: 91%;
-  animation-delay: -1.05s;
-}
-
-.light-9 {
-  left: 9%;
-  top: 74%;
-  animation-delay: -1.20s;
-}
-
-.light-10 {
-  left: 3%;
-  top: 50%;
-  animation-delay: -1.35s;
-}
-
-.light-11 {
-  left: 9%;
-  top: 26%;
-  animation-delay: -1.50s;
-}
-
-.light-12 {
-  left: 26%;
-  top: 9%;
-  animation-delay: -1.65s;
-}
-
-.wheel-frame.spinning
-.wheel-light {
-  animation-duration:
-    0.62s;
-}
-
-
-/* =========================================================
-   WHEEL FACE
-========================================================= */
-
-.wheel {
-  position: relative;
-
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-
-  border-radius: 50%;
-
-  background:
-    conic-gradient(
-      from -22.5deg,
-
-      #6418c7 0deg 45deg,
-      #dca42d 45deg 90deg,
-
-      #7624df 90deg 135deg,
-      #d79b25 135deg 180deg,
-
-      #4d0d9b 180deg 225deg,
-      #cd8d1f 225deg 270deg,
-
-      #7822dc 270deg 315deg,
-      #dda32b 315deg 360deg
+    return text.replace(
+      /site credit/i,
+      "CREDIT"
     );
 
-  border:
-    4px solid
-    rgba(45, 10, 51, 0.97);
-
-  box-shadow:
-    inset 0 0 0 1px
-    rgba(255, 255, 255, 0.16),
-
-    inset 0 0 20px
-    rgba(255, 217, 101, 0.08),
-
-    inset 0 0 34px
-    rgba(0, 0, 0, 0.27);
-
-  will-change:
-    transform;
-}
-
-.wheel::before {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  z-index: 1;
-
-  border-radius: 50%;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at 33% 20%,
-      rgba(255, 255, 255, 0.18),
-      transparent 23%
-    ),
-    radial-gradient(
-      circle,
-      transparent 0 47%,
-      rgba(255, 223, 111, 0.04) 65%,
-      rgba(0, 0, 0, 0.08) 74%,
-      rgba(0, 0, 0, 0.28) 100%
-    );
-}
-
-.wheel::after {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  z-index: 2;
-
-  pointer-events: none;
-
-  border-radius: 50%;
-
-  opacity: 0.16;
-
-  background-image:
-    radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.8) 0 0.5px,
-      transparent 0.9px
-    );
-
-  background-size:
-    7px 7px;
-}
-
-
-/* =========================================================
-   WHEEL LABELS
-========================================================= */
-
-.wheel-label {
-  position: absolute;
-
-  z-index: 5;
-
-  left: 50%;
-  top: 50%;
-
-  width: 92px;
-
-  color: #ffffff;
-
-  text-align: center;
-
-  text-transform: uppercase;
-
-  font-size: 10px;
-
-  line-height: 1.1;
-
-  font-weight: 900;
-
-  letter-spacing:
-    0.1px;
-
-  text-shadow:
-    0 2px 5px
-    rgba(0, 0, 0, 0.66);
-
-  pointer-events: none;
-}
-
-.label-1 {
-  transform:
-    translate(-50%, -50%)
-    rotate(0deg)
-    translateY(-108px)
-    rotate(0deg);
-}
-
-.label-2 {
-  transform:
-    translate(-50%, -50%)
-    rotate(45deg)
-    translateY(-108px)
-    rotate(-45deg);
-}
-
-.label-3 {
-  transform:
-    translate(-50%, -50%)
-    rotate(90deg)
-    translateY(-108px)
-    rotate(-90deg);
-}
-
-.label-4 {
-  transform:
-    translate(-50%, -50%)
-    rotate(135deg)
-    translateY(-108px)
-    rotate(-135deg);
-}
-
-.label-5 {
-  transform:
-    translate(-50%, -50%)
-    rotate(180deg)
-    translateY(-108px)
-    rotate(-180deg);
-}
-
-.label-6 {
-  transform:
-    translate(-50%, -50%)
-    rotate(225deg)
-    translateY(-108px)
-    rotate(-225deg);
-}
-
-.label-7 {
-  transform:
-    translate(-50%, -50%)
-    rotate(270deg)
-    translateY(-108px)
-    rotate(-270deg);
-}
-
-.label-8 {
-  transform:
-    translate(-50%, -50%)
-    rotate(315deg)
-    translateY(-108px)
-    rotate(-315deg);
-}
-
-
-/* =========================================================
-   SPIN BUTTON
-========================================================= */
-
-.spin-button {
-  position: absolute;
-
-  z-index: 30;
-
-  width: 116px;
-  height: 116px;
-
-  padding: 0;
-
-  display: grid;
-  place-items: center;
-
-  border:
-    2px solid
-    rgba(255, 245, 192, 0.95);
-
-  border-radius: 50%;
-
-  cursor: pointer;
-
-  background:
-    radial-gradient(
-      circle at 35% 22%,
-      rgba(255, 255, 255, 0.73),
-      transparent 20%
-    ),
-    linear-gradient(
-      145deg,
-      #fff0a1,
-      #e7b23a 32%,
-      #b67111 68%,
-      #f2c64e
-    );
-
-  box-shadow:
-    0 0 0 5px
-    rgba(48, 17, 13, 0.96),
-
-    0 0 0 8px
-    rgba(255, 212, 68, 0.75),
-
-    0 0 24px
-    rgba(255, 202, 48, 0.42),
-
-    0 0 35px
-    rgba(179, 47, 255, 0.18),
-
-    0 15px 28px
-    rgba(0, 0, 0, 0.57),
-
-    inset 0 2px 2px
-    rgba(255, 255, 255, 0.77),
-
-    inset 0 -8px 13px
-    rgba(95, 46, 0, 0.31);
-
-  transition:
-    transform 0.18s ease,
-    filter 0.18s ease;
-}
-
-.spin-button::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 8px;
-
-  border-radius: 50%;
-
-  border:
-    1px solid
-    rgba(105, 57, 4, 0.57);
-}
-
-.spin-button-inner {
-  position: relative;
-
-  z-index: 3;
-
-  color:
-    #1f1000;
-
-  font-family:
-    "DM Serif Display",
-    Georgia,
-    serif;
-
-  font-size: 28px;
-
-  line-height: 1;
-
-  font-weight: 700;
-
-  text-shadow:
-    0 1px 0
-    rgba(255, 255, 255, 0.42),
-
-    0 2px 2px
-    rgba(93, 47, 0, 0.18);
-}
-
-.spin-button:active {
-  transform:
-    scale(0.95);
-}
-
-.spin-button:disabled {
-  cursor:
-    not-allowed;
-
-  filter:
-    grayscale(0.3)
-    brightness(0.76);
-}
-
-@keyframes spinButtonGlow {
-  0%,
-  100% {
-    box-shadow:
-      0 0 0 5px
-      rgba(48, 17, 13, 0.96),
-
-      0 0 0 8px
-      rgba(255, 212, 68, 0.67),
-
-      0 0 20px
-      rgba(255, 201, 45, 0.31),
-
-      0 0 30px
-      rgba(179, 47, 255, 0.14),
-
-      0 15px 28px
-      rgba(0, 0, 0, 0.57);
   }
 
-  50% {
-    box-shadow:
-      0 0 0 5px
-      rgba(48, 17, 13, 0.96),
 
-      0 0 0 8px
-      rgba(255, 220, 88, 0.86),
+  if (
+    text.length <= 16
+  ) {
 
-      0 0 31px
-      rgba(255, 204, 49, 0.56),
+    return text;
 
-      0 0 45px
-      rgba(186, 48, 255, 0.25),
-
-      0 15px 28px
-      rgba(0, 0, 0, 0.57);
   }
-}
 
-.spin-button:not(:disabled) {
-  animation:
-    spinButtonGlow
-    2.7s
-    ease-in-out
-    infinite;
+
+  return (
+    `${text.slice(0, 14)}…`
+  );
 }
 
 
@@ -1596,1633 +546,1405 @@ span:last-child {
    STATUS
 ========================================================= */
 
-.game-status {
-  position: relative;
+function setStatus(
+  message
+) {
 
-  z-index: 5;
+  if (!statusText) {
 
-  min-height: 54px;
+    return;
 
-  margin:
-    15px auto 0;
+  }
 
-  padding:
-    0 18px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 9px;
-
-  border-radius: 999px;
-
-  color:
-    rgba(255, 255, 255, 0.95);
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(17, 6, 22, 0.98),
-      rgba(5, 2, 8, 0.99)
-    );
-
-  border:
-    1px solid
-    rgba(242, 201, 89, 0.50);
-
-  box-shadow:
-    0 0 15px
-    rgba(174, 45, 255, 0.12),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.06),
-
-    0 10px 24px
-    rgba(0, 0, 0, 0.31);
-
-  font-size: 10px;
-
-  font-weight: 700;
-}
-
-.status-icon {
-  width: 28px;
-  height: 28px;
-
-  flex-shrink: 0;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  color:
-    #fff0a2;
-
-  background:
-    linear-gradient(
-      145deg,
-      #701eb8,
-      #2a073c
-    );
-
-  border:
-    1px solid
-    rgba(238, 195, 80, 0.48);
-
-  box-shadow:
-    0 0 11px
-    rgba(182, 49, 255, 0.29);
-
-  font-size: 13px;
-
-  font-weight: 900;
+  statusText.textContent =
+    message;
 }
 
 
 /* =========================================================
-   INFO CARDS
+   RESTORE DAILY STATE
 ========================================================= */
 
-.info-grid {
-  margin-top: 15px;
+function restoreDailyState() {
 
-  display: grid;
+  const savedResult =
+    localStorage.getItem(
+      resultKey
+    );
 
-  grid-template-columns:
-    1fr 1fr;
 
-  gap: 10px;
+  if (
+    savedResult &&
+    recentWin
+  ) {
+
+    recentWin.textContent =
+      savedResult;
+
+  }
+
+
+  /*
+    TEST MODE
+  */
+
+  if (TEST_MODE) {
+
+    if (spinButton) {
+
+      spinButton.disabled =
+        false;
+
+    }
+
+
+    setStatus(
+      "Test mode: unlimited spins enabled"
+    );
+
+
+    return;
+  }
+
+
+  /*
+    LIVE MODE
+  */
+
+  const hasPlayed =
+    localStorage.getItem(
+      playKey
+    ) === "yes";
+
+
+  if (hasPlayed) {
+
+    if (spinButton) {
+
+      spinButton.disabled =
+        true;
+
+    }
+
+
+    setStatus(
+      "You’ve used today’s spin. Come back tomorrow."
+    );
+
+
+    return;
+  }
+
+
+  if (spinButton) {
+
+    spinButton.disabled =
+      false;
+
+  }
+
+
+  setStatus(
+    "Your daily spin is ready"
+  );
 }
 
-.info-card {
-  position: relative;
 
-  overflow: hidden;
+/* =========================================================
+   PICK PRIZE USING SHEET ODDS
+========================================================= */
 
-  min-width: 0;
-  min-height: 96px;
+function pickPrizeIndex() {
 
-  padding:
-    13px 11px;
+  const totalChance =
+    wheelPrizes.reduce(
+      (
+        total,
+        item
+      ) => {
 
-  display: flex;
-  align-items: center;
+        return (
+          total +
+          Math.max(
+            Number(
+              item.chance || 0
+            ),
+            0
+          )
+        );
 
-  gap: 8px;
+      },
+      0
+    );
 
-  border-radius:
-    var(--radius-lg);
 
-  background:
-    radial-gradient(
-      circle at 12% 20%,
-      rgba(137, 33, 217, 0.15),
-      transparent 37%
+  if (
+    totalChance <= 0
+  ) {
+
+    const tryAgainIndex =
+      wheelPrizes.findIndex(
+        item =>
+          /try again/i.test(
+            item.prize
+          )
+      );
+
+
+    return (
+      tryAgainIndex >= 0
+        ? tryAgainIndex
+        : 0
+    );
+
+  }
+
+
+  let roll =
+    Math.random() *
+    totalChance;
+
+
+  for (
+    let index = 0;
+    index < wheelPrizes.length;
+    index++
+  ) {
+
+    roll -=
+      Math.max(
+        Number(
+          wheelPrizes[
+            index
+          ].chance || 0
+        ),
+        0
+      );
+
+
+    if (
+      roll <= 0
+    ) {
+
+      return index;
+
+    }
+
+  }
+
+
+  return (
+    wheelPrizes.length - 1
+  );
+}
+
+
+/* =========================================================
+   SOUND HELPERS
+========================================================= */
+
+function playSpinSound() {
+
+  try {
+
+    spinSound.pause();
+
+    spinSound.currentTime =
+      0;
+
+
+    const playPromise =
+      spinSound.play();
+
+
+    if (
+      playPromise !== undefined
+    ) {
+
+      playPromise.catch(
+        error => {
+
+          console.log(
+            "Spin sound could not play:",
+            error
+          );
+
+        }
+      );
+
+    }
+
+  } catch (error) {
+
+    console.log(
+      "Spin sound error:",
+      error
+    );
+
+  }
+}
+
+
+function stopSpinSound() {
+
+  try {
+
+    spinSound.pause();
+
+    spinSound.currentTime =
+      0;
+
+  } catch (error) {
+
+    console.log(
+      "Could not stop spin sound:",
+      error
+    );
+
+  }
+}
+
+
+function playCelebrationSound() {
+
+  try {
+
+    celebrationSound.pause();
+
+    celebrationSound.currentTime =
+      0;
+
+
+    const playPromise =
+      celebrationSound.play();
+
+
+    if (
+      playPromise !== undefined
+    ) {
+
+      playPromise.catch(
+        error => {
+
+          console.log(
+            "Celebration sound could not play:",
+            error
+          );
+
+        }
+      );
+
+    }
+
+  } catch (error) {
+
+    console.log(
+      "Celebration sound error:",
+      error
+    );
+
+  }
+}
+
+
+/* =========================================================
+   WHEEL LIGHT EFFECTS
+========================================================= */
+
+function startWheelEffects() {
+
+  if (wheelFrame) {
+
+    wheelFrame
+      .classList
+      .add(
+        "spinning"
+      );
+
+  }
+}
+
+
+function stopWheelEffects() {
+
+  if (wheelFrame) {
+
+    wheelFrame
+      .classList
+      .remove(
+        "spinning"
+      );
+
+  }
+}
+
+
+/* =========================================================
+   RESET WHEEL TO NORMAL POSITION
+
+   Happens after the result popup closes.
+========================================================= */
+
+function resetWheelPosition() {
+
+  if (!wheel) {
+
+    return;
+
+  }
+
+
+  wheel.style.transition =
+    "none";
+
+
+  wheel.style.transform =
+    "rotate(0deg)";
+
+
+  currentRotation =
+    0;
+
+
+  /*
+    Force browser to register the reset
+    before the next spin animation.
+  */
+
+  void wheel.offsetWidth;
+
+
+  wheel.style.transition =
+    "";
+
+}
+
+
+/* =========================================================
+   SPIN WHEEL
+========================================================= */
+
+function spinWheel() {
+
+  if (spinning) {
+
+    return;
+
+  }
+
+
+  if (
+    !TEST_MODE &&
+    localStorage.getItem(
+      playKey
+    ) === "yes"
+  ) {
+
+    if (spinButton) {
+
+      spinButton.disabled =
+        true;
+
+    }
+
+
+    setStatus(
+      "You’ve already used today’s spin."
+    );
+
+
+    return;
+  }
+
+
+  if (
+    !wheelPrizes.length
+  ) {
+
+    setStatus(
+      "The prizes are still loading."
+    );
+
+
+    return;
+  }
+
+
+  spinning =
+    true;
+
+
+  if (spinButton) {
+
+    spinButton.disabled =
+      true;
+
+  }
+
+
+  startWheelEffects();
+
+
+  setStatus(
+    "The wheel is spinning..."
+  );
+
+
+  playSpinSound();
+
+
+  /*
+    Select winner before animation.
+  */
+
+  const winningIndex =
+    pickPrizeIndex();
+
+
+  currentPrize =
+    wheelPrizes[
+      winningIndex
+    ];
+
+
+  /*
+    Eight segments = 45 degrees.
+  */
+
+  const segmentAngle =
+    360 /
+    wheelPrizes.length;
+
+
+  const segmentCentre =
+    (
+      winningIndex *
+      segmentAngle
+    ) +
+    (
+      segmentAngle /
+      2
+    );
+
+
+  /*
+    Pointer sits at 12 o'clock.
+  */
+
+  const targetAngle =
+    (
+      360 -
+      segmentCentre
+    ) % 360;
+
+
+  const currentNormalised =
+    (
+      (
+        currentRotation %
+        360
+      ) +
+      360
+    ) % 360;
+
+
+  const alignment =
+    (
+      targetAngle -
+      currentNormalised +
+      360
+    ) % 360;
+
+
+  /*
+    7–9 full turns.
+  */
+
+  const extraTurns =
+    7 +
+    Math.floor(
+      Math.random() *
+      3
+    );
+
+
+  currentRotation +=
+    (
+      extraTurns *
+      360
+    ) +
+    alignment;
+
+
+  wheel.style.transition =
+    "transform 5.4s cubic-bezier(0.10, 0.68, 0.08, 1)";
+
+
+  wheel.style.transform =
+    `rotate(${currentRotation}deg)`;
+
+
+  if (
+    navigator.vibrate
+  ) {
+
+    navigator.vibrate(
+      18
+    );
+
+  }
+
+
+  /*
+    Lock play immediately in live mode.
+  */
+
+  if (!TEST_MODE) {
+
+    localStorage.setItem(
+      playKey,
+      "yes"
+    );
+
+  }
+
+
+  /*
+    Result appears when wheel stops.
+  */
+
+  window.setTimeout(
+    () => {
+
+      stopSpinSound();
+
+      stopWheelEffects();
+
+
+      if (
+        navigator.vibrate
+      ) {
+
+        navigator.vibrate(
+          [
+            20,
+            35,
+            45
+          ]
+        );
+
+      }
+
+
+      showResult();
+
+    },
+    5550
+  );
+}
+
+
+/* =========================================================
+   CHECK WHETHER PRIZE IS A WIN
+========================================================= */
+
+function isWinningPrize(
+  prize
+) {
+
+  if (!prize) {
+
+    return false;
+
+  }
+
+
+  const name =
+    String(
+      prize.prize || ""
+    )
+      .trim()
+      .toUpperCase();
+
+
+  const claimType =
+    String(
+      prize.claimType || ""
+    )
+      .trim()
+      .toLowerCase();
+
+
+  return (
+
+    name !== "TRY AGAIN" &&
+
+    name !== "NO PRIZE" &&
+
+    claimType !== "none"
+
+  );
+}
+
+
+/* =========================================================
+   SHOW RESULT
+========================================================= */
+
+function showResult() {
+
+  if (!currentPrize) {
+
+    return;
+
+  }
+
+
+  const won =
+    isWinningPrize(
+      currentPrize
+    );
+
+
+  addStats(
+    won
+  );
+
+
+  localStorage.setItem(
+    resultKey,
+    currentPrize.prize
+  );
+
+
+  if (recentWin) {
+
+    recentWin.textContent =
+      currentPrize.prize;
+
+  }
+
+
+  if (won) {
+
+    showWinningResult();
+
+    playCelebrationSound();
+
+    launchConfetti();
+
+  } else {
+
+    showTryAgainResult();
+
+  }
+
+
+  if (resultModal) {
+
+    resultModal
+      .classList
+      .add(
+        "show"
+      );
+
+
+    resultModal.scrollTop =
+      0;
+
+  }
+
+
+  spinning =
+    false;
+
+
+  if (TEST_MODE) {
+
+    if (spinButton) {
+
+      spinButton.disabled =
+        false;
+
+    }
+
+
+    setStatus(
+      "Test mode: spin again whenever you’re ready"
+    );
+
+  }
+}
+
+
+/* =========================================================
+   WINNER POPUP
+
+   IMPORTANT:
+   The Marvalous logo is already inside
+   .result-icon in index.html.
+
+   JavaScript DOES NOT replace it.
+========================================================= */
+
+function showWinningResult() {
+
+  if (resultTitle) {
+
+    resultTitle.textContent =
+      "You’re a winner!";
+
+  }
+
+
+  const minimumSpend =
+    currentPrize.minSpend &&
+    currentPrize.minSpend !== "0" &&
+    String(
+      currentPrize.minSpend
+    )
+      .toLowerCase() !== "none"
+
+      ? `
+        <p class="claim-detail">
+          Minimum spend:
+          £${escapeHtml(
+            currentPrize.minSpend
+          )}
+        </p>
+      `
+
+      : "";
+
+
+  const expiry =
+    currentPrize.expiry &&
+    String(
+      currentPrize.expiry
+    )
+      .toLowerCase() !== "none"
+
+      ? `
+        <p class="claim-detail">
+          Valid for:
+          ${escapeHtml(
+            currentPrize.expiry
+          )}
+        </p>
+      `
+
+      : "";
+
+
+  resultMessage.innerHTML = `
+
+    <strong class="claim-prize-name">
+      ${escapeHtml(
+        currentPrize.prize
+      )}
+    </strong>
+
+
+    ${minimumSpend}
+
+
+    ${expiry}
+
+
+    <p class="claim-before-code-message">
+      Enter your details below to claim
+      your reward and reveal your code.
+    </p>
+
+
+    <div class="claim-form">
+
+
+      <label for="claimName">
+        Your name
+      </label>
+
+
+      <input
+        id="claimName"
+        type="text"
+        autocomplete="name"
+        placeholder="Full name"
+      >
+
+
+      <label for="claimEmail">
+        Your email
+      </label>
+
+
+      <input
+        id="claimEmail"
+        type="email"
+        autocomplete="email"
+        placeholder="Email address"
+      >
+
+
+      <button
+        id="claimButton"
+        type="button"
+        class="claim-submit-button"
+      >
+        Reveal & claim reward
+      </button>
+
+
+      <p
+        id="claimStatus"
+        class="claim-status"
+        aria-live="polite"
+      ></p>
+
+
+    </div>
+
+  `;
+
+
+  if (closeResultButton) {
+
+    closeResultButton.style.display =
+      "none";
+
+  }
+
+
+  const claimButton =
+    document.getElementById(
+      "claimButton"
+    );
+
+
+  if (claimButton) {
+
+    claimButton.addEventListener(
+      "click",
+      submitClaim
+    );
+
+  }
+}
+
+
+/* =========================================================
+   TRY AGAIN RESULT
+========================================================= */
+
+function showTryAgainResult() {
+
+  if (resultTitle) {
+
+    resultTitle.textContent =
+      "Better luck tomorrow";
+
+  }
+
+
+  /*
+    Logo remains visible.
+  */
+
+  resultMessage.innerHTML = `
+    <p>
+      No reward on this spin.
+      <br><br>
+      Come back tomorrow for another
+      free chance to discover a
+      Marvalous reward.
+    </p>
+  `;
+
+
+  if (closeResultButton) {
+
+    closeResultButton.style.display =
+      "block";
+
+
+    closeResultButton.textContent =
+      "Done";
+
+  }
+}
+
+
+/* =========================================================
+   SUBMIT WINNER CLAIM
+
+   CODE STAYS HIDDEN UNTIL SUCCESS
+========================================================= */
+
+async function submitClaim() {
+
+  const nameInput =
+    document.getElementById(
+      "claimName"
+    );
+
+
+  const emailInput =
+    document.getElementById(
+      "claimEmail"
+    );
+
+
+  const claimButton =
+    document.getElementById(
+      "claimButton"
+    );
+
+
+  const claimStatus =
+    document.getElementById(
+      "claimStatus"
+    );
+
+
+  if (
+    !nameInput ||
+    !emailInput ||
+    !claimButton ||
+    !claimStatus
+  ) {
+
+    return;
+
+  }
+
+
+  const name =
+    nameInput
+      .value
+      .trim();
+
+
+  const email =
+    emailInput
+      .value
+      .trim();
+
+
+  if (
+    !name ||
+    !email
+  ) {
+
+    claimStatus.textContent =
+      "Please enter your name and email.";
+
+
+    return;
+  }
+
+
+  if (
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      .test(
+        email
+      )
+  ) {
+
+    claimStatus.textContent =
+      "Please enter a valid email address.";
+
+
+    return;
+  }
+
+
+  claimButton.disabled =
+    true;
+
+
+  claimButton.textContent =
+    "Saving claim...";
+
+
+  claimStatus.textContent =
+    "Saving your details...";
+
+
+  try {
+
+    const response =
+      await fetch(
+        CLAIM_URL,
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Content-Type":
+              "text/plain;charset=utf-8"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              name:
+                name,
+
+              email:
+                email,
+
+              prize:
+                currentPrize.prize,
+
+              dailyCode:
+                TEST_MODE
+                  ? `SPIN-TEST-${todayKey}`
+                  : `SPIN-${todayKey}`,
+
+              minSpend:
+                currentPrize.minSpend || "",
+
+              expiry:
+                currentPrize.expiry || "",
+
+              code:
+                currentPrize.code || "",
+
+              game:
+                "Marv's Spin the Wheel",
+
+              testMode:
+                TEST_MODE
+
+            })
+
+        }
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Claim request failed."
+      );
+
+    }
+
+
+    /*
+      CLAIM SUCCESSFUL.
+
+      Code can now be shown.
+    */
+
+    if (resultTitle) {
+
+      resultTitle.textContent =
+        TEST_MODE
+          ? "Test claim saved!"
+          : "Claim saved!";
+
+    }
+
+
+    const revealedCode =
+      currentPrize.code
+
+        ? `
+          <div class="claim-code-box">
+
+            <span>
+              Your discount code
+            </span>
+
+            <strong id="winningCode">
+              ${escapeHtml(
+                currentPrize.code
+              )}
+            </strong>
+
+            <button
+              id="copyCodeButton"
+              type="button"
+              class="claim-copy-button"
+            >
+              Copy code
+            </button>
+
+          </div>
+        `
+
+        : `
+          <p class="claim-success-message">
+            Your reward has been claimed successfully.
+            We’ll apply it shortly.
+          </p>
+        `;
+
+
+    resultMessage.innerHTML = `
+
+      <p class="claim-success-message">
+        Your details have been received 💜
+      </p>
+
+      ${revealedCode}
+
+    `;
+
+
+    if (closeResultButton) {
+
+      closeResultButton.style.display =
+        "block";
+
+
+      closeResultButton.textContent =
+        "Done";
+
+    }
+
+
+    const copyButton =
+      document.getElementById(
+        "copyCodeButton"
+      );
+
+
+    if (copyButton) {
+
+      copyButton.addEventListener(
+        "click",
+        copyPrizeCode
+      );
+
+    }
+
+
+  } catch (error) {
+
+    console.error(
+      "Claim failed:",
+      error
+    );
+
+
+    /*
+      If logging fails,
+      the code stays hidden.
+    */
+
+    claimButton.disabled =
+      false;
+
+
+    claimButton.textContent =
+      "Reveal & claim reward";
+
+
+    claimStatus.textContent =
+      "Something went wrong. Please try again.";
+
+  }
+}
+
+
+/* =========================================================
+   COPY DISCOUNT CODE
+========================================================= */
+
+async function copyPrizeCode() {
+
+  const button =
+    document.getElementById(
+      "copyCodeButton"
+    );
+
+
+  if (
+    !currentPrize?.code
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+    await navigator.clipboard
+      .writeText(
+        currentPrize.code
+      );
+
+
+    if (button) {
+
+      button.textContent =
+        "Copied!";
+
+    }
+
+
+    window.setTimeout(
+      () => {
+
+        if (button) {
+
+          button.textContent =
+            "Copy code";
+
+        }
+
+      },
+      1800
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Copy failed:",
+      error
+    );
+
+
+    if (button) {
+
+      button.textContent =
+        currentPrize.code;
+
+    }
+
+  }
+}
+
+
+/* =========================================================
+   LOCAL STATS
+========================================================= */
+
+function addStats(
+  won
+) {
+
+  const plays =
+    Number(
+      localStorage.getItem(
+        "marvalousSpinTotalPlays"
+      ) || 0
+    ) + 1;
+
+
+  localStorage.setItem(
+    "marvalousSpinTotalPlays",
+    String(
+      plays
+    )
+  );
+
+
+  if (won) {
+
+    const wins =
+      Number(
+        localStorage.getItem(
+          "marvalousSpinTotalWins"
+        ) || 0
+      ) + 1;
+
+
+    localStorage.setItem(
+      "marvalousSpinTotalWins",
+      String(
+        wins
+      )
+    );
+
+  }
+
+
+  const lastPlayDate =
+    localStorage.getItem(
+      "marvalousSpinLastPlayDate"
+    );
+
+
+  const yesterday =
+    new Date();
+
+
+  yesterday.setDate(
+    yesterday.getDate() - 1
+  );
+
+
+  const yesterdayKey = [
+
+    yesterday.getFullYear(),
+
+    String(
+      yesterday.getMonth() + 1
+    ).padStart(
+      2,
+      "0"
     ),
-    linear-gradient(
-      145deg,
-      rgba(24, 8, 30, 0.99),
-      rgba(7, 3, 10, 0.995)
+
+    String(
+      yesterday.getDate()
+    ).padStart(
+      2,
+      "0"
+    )
+
+  ].join(
+    "-"
+  );
+
+
+  let streak =
+    Number(
+      localStorage.getItem(
+        "marvalousSpinStreak"
+      ) || 0
     );
 
-  border:
-    1px solid
-    rgba(191, 63, 248, 0.23);
 
-  box-shadow:
-    0 15px 34px
-    rgba(0, 0, 0, 0.32),
+  if (
+    lastPlayDate ===
+    yesterdayKey
+  ) {
 
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.05);
-}
+    streak +=
+      1;
 
-.info-card::before {
-  content: "";
+  } else if (
+    lastPlayDate !==
+    todayKey
+  ) {
 
-  position: absolute;
+    streak =
+      1;
 
-  top: 0;
-  left: 17%;
-  right: 17%;
+  }
 
-  height: 1px;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(210, 83, 255, 0.45),
-      rgba(255, 209, 73, 0.40),
-      transparent
-    );
-}
+  localStorage.setItem(
+    "marvalousSpinStreak",
+    String(
+      streak
+    )
+  );
 
-.info-number {
-  position: relative;
 
-  z-index: 2;
-
-  width: 39px;
-  height: 39px;
-
-  flex-shrink: 0;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  color:
-    var(--gold);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(105, 28, 172, 0.84),
-      rgba(27, 6, 38, 0.96)
-    );
-
-  border:
-    1px solid
-    rgba(239, 197, 85, 0.40);
-
-  box-shadow:
-    0 0 11px
-    rgba(169, 44, 245, 0.16);
-
-  font-family:
-    "DM Serif Display",
-    Georgia,
-    serif;
-
-  font-size: 15px;
-}
-
-.info-divider {
-  position: relative;
-
-  z-index: 2;
-
-  width: 1px;
-  height: 43px;
-
-  flex-shrink: 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      transparent,
-      rgba(239, 195, 81, 0.28),
-      transparent
-    );
-}
-
-.info-copy {
-  position: relative;
-
-  z-index: 2;
-
-  min-width: 0;
-}
-
-.info-copy strong {
-  display: block;
-
-  margin-bottom: 5px;
-
-  color:
-    #ffffff;
-
-  font-size: 9px;
-
-  line-height: 1.25;
-}
-
-.info-copy small {
-  display: block;
-
-  color:
-    rgba(255, 255, 255, 0.56);
-
-  font-size: 6.8px;
-
-  line-height: 1.45;
-}
-
-.info-card-icon {
-  position: absolute;
-
-  right: 9px;
-  bottom: 10px;
-
-  z-index: 0;
-
-  color:
-    rgba(134, 35, 200, 0.18);
-
-  font-size: 23px;
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   LATEST SPIN
-========================================================= */
-
-.recent-win-card {
-  position: relative;
-
-  overflow: hidden;
-
-  min-height: 151px;
-
-  margin-top: 15px;
-
-  padding:
-    20px 17px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 14px;
-
-  border-radius:
-    var(--radius-xl);
-
-  background:
-    radial-gradient(
-      circle at 86% 55%,
-      rgba(255, 178, 27, 0.17),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 14% 12%,
-      rgba(137, 33, 216, 0.18),
-      transparent 33%
-    ),
-    linear-gradient(
-      135deg,
-      rgba(25, 7, 31, 0.995),
-      rgba(7, 3, 9, 0.998)
-    );
-
-  border:
-    1px solid
-    rgba(239, 195, 82, 0.45);
-
-  box-shadow:
-    0 18px 42px
-    rgba(0, 0, 0, 0.38),
-
-    0 0 21px
-    rgba(154, 38, 230, 0.13),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.06);
-}
-
-.recent-win-card::after {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  left: 13%;
-  right: 13%;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(183, 51, 255, 0.62),
-      rgba(255, 205, 69, 0.63),
-      transparent
-    );
-}
-
-.recent-win-copy {
-  position: relative;
-
-  z-index: 2;
-
-  min-width: 0;
-
-  flex: 1;
-}
-
-.recent-win-heading {
-  display: flex;
-  align-items: center;
-
-  gap: 7px;
-
-  margin-bottom: 7px;
-}
-
-.recent-win-heading
-> span:first-child {
-  color:
-    var(--gold);
-
-  font-size: 7px;
-
-  font-weight: 900;
-
-  letter-spacing:
-    2px;
-}
-
-.recent-heading-line {
-  width: 46px;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(239, 194, 77, 0.59),
-      transparent
-    );
-}
-
-.recent-heading-star {
-  color:
-    #ffd65a;
-
-  font-size: 8px;
-}
-
-.recent-win-card h2 {
-  margin:
-    0 0 7px;
-
-  color:
-    #fff7d2;
-
-  font-family:
-    "DM Serif Display",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(
-      31px,
-      8.5vw,
-      42px
-    );
-
-  font-weight: 400;
-
-  line-height: 1;
-
-  text-shadow:
-    0 0 10px
-    rgba(255, 197, 53, 0.18),
-
-    0 4px 12px
-    rgba(0, 0, 0, 0.38);
-}
-
-.recent-win-card p {
-  margin: 0;
-
-  color:
-    rgba(255, 255, 255, 0.53);
-
-  font-size: 7.5px;
-
-  line-height: 1.4;
-
-  letter-spacing:
-    0.1px;
-}
-
-.view-rewards-button {
-  min-height: 36px;
-
-  margin-top: 13px;
-
-  padding:
-    0 14px;
-
-  border:
-    1px solid
-    rgba(220, 80, 255, 0.59);
-
-  border-radius: 999px;
-
-  color:
-    #ffffff;
-
-  cursor: pointer;
-
-  background:
-    linear-gradient(
-      135deg,
-      #7421ba,
-      #3b0b56
-    );
-
-  box-shadow:
-    0 0 14px
-    rgba(179, 43, 255, 0.25),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.10);
-
-  font-size: 7px;
-
-  font-weight: 900;
-
-  letter-spacing:
-    0.9px;
-}
-
-.recent-win-medallion {
-  position: relative;
-
-  z-index: 2;
-
-  width: 79px;
-  height: 79px;
-
-  flex-shrink: 0;
-
-  display: grid;
-  place-items: center;
-}
-
-.recent-win-orbit {
-  position: absolute;
-
-  border-radius: 50%;
-
-  border:
-    1px solid
-    rgba(245, 198, 70, 0.12);
-}
-
-.orbit-1 {
-  width: 79px;
-  height: 79px;
-}
-
-.orbit-2 {
-  width: 64px;
-  height: 64px;
-}
-
-.recent-win-icon {
-  width: 52px;
-  height: 52px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  color:
-    #ffd65c;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(71, 21, 60, 0.90),
-      rgba(16, 5, 18, 0.96)
-    );
-
-  border:
-    1px solid
-    rgba(239, 191, 67, 0.54);
-
-  box-shadow:
-    0 0 18px
-    rgba(255, 184, 32, 0.22),
-
-    0 0 30px
-    rgba(168, 41, 244, 0.14);
-
-  font-size: 22px;
-}
-
-
-/* =========================================================
-   FOOTER STRIP
-========================================================= */
-
-.premium-footer-strip {
-  position: relative;
-
-  min-height: 53px;
-
-  margin-top: 15px;
-
-  padding:
-    0 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  border-radius: 999px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(17, 6, 21, 0.98),
-      rgba(5, 2, 7, 0.99)
-    );
-
-  border:
-    1px solid
-    rgba(239, 194, 75, 0.39);
-
-  box-shadow:
-    0 12px 28px
-    rgba(0, 0, 0, 0.33),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.05);
-}
-
-.footer-item {
-  min-width: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 5px;
-
-  color:
-    rgba(255, 255, 255, 0.84);
-
-  font-size: 6px;
-
-  font-weight: 800;
-
-  letter-spacing:
-    0.45px;
-
-  white-space: nowrap;
-}
-
-.footer-icon {
-  color:
-    #c24cff;
-
-  font-size: 11px;
-
-  text-shadow:
-    0 0 8px
-    rgba(194, 76, 255, 0.45);
-}
-
-.footer-separator {
-  width: 1px;
-  height: 21px;
-
-  flex-shrink: 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      transparent,
-      rgba(239, 194, 76, 0.32),
-      transparent
-    );
-}
-
-
-/* =========================================================
-   RESULT MODAL
-========================================================= */
-
-.result-modal {
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 9999;
-
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-
-  padding:
-    calc(14px + env(safe-area-inset-top))
-    12px
-    calc(20px + env(safe-area-inset-bottom));
-
-  overflow-y: auto;
-
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-
-  background:
-    rgba(2, 0, 3, 0.88);
-
-  backdrop-filter:
-    blur(17px);
-
-  -webkit-backdrop-filter:
-    blur(17px);
-
-  transition:
-    opacity 0.26s ease,
-    visibility 0.26s ease;
-}
-
-.result-modal.show {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.result-card {
-  position: relative;
-
-  width:
-    min(
-      100%,
-      420px
-    );
-
-  margin: auto;
-
-  padding:
-    59px 20px
-    24px;
-
-  text-align: center;
-
-  border-radius:
-    30px;
-
-  background:
-    radial-gradient(
-      circle at 50% -4%,
-      rgba(165, 42, 246, 0.31),
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 100% 36%,
-      rgba(255, 183, 27, 0.09),
-      transparent 38%
-    ),
-    linear-gradient(
-      180deg,
-      #180721,
-      #09030d 48%,
-      #040205
-    );
-
-  border:
-    1px solid
-    rgba(239, 195, 81, 0.40);
-
-  box-shadow:
-    0 30px 90px
-    rgba(0, 0, 0, 0.74),
-
-    0 0 35px
-    rgba(156, 39, 232, 0.23),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.07);
-
-  transform:
-    translateY(15px)
-    scale(0.98);
-
-  transition:
-    transform 0.28s ease;
-}
-
-.result-modal.show
-.result-card {
-  transform:
-    translateY(0)
-    scale(1);
-}
-
-.result-top-glow {
-  position: absolute;
-
-  width: 210px;
-  height: 120px;
-
-  top: -78px;
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(183, 45, 255, 0.27),
-      transparent 70%
-    );
-}
-
-
-/* =========================================================
-   RESULT CLOSE BUTTON
-========================================================= */
-
-.result-close-x {
-  position: absolute;
-
-  top: 13px;
-  right: 13px;
-
-  z-index: 30;
-
-  width: 42px;
-  height: 42px;
-
-  padding: 0;
-
-  display: grid;
-  place-items: center;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.12);
-
-  border-radius: 50%;
-
-  color:
-    rgba(255, 255, 255, 0.84);
-
-  background:
-    rgba(255, 255, 255, 0.05);
-
-  cursor: pointer;
-
-  font-size: 24px;
-}
-
-
-/* =========================================================
-   RESULT LOGO
-========================================================= */
-
-.result-kicker {
-  display: block;
-
-  color:
-    var(--gold);
-
-  font-size: 8px;
-
-  font-weight: 900;
-
-  letter-spacing:
-    2.3px;
-}
-
-.result-icon {
-  width: 84px;
-  height: 84px;
-
-  margin:
-    17px auto
-    16px;
-
-  padding: 4px;
-
-  overflow: hidden;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      140deg,
-      #fff0a2,
-      #dca22e 23%,
-      #81500d 39%,
-      #f6d167 61%,
-      #a8640e 82%
-    );
-
-  border:
-    1px solid
-    rgba(255, 239, 177, 0.83);
-
-  box-shadow:
-    0 0 19px
-    rgba(255, 191, 40, 0.20),
-
-    0 0 31px
-    rgba(166, 42, 247, 0.18);
-}
-
-.result-logo-image {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: contain;
-
-  border-radius: 50%;
-}
-
-.result-card h2 {
-  margin:
-    0 0
-    9px;
-
-  color:
-    #ffffff;
-
-  font-family:
-    "DM Serif Display",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(
-      31px,
-      8vw,
-      43px
-    );
-
-  font-weight: 400;
-
-  line-height: 1;
-}
-
-.result-message {
-  margin:
-    0 auto;
-
-  max-width: 330px;
-
-  color:
-    var(--muted);
-
-  font-size: 11px;
-
-  line-height: 1.55;
-}
-
-
-/* =========================================================
-   WIN RESULT CONTENT
-========================================================= */
-
-.claim-prize-name {
-  display: block;
-
-  margin:
-    8px 0
-    14px;
-
-  color: transparent;
-
-  background:
-    linear-gradient(
-      180deg,
-      #fff6c1,
-      #efc354 54%,
-      #b66d14
-    );
-
-  -webkit-background-clip: text;
-  background-clip: text;
-
-  font-family:
-    "DM Serif Display",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(
-      29px,
-      8vw,
-      40px
-    );
-
-  line-height: 1;
-
-  font-weight: 400;
-
-  text-transform: uppercase;
-}
-
-.claim-detail {
-  margin:
-    8px 0;
-
-  color:
-    rgba(255, 255, 255, 0.69);
-
-  font-size: 10px;
-}
-
-.claim-before-code-message,
-.claim-success-message {
-  margin:
-    16px auto
-    5px;
-
-  max-width: 280px;
-
-  color:
-    rgba(255, 255, 255, 0.64);
-
-  font-size: 10px;
-
-  line-height: 1.5;
-}
-
-
-/* =========================================================
-   CLAIM FORM
-========================================================= */
-
-.claim-form {
-  margin-top: 16px;
-
-  text-align: left;
-}
-
-.claim-form label {
-  display: block;
-
-  margin:
-    12px 0
-    6px;
-
-  color:
-    rgba(255, 255, 255, 0.72);
-
-  font-size: 9px;
-
-  font-weight: 800;
-}
-
-.claim-form input {
-  width: 100%;
-
-  min-height: 54px;
-
-  padding:
-    14px 15px;
-
-  border:
-    1px solid
-    rgba(191, 63, 255, 0.29);
-
-  border-radius:
-    16px;
-
-  outline: none;
-
-  color:
-    #ffffff;
-
-  background:
-    rgba(3, 1, 5, 0.80);
-
-  box-shadow:
-    inset 0 1px 9px
-    rgba(0, 0, 0, 0.30);
-
-  font-size: 16px;
-}
-
-.claim-form input::placeholder {
-  color:
-    rgba(255, 255, 255, 0.28);
-}
-
-.claim-form input:focus {
-  border-color:
-    rgba(242, 199, 79, 0.58);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(243, 198, 73, 0.05),
-
-    0 0 14px
-    rgba(169, 44, 247, 0.12);
-}
-
-
-/* =========================================================
-   CLAIM BUTTON
-========================================================= */
-
-.claim-submit-button {
-  width: 100%;
-
-  min-height: 55px;
-
-  margin-top: 16px;
-
-  border:
-    1px solid
-    rgba(255, 241, 184, 0.57);
-
-  border-radius: 999px;
-
-  color:
-    #241300;
-
-  cursor: pointer;
-
-  background:
-    linear-gradient(
-      135deg,
-      #fff0a8,
-      #e5b23e,
-      #b56c10
-    );
-
-  box-shadow:
-    0 11px 23px
-    rgba(0, 0, 0, 0.29),
-
-    0 0 18px
-    rgba(255, 194, 37, 0.14),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.66);
-
-  font-size: 10px;
-
-  font-weight: 900;
-
-  text-transform: uppercase;
-
-  letter-spacing:
-    0.75px;
-}
-
-.claim-submit-button:disabled {
-  opacity: 0.58;
-
-  cursor: not-allowed;
-}
-
-.claim-status {
-  min-height: 18px;
-
-  margin:
-    10px 0 0;
-
-  color:
-    rgba(255, 255, 255, 0.63);
-
-  text-align: center;
-
-  font-size: 9px;
-}
-
-
-/* =========================================================
-   REVEALED CODE
-========================================================= */
-
-.claim-code-box {
-  margin:
-    17px 0;
-
-  padding:
-    18px 15px;
-
-  border-radius:
-    21px;
-
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(255, 205, 72, 0.12),
-      transparent 58%
-    ),
-    radial-gradient(
-      circle at 5% 50%,
-      rgba(145, 35, 223, 0.14),
-      transparent 40%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.042),
-      rgba(255, 255, 255, 0.012)
-    );
-
-  border:
-    1px solid
-    rgba(239, 197, 83, 0.33);
-}
-
-.claim-code-box span {
-  display: block;
-
-  margin-bottom: 8px;
-
-  color:
-    rgba(255, 255, 255, 0.58);
-
-  font-size: 9px;
-
-  font-weight: 800;
-
-  text-transform: uppercase;
-
-  letter-spacing: 1px;
-}
-
-.claim-code-box strong {
-  display: block;
-
-  color:
-    #ffe487;
-
-  font-size:
-    clamp(
-      26px,
-      8vw,
-      36px
-    );
-
-  line-height: 1;
-
-  font-weight: 900;
-
-  letter-spacing: 2px;
-
-  overflow-wrap: anywhere;
-}
-
-.claim-copy-button {
-  width: 100%;
-
-  min-height: 45px;
-
-  margin-top: 14px;
-
-  border:
-    1px solid
-    rgba(216, 96, 255, 0.34);
-
-  border-radius: 999px;
-
-  color:
-    #ffffff;
-
-  cursor: pointer;
-
-  background:
-    linear-gradient(
-      145deg,
-      #7624b9,
-      #3a0b54
-    );
-
-  box-shadow:
-    0 0 15px
-    rgba(173, 45, 248, 0.23);
-
-  font-size: 9px;
-
-  font-weight: 900;
-
-  text-transform: uppercase;
-
-  letter-spacing:
-    0.8px;
-}
-
-
-/* =========================================================
-   RESULT DONE BUTTON
-========================================================= */
-
-.result-continue-button,
-#closeResultButton {
-  width: 100%;
-
-  min-height: 52px;
-
-  margin-top: 19px;
-
-  border:
-    1px solid
-    rgba(255, 239, 174, 0.53);
-
-  border-radius: 999px;
-
-  color:
-    #241300;
-
-  cursor: pointer;
-
-  background:
-    linear-gradient(
-      135deg,
-      #fff1aa,
-      #e5b43f 48%,
-      #b67213
-    );
-
-  font-size: 9px;
-
-  font-weight: 900;
-
-  text-transform: uppercase;
-
-  letter-spacing:
-    0.8px;
-}
-
-
-/* =========================================================
-   VIEW ALL REWARDS MODAL
-========================================================= */
-
-.rewards-modal {
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 9998;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding:
-    calc(17px + env(safe-area-inset-top))
-    13px
-    calc(17px + env(safe-area-inset-bottom));
-
-  overflow-y: auto;
-
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-
-  background:
-    rgba(2, 0, 4, 0.88);
-
-  backdrop-filter:
-    blur(17px);
-
-  -webkit-backdrop-filter:
-    blur(17px);
-
-  transition:
-    opacity 0.25s ease,
-    visibility 0.25s ease;
-}
-
-.rewards-modal.show {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.rewards-modal-card {
-  position: relative;
-
-  width:
-    min(
-      100%,
-      420px
-    );
-
-  margin: auto;
-
-  padding:
-    53px 19px
-    21px;
-
-  text-align: center;
-
-  border-radius:
-    30px;
-
-  background:
-    radial-gradient(
-      circle at 50% -5%,
-      rgba(170, 43, 249, 0.30),
-      transparent 34%
-    ),
-    linear-gradient(
-      180deg,
-      #190722,
-      #09030d 48%,
-      #040205
-    );
-
-  border:
-    1px solid
-    rgba(239, 196, 83, 0.41);
-
-  box-shadow:
-    0 30px 90px
-    rgba(0, 0, 0, 0.74),
-
-    0 0 36px
-    rgba(163, 41, 239, 0.23);
-}
-
-.rewards-close-x {
-  position: absolute;
-
-  top: 13px;
-  right: 13px;
-
-  width: 41px;
-  height: 41px;
-
-  padding: 0;
-
-  display: grid;
-  place-items: center;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.12);
-
-  border-radius: 50%;
-
-  color:
-    rgba(255, 255, 255, 0.84);
-
-  background:
-    rgba(255, 255, 255, 0.05);
-
-  cursor: pointer;
-
-  font-size: 24px;
-}
-
-.rewards-kicker {
-  display: block;
-
-  color:
-    var(--gold);
-
-  font-size: 8px;
-
-  font-weight: 900;
-
-  letter-spacing:
-    2.3px;
-}
-
-.rewards-star {
-  width: 57px;
-  height: 57px;
-
-  margin:
-    14px auto
-    11px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  color:
-    #ffd65d;
-
-  background:
-    linear-gradient(
-      145deg,
-      #681ca7,
-      #270637
-    );
-
-  border:
-    1px solid
-    rgba(239, 194, 74, 0.48);
-
-  box-shadow:
-    0 0 18px
-    rgba(179, 45, 252, 0.22);
-
-  font-size: 22px;
-}
-
-.rewards-modal-card h2 {
-  margin:
-    0 0
-    7px;
-
-  color:
-    #ffffff;
-
-  font-family:
-    "DM Serif Display",
-    Georgia,
-    serif;
-
-  font-size: 33px;
-
-  font-weight: 400;
-
-  line-height: 1;
-}
-
-.rewards-intro {
-  margin:
-    0 auto
-    17px;
-
-  color:
-    rgba(255, 255, 255, 0.60);
-
-  font-size: 9px;
-
-  line-height: 1.5;
-}
-
-.rewards-list {
-  display: grid;
-
-  gap: 9px;
-
-  text-align: left;
-}
-
-.reward-list-item {
-  min-height: 67px;
-
-  padding:
-    12px 14px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 11px;
-
-  border-radius: 18px;
-
-  background:
-    radial-gradient(
-      circle at 5% 30%,
-      rgba(133, 31, 213, 0.17),
-      transparent 36%
-    ),
-    linear-gradient(
-      135deg,
-      rgba(27, 8, 34, 0.98),
-      rgba(7, 3, 10, 0.99)
-    );
-
-  border:
-    1px solid
-    rgba(192, 64, 255, 0.21);
-}
-
-.reward-list-icon {
-  width: 40px;
-  height: 40px;
-
-  flex-shrink: 0;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  color:
-    #ffda64;
-
-  background:
-    linear-gradient(
-      145deg,
-      #6c1cb1,
-      #29063a
-    );
-
-  border:
-    1px solid
-    rgba(239, 193, 74, 0.42);
-
-  font-size: 16px;
-}
-
-.reward-list-copy {
-  min-width: 0;
-}
-
-.reward-list-copy strong {
-  display: block;
-
-  margin-bottom: 4px;
-
-  color:
-    #ffffff;
-
-  font-size: 10px;
-}
-
-.reward-list-copy small {
-  display: block;
-
-  color:
-    rgba(255, 255, 255, 0.54);
-
-  font-size: 8px;
-
-  line-height: 1.45;
-}
-
-.rewards-close-button {
-  width: 100%;
-
-  min-height: 49px;
-
-  margin-top: 16px;
-
-  border:
-    1px solid
-    rgba(255, 240, 180, 0.52);
-
-  border-radius: 999px;
-
-  color:
-    #261300;
-
-  cursor: pointer;
-
-  background:
-    linear-gradient(
-      135deg,
-      #fff1aa,
-      #e6b23e,
-      #b66e11
-    );
-
-  font-size: 9px;
-
-  font-weight: 900;
-
-  text-transform: uppercase;
-
-  letter-spacing: 1px;
+  localStorage.setItem(
+    "marvalousSpinLastPlayDate",
+    todayKey
+  );
 }
 
 
@@ -3230,363 +1952,654 @@ span:last-child {
    CONFETTI
 ========================================================= */
 
-.confetti-piece {
-  position: fixed;
+function launchConfetti() {
 
-  z-index: 10000;
+  const colours = [
 
-  width: 8px;
-  height: 14px;
+    "#f2c94c",
 
-  pointer-events: none;
+    "#fff1a8",
 
-  animation:
-    confettiFall
-    1.8s
-    ease-out
-    forwards;
-}
+    "#bb3dff",
 
-@keyframes confettiFall {
-  0% {
-    opacity: 1;
+    "#ffffff",
 
-    transform:
-      translate3d(
-        0,
-        -20px,
-        0
-      )
-      rotate(0deg);
-  }
+    "#7c22d3",
 
-  100% {
-    opacity: 0;
+    "#ffcf52"
 
-    transform:
-      translate3d(
-        var(--fall-x),
-        105vh,
-        0
-      )
-      rotate(780deg);
-  }
-}
+  ];
 
 
-/* =========================================================
-   SMALL PHONES
-========================================================= */
+  for (
+    let index = 0;
+    index < 90;
+    index++
+  ) {
 
-@media (max-width: 390px) {
-
-  body {
-    padding-left: 9px;
-    padding-right: 9px;
-  }
-
-  .brand-medallion {
-    width: 64px;
-    height: 64px;
-  }
-
-  .brand-logo-image {
-    width: 95%;
-    height: 95%;
-  }
-
-  .header-kicker {
-    font-size: 7px;
-
-    letter-spacing:
-      2px;
-  }
-
-  .game-header h1 {
-    font-size: 30px;
-  }
-
-  .header-daily-badge {
-    min-height: 27px;
-
-    padding:
-      0 10px;
-
-    font-size: 5.7px;
-
-    letter-spacing:
-      1.15px;
-  }
-
-  .hero-panel {
-    padding:
-      26px 10px
-      18px;
-
-    border-radius: 27px;
-  }
-
-  .hero-line-white {
-    font-size: 33px;
-  }
-
-  .hero-line-gold {
-    font-size: 38px;
-  }
-
-  .hero-copy p {
-    font-size: 9px;
-  }
-
-  .hero-sparkle {
-    top: 163px;
-  }
-
-  .hero-sparkle-left {
-    left: 23%;
-  }
-
-  .hero-sparkle-right {
-    right: 23%;
-  }
-
-  .wheel-frame {
-    width:
-      min(
-        100%,
-        335px
+    const piece =
+      document.createElement(
+        "span"
       );
 
-    padding: 15px;
+
+    piece.className =
+      "confetti-piece";
+
+
+    piece.style.left =
+      `${
+        Math.random() *
+        100
+      }vw`;
+
+
+    piece.style.top =
+      `${
+        -20 -
+        Math.random() *
+        100
+      }px`;
+
+
+    piece.style.background =
+      colours[
+        Math.floor(
+          Math.random() *
+          colours.length
+        )
+      ];
+
+
+    piece.style.setProperty(
+      "--fall-x",
+      `${
+        Math.random() *
+        200 -
+        100
+      }px`
+    );
+
+
+    piece.style.animationDelay =
+      `${
+        Math.random() *
+        0.45
+      }s`;
+
+
+    document.body.appendChild(
+      piece
+    );
+
+
+    window.setTimeout(
+      () => {
+
+        piece.remove();
+
+      },
+      2600
+    );
+
   }
-
-  .wheel-label {
-    width: 77px;
-
-    font-size: 8px;
-  }
-
-  .label-1 {
-    transform:
-      translate(-50%, -50%)
-      rotate(0deg)
-      translateY(-98px)
-      rotate(0deg);
-  }
-
-  .label-2 {
-    transform:
-      translate(-50%, -50%)
-      rotate(45deg)
-      translateY(-98px)
-      rotate(-45deg);
-  }
-
-  .label-3 {
-    transform:
-      translate(-50%, -50%)
-      rotate(90deg)
-      translateY(-98px)
-      rotate(-90deg);
-  }
-
-  .label-4 {
-    transform:
-      translate(-50%, -50%)
-      rotate(135deg)
-      translateY(-98px)
-      rotate(-135deg);
-  }
-
-  .label-5 {
-    transform:
-      translate(-50%, -50%)
-      rotate(180deg)
-      translateY(-98px)
-      rotate(-180deg);
-  }
-
-  .label-6 {
-    transform:
-      translate(-50%, -50%)
-      rotate(225deg)
-      translateY(-98px)
-      rotate(-225deg);
-  }
-
-  .label-7 {
-    transform:
-      translate(-50%, -50%)
-      rotate(270deg)
-      translateY(-98px)
-      rotate(-270deg);
-  }
-
-  .label-8 {
-    transform:
-      translate(-50%, -50%)
-      rotate(315deg)
-      translateY(-98px)
-      rotate(-315deg);
-  }
-
-  .spin-button {
-    width: 101px;
-    height: 101px;
-  }
-
-  .spin-button-inner {
-    font-size: 24px;
-  }
-
-  .wheel-light {
-    width: 9px;
-    height: 9px;
-
-    margin:
-      -4.5px 0 0
-      -4.5px;
-  }
-
-  .info-grid {
-    gap: 8px;
-  }
-
-  .info-card {
-    min-height: 91px;
-
-    padding:
-      11px 8px;
-
-    gap: 6px;
-  }
-
-  .info-number {
-    width: 36px;
-    height: 36px;
-
-    font-size: 14px;
-  }
-
-  .info-divider {
-    height: 39px;
-  }
-
-  .info-copy strong {
-    font-size: 8px;
-  }
-
-  .info-copy small {
-    font-size: 6.2px;
-  }
-
-  .recent-win-card {
-    min-height: 140px;
-
-    padding:
-      18px 14px;
-  }
-
-  .recent-win-medallion {
-    width: 72px;
-    height: 72px;
-  }
-
-  .orbit-1 {
-    width: 72px;
-    height: 72px;
-  }
-
-  .orbit-2 {
-    width: 58px;
-    height: 58px;
-  }
-
-  .recent-win-icon {
-    width: 49px;
-    height: 49px;
-  }
-
-  .premium-footer-strip {
-    gap: 5px;
-
-    padding:
-      0 7px;
-  }
-
-  .footer-item {
-    font-size: 5.6px;
-  }
-
 }
 
 
 /* =========================================================
-   DESKTOP / TABLET
+   CLOSE RESULT
 ========================================================= */
 
-@media (min-width: 700px) {
+function closeResult() {
 
-  body {
-    padding-top: 30px;
-  }
+  if (resultModal) {
 
-  .game-shell {
-    width:
-      min(
-        100%,
-        590px
+    resultModal
+      .classList
+      .remove(
+        "show"
       );
+
+
+    resultModal.scrollTop =
+      0;
+
   }
 
-  .game-header {
-    grid-template-columns:
-      auto 1fr auto;
 
-    row-gap: 0;
+  /*
+    Stop winner music if still playing.
+  */
+
+  celebrationSound.pause();
+
+  celebrationSound.currentTime =
+    0;
+
+
+  /*
+    Return wheel to its tidy upright
+    starting position.
+  */
+
+  resetWheelPosition();
+
+
+  if (TEST_MODE) {
+
+    if (spinButton) {
+
+      spinButton.disabled =
+        false;
+
+    }
+
+
+    setStatus(
+      "Test mode: spin again whenever you’re ready"
+    );
+
   }
+}
 
-  .brand-medallion {
-    grid-row: 1;
-  }
 
-  .header-copy {
-    grid-column: 2;
-  }
+/* =========================================================
+   RESULT MODAL EVENTS
+========================================================= */
 
-  .header-daily-badge {
-    grid-column: 3;
+if (closeResultButton) {
 
-    align-self: center;
-  }
+  closeResultButton.addEventListener(
+    "click",
+    closeResult
+  );
 
-  .hero-panel {
-    padding:
-      31px 25px
-      24px;
-  }
+}
 
-  .wheel-frame {
-    width: 392px;
-  }
+
+if (resultCloseX) {
+
+  resultCloseX.addEventListener(
+    "click",
+    closeResult
+  );
+
+}
+
+
+if (resultModal) {
+
+  resultModal.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        resultModal
+      ) {
+
+        closeResult();
+
+      }
+
+    }
+  );
 
 }
 
 
 /* =========================================================
-   REDUCED MOTION
+   VIEW ALL REWARDS
 ========================================================= */
 
-@media (
-  prefers-reduced-motion:
-  reduce
+const viewRewardsButton =
+  document.querySelector(
+    ".view-rewards-button"
+  );
+
+const rewardsModal =
+  document.getElementById(
+    "rewardsModal"
+  );
+
+const rewardsList =
+  document.getElementById(
+    "rewardsList"
+  );
+
+const rewardsCloseX =
+  document.getElementById(
+    "rewardsCloseX"
+  );
+
+const rewardsCloseButton =
+  document.getElementById(
+    "rewardsCloseButton"
+  );
+
+
+/* =========================================================
+   BUILD REWARDS LIST
+========================================================= */
+
+function buildRewardsList() {
+
+  if (!rewardsList) {
+
+    return;
+
+  }
+
+
+  /*
+    Don't show TRY AGAIN / NO PRIZE
+    in the rewards popup.
+  */
+
+  const availableRewards =
+    wheelPrizes.filter(
+      prize => {
+
+        const name =
+          String(
+            prize.prize || ""
+          )
+            .trim()
+            .toUpperCase();
+
+
+        return (
+
+          name !==
+            "TRY AGAIN" &&
+
+          name !==
+            "NO PRIZE"
+
+        );
+
+      }
+    );
+
+
+  /*
+    Remove duplicates.
+  */
+
+  const uniqueRewards =
+    [];
+
+  const seenRewards =
+    new Set();
+
+
+  availableRewards.forEach(
+    prize => {
+
+      const key =
+        String(
+          prize.prize || ""
+        )
+          .trim()
+          .toLowerCase();
+
+
+      if (
+        seenRewards.has(
+          key
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      seenRewards.add(
+        key
+      );
+
+
+      uniqueRewards.push(
+        prize
+      );
+
+    }
+  );
+
+
+  if (
+    !uniqueRewards.length
+  ) {
+
+    rewardsList.innerHTML = `
+      <div class="reward-list-item">
+
+        <div class="reward-list-icon">
+          ✦
+        </div>
+
+        <div class="reward-list-copy">
+
+          <strong>
+            Rewards loading
+          </strong>
+
+          <small>
+            Please wait a moment while
+            today’s rewards load.
+          </small>
+
+        </div>
+
+      </div>
+    `;
+
+
+    return;
+  }
+
+
+  rewardsList.innerHTML =
+    uniqueRewards
+      .map(
+        prize => {
+
+          const detailLines =
+            [];
+
+
+          if (
+            prize.minSpend &&
+            prize.minSpend !== "0" &&
+            String(
+              prize.minSpend
+            )
+              .toLowerCase() !== "none"
+          ) {
+
+            detailLines.push(
+              `Minimum spend £${escapeHtml(
+                prize.minSpend
+              )}`
+            );
+
+          }
+
+
+          if (
+            prize.expiry &&
+            String(
+              prize.expiry
+            )
+              .toLowerCase() !== "none"
+          ) {
+
+            detailLines.push(
+              `Valid for ${escapeHtml(
+                prize.expiry
+              )}`
+            );
+
+          }
+
+
+          const detailText =
+            detailLines.length
+
+              ? detailLines.join(
+                  " · "
+                )
+
+              : "Available on today’s wheel";
+
+
+          return `
+            <div class="reward-list-item">
+
+              <div
+                class="reward-list-icon"
+                aria-hidden="true"
+              >
+                ★
+              </div>
+
+              <div class="reward-list-copy">
+
+                <strong>
+                  ${escapeHtml(
+                    prize.prize
+                  )}
+                </strong>
+
+                <small>
+                  ${detailText}
+                </small>
+
+              </div>
+
+            </div>
+          `;
+
+        }
+      )
+      .join("");
+}
+
+
+/* =========================================================
+   OPEN REWARDS
+========================================================= */
+
+function openRewardsModal() {
+
+  if (!rewardsModal) {
+
+    return;
+
+  }
+
+
+  buildRewardsList();
+
+
+  rewardsModal
+    .classList
+    .add(
+      "show"
+    );
+
+
+  rewardsModal.scrollTop =
+    0;
+
+
+  document.body.style.overflow =
+    "hidden";
+}
+
+
+/* =========================================================
+   CLOSE REWARDS
+========================================================= */
+
+function closeRewardsModal() {
+
+  if (!rewardsModal) {
+
+    return;
+
+  }
+
+
+  rewardsModal
+    .classList
+    .remove(
+      "show"
+    );
+
+
+  document.body.style.overflow =
+    "";
+}
+
+
+/* =========================================================
+   REWARDS EVENTS
+========================================================= */
+
+if (viewRewardsButton) {
+
+  viewRewardsButton.addEventListener(
+    "click",
+    openRewardsModal
+  );
+
+}
+
+
+if (rewardsCloseX) {
+
+  rewardsCloseX.addEventListener(
+    "click",
+    closeRewardsModal
+  );
+
+}
+
+
+if (rewardsCloseButton) {
+
+  rewardsCloseButton.addEventListener(
+    "click",
+    closeRewardsModal
+  );
+
+}
+
+
+if (rewardsModal) {
+
+  rewardsModal.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        rewardsModal
+      ) {
+
+        closeRewardsModal();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key !==
+      "Escape"
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      rewardsModal
+        ?.classList
+        .contains(
+          "show"
+        )
+    ) {
+
+      closeRewardsModal();
+
+      return;
+
+    }
+
+
+    if (
+      resultModal
+        ?.classList
+        .contains(
+          "show"
+        )
+    ) {
+
+      closeResult();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   SAFE DYNAMIC TEXT
+========================================================= */
+
+function escapeHtml(
+  value = ""
 ) {
 
-  .hero-panel,
-  .hero-sparkle,
-  .wheel-light,
-  .spin-button {
-    animation: none;
-  }
+  return String(
+    value
+  ).replace(
+    /[&<>"']/g,
+    character => ({
 
-     }
+      "&":
+        "&amp;",
+
+      "<":
+        "&lt;",
+
+      ">":
+        "&gt;",
+
+      '"':
+        "&quot;",
+
+      "'":
+        "&#039;"
+
+    })[
+      character
+    ]
+  );
+}
+
+
+/* =========================================================
+   SPIN BUTTON EVENT
+========================================================= */
+
+if (spinButton) {
+
+  spinButton.addEventListener(
+    "click",
+    spinWheel
+  );
+
+}
+
+
+/* =========================================================
+   START GAME
+========================================================= */
+
+loadSettings();
