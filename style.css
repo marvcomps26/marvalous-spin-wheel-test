@@ -3399,33 +3399,43 @@ body::after {
 
   /* MARV CENTRE - MOBILE */
 
-  .spin-button {
-    width: 148px;
-    height: 148px;
-  }
+ .spin-button {
+  width: 138px;
+  height: 150px;
+}
 
-  .spin-marv-circle {
-    width: 132px;
-    height: 132px;
-  }
+.spin-marv-circle {
+  width: 124px;
+  height: 124px;
+  top: 0;
+}
 
-  .spin-marv-image {
-    width: 158%;
-    height: 158%;
+.spin-marv-image {
+  width: 145%;
+  height: 145%;
 
-    top: 48%;
-  }
+  top: 48%;
+}
 
-  .spin-marv-label {
-    min-width: 108px;
-    height: 39px;
+.spin-marv-label {
+  min-width: 100px;
+  height: 35px;
 
-    padding:
-      0 15px;
+  bottom: 0;
 
-    font-size: 25px;
-  }
+  padding:
+    0 11px;
 
+  font-size: 23px;
+}
+
+.spin-marv-label::before {
+  margin-right: 6px;
+}
+
+.spin-marv-label::after {
+  margin-left: 6px;
+} 
 
   .wheel-light {
     width: 9px;
