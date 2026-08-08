@@ -153,8 +153,7 @@ body::after {
   top: 200px;
   left: 50%;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
   pointer-events: none;
 
@@ -168,8 +167,7 @@ body::after {
       transparent 70%
     );
 
-  filter:
-    blur(55px);
+  filter: blur(55px);
 }
 
 .page-ambient {
@@ -201,8 +199,7 @@ body::after {
       transparent 68%
     );
 
-  filter:
-    blur(35px);
+  filter: blur(35px);
 }
 
 
@@ -274,17 +271,10 @@ body::after {
     );
 
   box-shadow:
-    0 0 0 3px
-    rgba(255, 212, 74, 0.11),
-
-    0 0 24px
-    rgba(255, 199, 44, 0.28),
-
-    0 0 38px
-    rgba(164, 43, 242, 0.38),
-
-    0 12px 26px
-    rgba(0, 0, 0, 0.44);
+    0 0 0 3px rgba(255, 212, 74, 0.11),
+    0 0 24px rgba(255, 199, 44, 0.28),
+    0 0 38px rgba(164, 43, 242, 0.38),
+    0 12px 26px rgba(0, 0, 0, 0.44);
 }
 
 .brand-medallion::before {
@@ -328,11 +318,8 @@ body::after {
     rgba(255, 255, 255, 0.12);
 
   box-shadow:
-    inset 0 1px 1px
-    rgba(255, 255, 255, 0.14),
-
-    inset 0 -8px 16px
-    rgba(0, 0, 0, 0.28);
+    inset 0 1px 1px rgba(255, 255, 255, 0.14),
+    inset 0 -8px 16px rgba(0, 0, 0, 0.28);
 }
 
 .brand-logo-image {
@@ -438,11 +425,8 @@ body::after {
     rgba(255, 210, 76, 0.56);
 
   box-shadow:
-    0 0 14px
-    rgba(255, 196, 44, 0.10),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.08);
+    0 0 14px rgba(255, 196, 44, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   font-size: 6px;
 
@@ -454,10 +438,8 @@ body::after {
   white-space: nowrap;
 }
 
-.header-daily-badge
-span:first-child,
-.header-daily-badge
-span:last-child {
+.header-daily-badge span:first-child,
+.header-daily-badge span:last-child {
   color:
     #ffd75b;
 
@@ -510,14 +492,9 @@ span:last-child {
     rgba(239, 198, 86, 0.44);
 
   box-shadow:
-    0 28px 70px
-    rgba(0, 0, 0, 0.59),
-
-    0 0 30px
-    rgba(161, 44, 240, 0.17),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.07);
+    0 28px 70px rgba(0, 0, 0, 0.59),
+    0 0 30px rgba(161, 44, 240, 0.17),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
 
   animation:
     heroBreath
@@ -583,26 +560,16 @@ span:last-child {
   0%,
   100% {
     box-shadow:
-      0 28px 70px
-      rgba(0, 0, 0, 0.59),
-
-      0 0 24px
-      rgba(157, 43, 234, 0.13),
-
-      inset 0 1px 0
-      rgba(255, 255, 255, 0.07);
+      0 28px 70px rgba(0, 0, 0, 0.59),
+      0 0 24px rgba(157, 43, 234, 0.13),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
   }
 
   50% {
     box-shadow:
-      0 28px 70px
-      rgba(0, 0, 0, 0.59),
-
-      0 0 41px
-      rgba(178, 50, 255, 0.24),
-
-      inset 0 1px 0
-      rgba(255, 255, 255, 0.08);
+      0 28px 70px rgba(0, 0, 0, 0.59),
+      0 0 41px rgba(178, 50, 255, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 }
 
@@ -716,11 +683,8 @@ span:last-child {
   pointer-events: none;
 
   text-shadow:
-    0 0 9px
-    rgba(207, 70, 255, 0.83),
-
-    0 0 18px
-    rgba(176, 42, 255, 0.43);
+    0 0 9px rgba(207, 70, 255, 0.83),
+    0 0 18px rgba(176, 42, 255, 0.43);
 
   animation:
     sparklePulse
@@ -972,26 +936,13 @@ span:last-child {
     rgba(255, 246, 194, 0.97);
 
   box-shadow:
-    0 0 0 4px
-    rgba(255, 215, 82, 0.09),
-
-    0 0 0 7px
-    rgba(152, 34, 218, 0.16),
-
-    0 0 33px
-    rgba(255, 205, 57, 0.48),
-
-    0 0 56px
-    rgba(187, 48, 255, 0.41),
-
-    0 27px 52px
-    rgba(0, 0, 0, 0.64),
-
-    inset 0 2px 2px
-    rgba(255, 255, 255, 0.78),
-
-    inset 0 -8px 12px
-    rgba(74, 36, 0, 0.48);
+    0 0 0 4px rgba(255, 215, 82, 0.09),
+    0 0 0 7px rgba(152, 34, 218, 0.16),
+    0 0 33px rgba(255, 205, 57, 0.48),
+    0 0 56px rgba(187, 48, 255, 0.41),
+    0 27px 52px rgba(0, 0, 0, 0.64),
+    inset 0 2px 2px rgba(255, 255, 255, 0.78),
+    inset 0 -8px 12px rgba(74, 36, 0, 0.48);
 }
 
 .wheel-frame::before {
@@ -1008,11 +959,8 @@ span:last-child {
   pointer-events: none;
 
   box-shadow:
-    inset 0 0 0 1px
-    rgba(255, 229, 131, 0.38),
-
-    inset 0 0 17px
-    rgba(255, 202, 62, 0.14);
+    inset 0 0 0 1px rgba(255, 229, 131, 0.38),
+    inset 0 0 17px rgba(255, 202, 62, 0.14);
 }
 
 .wheel-frame::after {
@@ -1083,11 +1031,8 @@ span:last-child {
     scale(0.84);
 
   box-shadow:
-    0 0 5px
-    rgba(255, 226, 129, 0.52),
-
-    0 0 10px
-    rgba(255, 196, 38, 0.23);
+    0 0 5px rgba(255, 226, 129, 0.52),
+    0 0 10px rgba(255, 196, 38, 0.23);
 
   animation:
     lightChase
@@ -1113,17 +1058,10 @@ span:last-child {
       scale(1.35);
 
     box-shadow:
-      0 0 9px
-      #fffbe3,
-
-      0 0 20px
-      rgba(255, 217, 87, 0.96),
-
-      0 0 35px
-      rgba(255, 191, 32, 0.74),
-
-      0 0 50px
-      rgba(183, 45, 255, 0.30);
+      0 0 9px #fffbe3,
+      0 0 20px rgba(255, 217, 87, 0.96),
+      0 0 35px rgba(255, 191, 32, 0.74),
+      0 0 50px rgba(183, 45, 255, 0.30);
   }
 
   34% {
@@ -1213,8 +1151,7 @@ span:last-child {
   animation-delay: -1.65s;
 }
 
-.wheel-frame.spinning
-.wheel-light {
+.wheel-frame.spinning .wheel-light {
   animation-duration:
     0.62s;
 }
@@ -1256,14 +1193,9 @@ span:last-child {
     rgba(45, 10, 51, 0.97);
 
   box-shadow:
-    inset 0 0 0 1px
-    rgba(255, 255, 255, 0.16),
-
-    inset 0 0 20px
-    rgba(255, 217, 101, 0.08),
-
-    inset 0 0 34px
-    rgba(0, 0, 0, 0.27);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    inset 0 0 20px rgba(255, 217, 101, 0.08),
+    inset 0 0 34px rgba(0, 0, 0, 0.27);
 
   will-change:
     transform;
@@ -1432,17 +1364,17 @@ span:last-child {
 
   z-index: 30;
 
-  width: 150px;
-  height: 150px;
+  width: 166px;
+  height: 166px;
 
   padding: 0;
 
-  border: none;
+  border: 0;
+  outline: 0;
+
   background: transparent;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
 
   cursor: pointer;
 
@@ -1453,11 +1385,14 @@ span:last-child {
     filter 0.18s ease;
 }
 
+
+/* MAIN MARV CIRCLE */
+
 .spin-marv-circle {
   position: absolute;
 
-  width: 132px;
-  height: 132px;
+  width: 148px;
+  height: 148px;
 
   top: 0;
   left: 50%;
@@ -1465,8 +1400,7 @@ span:last-child {
   transform:
     translateX(-50%);
 
-  display: grid;
-  place-items: center;
+  display: block;
 
   overflow: hidden;
 
@@ -1474,65 +1408,74 @@ span:last-child {
 
   background:
     radial-gradient(
-      circle at 50% 45%,
-      #4d1272,
-      #17041f 72%
+      circle at 50% 42%,
+      #56107a 0%,
+      #270437 58%,
+      #0c0210 100%
     );
 
   border:
     3px solid
-    rgba(255, 241, 181, 0.95);
+    #ffdf73;
 
   box-shadow:
-    0 0 0 6px
-    rgba(59, 20, 11, 0.95),
+    0 0 0 5px #3d1608,
+    0 0 0 8px rgba(244, 190, 48, 0.96),
+    0 0 22px rgba(255, 196, 41, 0.42),
+    0 0 37px rgba(174, 43, 255, 0.30),
+    inset 0 0 20px rgba(0, 0, 0, 0.32);
+}
 
-    0 0 0 9px
-    rgba(255, 211, 69, 0.72),
 
-    0 0 23px
-    rgba(255, 204, 52, 0.34),
+/* MARV IMAGE - CROPPED INSIDE CIRCLE */
 
-    0 0 38px
-    rgba(179, 49, 255, 0.22),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.22);
-
- .spin-marv-image {
+.spin-marv-image {
   position: absolute;
 
-  width: 185%;
-  height: 185%;
+  z-index: 2;
+
+  width: 158%;
+  height: 158%;
+
+  max-width: none;
 
   left: 50%;
-  top: 54%;
+  top: 48%;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%);
+
+  display: block;
 
   object-fit: cover;
 
-  display: block;
- }  
+  object-position:
+    center center;
+
+  pointer-events: none;
+}
+
+
+/* GOLD SPIN PLAQUE */
 
 .spin-marv-label {
   position: absolute;
 
-  z-index: 4;
+  z-index: 10;
 
   left: 50%;
-  bottom: -2px;
+  bottom: -1px;
 
   transform:
     translateX(-50%);
 
-  min-width: 108px;
-  height: 40px;
+  min-width: 120px;
+  height: 43px;
 
   padding:
-    0 18px;
+    0 19px;
 
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -1540,48 +1483,84 @@ span:last-child {
 
   border:
     2px solid
-    rgba(255, 240, 179, 0.95);
+    #fff0a4;
 
   color:
-    #2c1500;
+    #351600;
 
   background:
     linear-gradient(
-      145deg,
-      #fff2ad 0%,
-      #e8b63f 31%,
-      #bb7614 66%,
-      #f3c64d 100%
+      180deg,
+      #fff1a1 0%,
+      #f3c854 23%,
+      #ce8b1e 58%,
+      #a9610c 100%
     );
 
   box-shadow:
-    0 8px 18px
-    rgba(0, 0, 0, 0.38),
+    0 0 0 3px
+    rgba(125, 68, 5, 0.88),
 
-    0 0 12px
-    rgba(255, 203, 53, 0.24),
+    0 8px 17px
+    rgba(0, 0, 0, 0.46),
 
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.72);
+    0 0 15px
+    rgba(255, 207, 65, 0.36),
+
+    inset 0 2px 1px
+    rgba(255, 255, 255, 0.68),
+
+    inset 0 -4px 6px
+    rgba(106, 52, 0, 0.22);
 
   font-family:
     "DM Serif Display",
     Georgia,
     serif;
 
-  font-size: 27px;
+  font-size: 28px;
 
   line-height: 1;
 
   font-weight: 700;
 
   letter-spacing:
-    0.3px;
+    0.4px;
 
   text-shadow:
     0 1px 0
-    rgba(255, 255, 255, 0.35);
+    rgba(255, 255, 255, 0.40);
+
+  white-space: nowrap;
+
+  pointer-events: none;
 }
+
+
+/* SMALL GOLD DIAMONDS BESIDE SPIN */
+
+.spin-marv-label::before,
+.spin-marv-label::after {
+  content: "◆";
+
+  position: relative;
+
+  color:
+    #7c4709;
+
+  font-size: 8px;
+}
+
+.spin-marv-label::before {
+  margin-right: 9px;
+}
+
+.spin-marv-label::after {
+  margin-left: 9px;
+}
+
+
+/* BUTTON INTERACTION */
 
 .spin-button:active {
   transform:
@@ -1610,8 +1589,8 @@ span:last-child {
   50% {
     filter:
       drop-shadow(
-        0 0 15px
-        rgba(190, 53, 255, 0.27)
+        0 0 16px
+        rgba(190, 53, 255, 0.29)
       );
   }
 }
@@ -1625,9 +1604,6 @@ span:last-child {
 }
 
 
-
-
-   
 /* =========================================================
    STATUS
 ========================================================= */
@@ -1668,14 +1644,9 @@ span:last-child {
     rgba(242, 201, 89, 0.50);
 
   box-shadow:
-    0 0 15px
-    rgba(174, 45, 255, 0.12),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.06),
-
-    0 10px 24px
-    rgba(0, 0, 0, 0.31);
+    0 0 15px rgba(174, 45, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 10px 24px rgba(0, 0, 0, 0.31);
 
   font-size: 10px;
 
@@ -1768,11 +1739,8 @@ span:last-child {
     rgba(191, 63, 248, 0.23);
 
   box-shadow:
-    0 15px 34px
-    rgba(0, 0, 0, 0.32),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.05);
+    0 15px 34px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .info-card::before {
@@ -1952,14 +1920,9 @@ span:last-child {
     rgba(239, 195, 82, 0.45);
 
   box-shadow:
-    0 18px 42px
-    rgba(0, 0, 0, 0.38),
-
-    0 0 21px
-    rgba(154, 38, 230, 0.13),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.06);
+    0 18px 42px rgba(0, 0, 0, 0.38),
+    0 0 21px rgba(154, 38, 230, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .recent-win-card::after {
@@ -2002,8 +1965,7 @@ span:last-child {
   margin-bottom: 7px;
 }
 
-.recent-win-heading
-> span:first-child {
+.recent-win-heading > span:first-child {
   color:
     var(--gold);
 
@@ -2058,11 +2020,8 @@ span:last-child {
   line-height: 1;
 
   text-shadow:
-    0 0 10px
-    rgba(255, 197, 53, 0.18),
-
-    0 4px 12px
-    rgba(0, 0, 0, 0.38);
+    0 0 10px rgba(255, 197, 53, 0.18),
+    0 4px 12px rgba(0, 0, 0, 0.38);
 }
 
 .recent-win-card p {
@@ -2106,11 +2065,8 @@ span:last-child {
     );
 
   box-shadow:
-    0 0 14px
-    rgba(179, 43, 255, 0.25),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.10);
+    0 0 14px rgba(179, 43, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
 
   font-size: 7px;
 
@@ -2178,11 +2134,8 @@ span:last-child {
     rgba(239, 191, 67, 0.54);
 
   box-shadow:
-    0 0 18px
-    rgba(255, 184, 32, 0.22),
-
-    0 0 30px
-    rgba(168, 41, 244, 0.14);
+    0 0 18px rgba(255, 184, 32, 0.22),
+    0 0 30px rgba(168, 41, 244, 0.14);
 
   font-size: 22px;
 }
@@ -2222,11 +2175,8 @@ span:last-child {
     rgba(239, 194, 75, 0.39);
 
   box-shadow:
-    0 12px 28px
-    rgba(0, 0, 0, 0.33),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.05);
+    0 12px 28px rgba(0, 0, 0, 0.33),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .footer-item {
@@ -2367,14 +2317,9 @@ span:last-child {
     rgba(239, 195, 81, 0.40);
 
   box-shadow:
-    0 30px 90px
-    rgba(0, 0, 0, 0.74),
-
-    0 0 35px
-    rgba(156, 39, 232, 0.23),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.07);
+    0 30px 90px rgba(0, 0, 0, 0.74),
+    0 0 35px rgba(156, 39, 232, 0.23),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
 
   transform:
     translateY(15px)
@@ -2384,8 +2329,7 @@ span:last-child {
     transform 0.28s ease;
 }
 
-.result-modal.show
-.result-card {
+.result-modal.show .result-card {
   transform:
     translateY(0)
     scale(1);
@@ -2502,11 +2446,8 @@ span:last-child {
     rgba(255, 239, 177, 0.83);
 
   box-shadow:
-    0 0 19px
-    rgba(255, 191, 40, 0.20),
-
-    0 0 31px
-    rgba(166, 42, 247, 0.18);
+    0 0 19px rgba(255, 191, 40, 0.20),
+    0 0 31px rgba(166, 42, 247, 0.18);
 }
 
 .result-logo-image {
@@ -2695,11 +2636,8 @@ span:last-child {
     rgba(242, 199, 79, 0.58);
 
   box-shadow:
-    0 0 0 3px
-    rgba(243, 198, 73, 0.05),
-
-    0 0 14px
-    rgba(169, 44, 247, 0.12);
+    0 0 0 3px rgba(243, 198, 73, 0.05),
+    0 0 14px rgba(169, 44, 247, 0.12);
 }
 
 
@@ -2734,14 +2672,9 @@ span:last-child {
     );
 
   box-shadow:
-    0 11px 23px
-    rgba(0, 0, 0, 0.29),
-
-    0 0 18px
-    rgba(255, 194, 37, 0.14),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.66);
+    0 11px 23px rgba(0, 0, 0, 0.29),
+    0 0 18px rgba(255, 194, 37, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.66);
 
   font-size: 10px;
 
@@ -3015,11 +2948,8 @@ span:last-child {
     rgba(239, 196, 83, 0.41);
 
   box-shadow:
-    0 30px 90px
-    rgba(0, 0, 0, 0.74),
-
-    0 0 36px
-    rgba(163, 41, 239, 0.23);
+    0 30px 90px rgba(0, 0, 0, 0.74),
+    0 0 36px rgba(163, 41, 239, 0.23);
 }
 
 .rewards-close-x {
@@ -3466,21 +3396,36 @@ span:last-child {
       rotate(-315deg);
   }
 
+
+  /* MARV CENTRE - MOBILE */
+
   .spin-button {
-  width: 136px;
-  height: 136px;
-}
+    width: 148px;
+    height: 148px;
+  }
 
-.spin-marv-circle {
-  width: 119px;
-  height: 119px;
-}
+  .spin-marv-circle {
+    width: 132px;
+    height: 132px;
+  }
 
-.spin-marv-label {
-  min-width: 98px;
-  height: 36px;
-  font-size: 24px;
-}
+  .spin-marv-image {
+    width: 158%;
+    height: 158%;
+
+    top: 48%;
+  }
+
+  .spin-marv-label {
+    min-width: 108px;
+    height: 39px;
+
+    padding:
+      0 15px;
+
+    font-size: 25px;
+  }
+
 
   .wheel-light {
     width: 9px;
@@ -3632,4 +3577,4 @@ span:last-child {
     animation: none;
   }
 
-   }
+}
