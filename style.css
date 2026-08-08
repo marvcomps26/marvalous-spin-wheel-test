@@ -4288,3 +4288,428 @@ body::after {
   }
 
 }
+/* =========================================================
+   ALL REWARDS POPUP
+========================================================= */
+
+.rewards-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    calc(18px + env(safe-area-inset-top))
+    14px
+    calc(18px + env(safe-area-inset-bottom));
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  overflow-y: auto;
+
+  background:
+    rgba(2, 0, 4, 0.88);
+
+  backdrop-filter: blur(17px);
+  -webkit-backdrop-filter: blur(17px);
+
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.rewards-modal.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+
+.rewards-modal-card {
+  position: relative;
+
+  width: min(100%, 420px);
+
+  margin: auto;
+
+  padding:
+    54px 20px
+    22px;
+
+  overflow: hidden;
+
+  text-align: center;
+
+  border-radius: 31px;
+
+  background:
+    radial-gradient(
+      circle at 50% -5%,
+      rgba(169, 43, 249, 0.31),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 100% 42%,
+      rgba(255, 187, 33, 0.10),
+      transparent 40%
+    ),
+    linear-gradient(
+      180deg,
+      #190722,
+      #09030d 48%,
+      #040205
+    );
+
+  border:
+    1px solid
+    rgba(239, 196, 83, 0.42);
+
+  box-shadow:
+    0 30px 90px
+    rgba(0, 0, 0, 0.75),
+
+    0 0 37px
+    rgba(163, 41, 239, 0.25),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.08);
+
+  transform:
+    translateY(18px)
+    scale(0.97);
+
+  transition:
+    transform 0.27s ease;
+}
+
+.rewards-modal.show
+.rewards-modal-card {
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+
+.rewards-modal-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 12%;
+  right: 12%;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #b93cff,
+      #ffd45c,
+      #b93cff,
+      transparent
+    );
+
+  box-shadow:
+    0 0 9px
+    rgba(191, 61, 255, 0.42);
+}
+
+
+.rewards-modal-glow {
+  position: absolute;
+
+  width: 210px;
+  height: 130px;
+
+  top: -80px;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(180, 44, 255, 0.30),
+      transparent 68%
+    );
+}
+
+
+.rewards-close-x {
+  position: absolute;
+
+  top: 13px;
+  right: 13px;
+
+  width: 41px;
+  height: 41px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  border-radius: 50%;
+
+  color:
+    rgba(255, 255, 255, 0.85);
+
+  background:
+    rgba(255, 255, 255, 0.05);
+
+  cursor: pointer;
+
+  font-size: 24px;
+}
+
+
+.rewards-kicker {
+  display: block;
+
+  color: #efc85f;
+
+  font-size: 8px;
+  font-weight: 900;
+
+  letter-spacing: 2.3px;
+}
+
+
+.rewards-star {
+  width: 58px;
+  height: 58px;
+
+  margin:
+    14px auto
+    11px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: #ffd75c;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(105, 24, 160, 0.64),
+      rgba(27, 5, 35, 0.94)
+    );
+
+  border:
+    1px solid
+    rgba(241, 194, 73, 0.52);
+
+  box-shadow:
+    0 0 18px
+    rgba(178, 45, 252, 0.23),
+
+    0 0 17px
+    rgba(255, 191, 38, 0.13);
+
+  font-size: 23px;
+}
+
+
+.rewards-modal-card h2 {
+  margin:
+    0 0
+    7px;
+
+  color: #ffffff;
+
+  font-family:
+    "DM Serif Display",
+    Georgia,
+    serif;
+
+  font-size: 34px;
+
+  line-height: 1;
+
+  font-weight: 400;
+}
+
+
+.rewards-intro {
+  margin:
+    0 auto
+    18px;
+
+  color:
+    rgba(255, 255, 255, 0.61);
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+
+.rewards-list {
+  display: grid;
+
+  gap: 9px;
+
+  text-align: left;
+}
+
+
+.reward-list-item {
+  position: relative;
+
+  overflow: hidden;
+
+  min-height: 68px;
+
+  padding:
+    13px 15px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  border-radius: 18px;
+
+  background:
+    radial-gradient(
+      circle at 5% 30%,
+      rgba(133, 31, 213, 0.18),
+      transparent 36%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(27, 8, 34, 0.98),
+      rgba(7, 3, 10, 0.99)
+    );
+
+  border:
+    1px solid
+    rgba(192, 64, 255, 0.21);
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.05);
+}
+
+
+.reward-list-icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: #ffda64;
+
+  background:
+    linear-gradient(
+      145deg,
+      #6c1cb1,
+      #29063a
+    );
+
+  border:
+    1px solid
+    rgba(239, 193, 74, 0.43);
+
+  box-shadow:
+    0 0 12px
+    rgba(176, 43, 246, 0.18);
+
+  font-size: 16px;
+}
+
+
+.reward-list-copy {
+  min-width: 0;
+}
+
+
+.reward-list-copy strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #ffffff;
+
+  font-size: 11px;
+}
+
+
+.reward-list-copy small {
+  display: block;
+
+  color:
+    rgba(255, 255, 255, 0.55);
+
+  font-size: 8px;
+
+  line-height: 1.45;
+}
+
+
+.rewards-close-button {
+  width: 100%;
+
+  min-height: 50px;
+
+  margin-top: 17px;
+
+  border:
+    1px solid
+    rgba(255, 240, 180, 0.54);
+
+  border-radius: 999px;
+
+  color: #261300;
+
+  cursor: pointer;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff1aa,
+      #e6b23e,
+      #b66e11
+    );
+
+  box-shadow:
+    0 10px 22px
+    rgba(0, 0, 0, 0.30),
+
+    0 0 17px
+    rgba(255, 193, 37, 0.13),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.67);
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+}
