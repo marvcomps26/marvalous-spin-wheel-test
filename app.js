@@ -1,12 +1,12 @@
-/* =========================================
+/* =========================================================
    MARVALOUS PREMIUM SPIN WHEEL
-   FULL APP.JS REPLACEMENT
-========================================= */
+   COMPLETE APP.JS
+========================================================= */
 
 
-/* =========================================
+/* =========================================================
    GOOGLE SHEET + CLAIM ENDPOINT
-========================================= */
+========================================================= */
 
 const SETTINGS_CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vSlaiXI-x0C_wLvxmELI21rTu9uFR87MYtx9gqV_z_Z3hZ5nOCQBnb9No6i9MtZyqBD3c9wTo1tmz6x/pub?output=csv";
@@ -15,87 +15,118 @@ const CLAIM_URL =
   "https://script.google.com/macros/s/AKfycbwqv0mOcwHVa2AaGzvwMLjw-nqV4LonCg3-MXpDcgcMbhmw2ORo4JmO8JiCxXZkBScC/exec";
 
 
-/* =========================================
+/* =========================================================
    TEST MODE
 
    true  = unlimited spins
    false = one spin per day
-========================================= */
+========================================================= */
 
 const TEST_MODE = true;
 
-/* =========================================
-   GAME SOUNDS
-========================================= */
+
+/* =========================================================
+   SOUNDS
+========================================================= */
 
 const spinSound =
-  new Audio("wheel-spin.mp3");
+  new Audio("./wheel-spin.mp3");
 
 const celebrationSound =
-  new Audio("celebration.mp3");
+  new Audio("./celebration.mp3");
 
 
-spinSound.preload = "auto";
-celebrationSound.preload = "auto";
+spinSound.preload =
+  "auto";
+
+celebrationSound.preload =
+  "auto";
 
 
-spinSound.volume = 0.55;
-celebrationSound.volume = 0.70;
+spinSound.volume =
+  0.60;
+
+celebrationSound.volume =
+  0.75;
 
 
-/*
-  Spin sound should stop itself when
-  the wheel finishes rather than loop.
-*/
+spinSound.loop =
+  false;
 
-spinSound.loop = false;
-celebrationSound.loop = false;
-/* =========================================
+celebrationSound.loop =
+  false;
+
+
+/* =========================================================
    ELEMENTS
-========================================= */
+========================================================= */
+
 const wheelFrame =
-  document.querySelector(".wheel-frame");
+  document.querySelector(
+    ".wheel-frame"
+  );
 
 const wheel =
-  document.getElementById("wheel");
+  document.getElementById(
+    "wheel"
+  );
 
 const spinButton =
-  document.getElementById("spinButton");
+  document.getElementById(
+    "spinButton"
+  );
 
 const statusText =
-  document.getElementById("statusText");
+  document.getElementById(
+    "statusText"
+  );
 
 const recentWin =
-  document.getElementById("recentWin");
+  document.getElementById(
+    "recentWin"
+  );
 
 const resultModal =
-  document.
-   ("resultModal");
+  document.getElementById(
+    "resultModal"
+  );
 
 const resultTitle =
-  document.getElementById("resultTitle");
+  document.getElementById(
+    "resultTitle"
+  );
 
 const resultMessage =
-  document.getElementById("resultMessage");
+  document.getElementById(
+    "resultMessage"
+  );
 
 const closeResultButton =
-  document.getElementById("closeResultButton");
+  document.getElementById(
+    "closeResultButton"
+  );
 
 const resultCloseX =
-  document.getElementById("resultCloseX");
+  document.getElementById(
+    "resultCloseX"
+  );
 
 const resultIcon =
-  document.querySelector(".result-icon");
+  document.querySelector(
+    ".result-icon"
+  );
 
 const wheelLabels =
   Array.from(
-    document.querySelectorAll(".wheel-label")
+    document.querySelectorAll(
+      ".wheel-label"
+    )
   );
 
 
-/* =========================================
+/* =========================================================
    GAME STATE
-========================================= */
+========================================================= */
 
 let prizes = [];
 
@@ -108,101 +139,137 @@ let spinning = false;
 let currentRotation = 0;
 
 
-/* =========================================
+/* =========================================================
    DAILY PLAY KEYS
-========================================= */
+========================================================= */
 
 function getLocalDateKey() {
-  const now = new Date();
+
+  const now =
+    new Date();
+
 
   const year =
     now.getFullYear();
 
+
   const month =
     String(
       now.getMonth() + 1
-    ).padStart(2, "0");
+    ).padStart(
+      2,
+      "0"
+    );
+
 
   const day =
     String(
       now.getDate()
-    ).padStart(2, "0");
+    ).padStart(
+      2,
+      "0"
+    );
 
-  return `${year}-${month}-${day}`;
+
+  return (
+    `${year}-${month}-${day}`
+  );
 }
 
 
 const todayKey =
   getLocalDateKey();
 
+
 const playKey =
   `marvalous_spin_played_${todayKey}`;
+
 
 const resultKey =
   `marvalous_spin_result_${todayKey}`;
 
 
-/* =========================================
+/* =========================================================
    CSV READER
-========================================= */
+========================================================= */
 
 function csvSplit(row) {
+
   const matched =
     row.match(
       /(".*?"|[^",]+)(?=\s*,|\s*$)/g
     );
 
+
   return matched
-    ? matched.map(value =>
-        value
-          .replace(/^"|"$/g, "")
-          .trim()
+    ? matched.map(
+        value =>
+          value
+            .replace(
+              /^"|"$/g,
+              ""
+            )
+            .trim()
       )
     : [];
 }
 
 
-/* =========================================
-   LOAD PRIZES FROM GOOGLE SHEET
-========================================= */
+/* =========================================================
+   LOAD SETTINGS FROM GOOGLE SHEET
+========================================================= */
 
 async function loadSettings() {
+
   setStatus(
     "Loading today’s wheel..."
   );
 
-  spinButton.disabled = true;
+
+  spinButton.disabled =
+    true;
+
 
   try {
+
     const response =
       await fetch(
         `${SETTINGS_CSV_URL}&t=${Date.now()}`,
         {
-          cache: "no-store"
+          cache:
+            "no-store"
         }
       );
 
+
     if (!response.ok) {
+
       throw new Error(
         "Prize settings could not load."
       );
+
     }
+
 
     const text =
       await response.text();
 
+
     const lines =
       text
         .trim()
-        .split(/\r?\n/);
+        .split(
+          /\r?\n/
+        );
+
 
     prizes = [];
 
 
     /*
-      SAME SHEET LAYOUT AS BEFORE
+      GOOGLE SHEET LAYOUT
 
-      Prize rows begin on row 5
+      Prize rows begin on row 5.
 
       Column A = Prize
       Column B = Chance
@@ -218,7 +285,9 @@ async function loadSettings() {
       index++
     ) {
 
-      if (!lines[index].trim()) {
+      if (
+        !lines[index].trim()
+      ) {
         continue;
       }
 
@@ -230,8 +299,9 @@ async function loadSettings() {
 
 
       const prizeName =
-        (row[0] || "")
-          .trim();
+        (
+          row[0] || ""
+        ).trim();
 
 
       const chance =
@@ -242,13 +312,16 @@ async function loadSettings() {
 
       if (
         !prizeName ||
-        Number.isNaN(chance)
+        Number.isNaN(
+          chance
+        )
       ) {
         continue;
       }
 
 
       prizes.push({
+
         prize:
           prizeName,
 
@@ -256,29 +329,38 @@ async function loadSettings() {
           chance,
 
         claimType:
-          (row[2] || "")
-            .trim(),
+          (
+            row[2] || ""
+          ).trim(),
 
         minSpend:
-          (row[3] || "")
-            .trim(),
+          (
+            row[3] || ""
+          ).trim(),
 
         expiry:
-          (row[4] || "")
-            .trim(),
+          (
+            row[4] || ""
+          ).trim(),
 
         code:
-          (row[5] || "")
-            .trim()
+          (
+            row[5] || ""
+          ).trim()
+
       });
 
     }
 
 
-    if (!prizes.length) {
+    if (
+      !prizes.length
+    ) {
+
       throw new Error(
         "No prizes were found in the sheet."
       );
+
     }
 
 
@@ -301,19 +383,25 @@ async function loadSettings() {
       "The wheel could not load. Please refresh and try again."
     );
 
-    spinButton.disabled = true;
+
+    spinButton.disabled =
+      true;
 
   }
 }
 
 
-/* =========================================
+/* =========================================================
    PREPARE 8 WHEEL SEGMENTS
-========================================= */
+========================================================= */
 
 function prepareWheelPrizes() {
+
   wheelPrizes =
-    prizes.slice(0, 8);
+    prizes.slice(
+      0,
+      8
+    );
 
 
   while (
@@ -321,6 +409,7 @@ function prepareWheelPrizes() {
   ) {
 
     wheelPrizes.push({
+
       prize:
         "TRY AGAIN",
 
@@ -338,23 +427,29 @@ function prepareWheelPrizes() {
 
       code:
         ""
+
     });
 
   }
 }
 
 
-/* =========================================
+/* =========================================================
    UPDATE WHEEL LABELS
-========================================= */
+========================================================= */
 
 function updateWheelLabels() {
 
   wheelLabels.forEach(
-    (label, index) => {
+    (
+      label,
+      index
+    ) => {
 
       const prize =
-        wheelPrizes[index];
+        wheelPrizes[
+          index
+        ];
 
 
       label.textContent =
@@ -364,28 +459,28 @@ function updateWheelLabels() {
         );
 
 
-      /*
-        Optional styling hook
-        for gold segments.
-      */
-
       label.dataset.segment =
-        String(index + 1);
+        String(
+          index + 1
+        );
 
     }
   );
 }
 
 
-/* =========================================
-   SHORTEN LABEL TEXT
-========================================= */
+/* =========================================================
+   SHORTEN LONG WHEEL TEXT
+========================================================= */
 
-function shortenWheelLabel(value) {
+function shortenWheelLabel(
+  value
+) {
 
   const text =
-    String(value || "")
-      .trim();
+    String(
+      value || ""
+    ).trim();
 
 
   if (!text) {
@@ -394,21 +489,27 @@ function shortenWheelLabel(value) {
 
 
   if (
-    /try again/i.test(text)
+    /try again/i.test(
+      text
+    )
   ) {
     return "TRY AGAIN";
   }
 
 
   if (
-    /mystery/i.test(text)
+    /mystery/i.test(
+      text
+    )
   ) {
     return "MYSTERY";
   }
 
 
   if (
-    /site credit/i.test(text)
+    /site credit/i.test(
+      text
+    )
   ) {
 
     return text.replace(
@@ -426,13 +527,33 @@ function shortenWheelLabel(value) {
   }
 
 
-  return `${text.slice(0, 14)}…`;
+  return (
+    `${text.slice(0, 14)}…`
+  );
 }
 
 
-/* =========================================
+/* =========================================================
+   STATUS
+========================================================= */
+
+function setStatus(
+  message
+) {
+
+  if (!statusText) {
+    return;
+  }
+
+
+  statusText.textContent =
+    message;
+}
+
+
+/* =========================================================
    RESTORE DAILY STATE
-========================================= */
+========================================================= */
 
 function restoreDailyState() {
 
@@ -442,9 +563,14 @@ function restoreDailyState() {
     );
 
 
-  if (savedResult) {
+  if (
+    savedResult &&
+    recentWin
+  ) {
+
     recentWin.textContent =
       savedResult;
+
   }
 
 
@@ -454,14 +580,16 @@ function restoreDailyState() {
 
   if (TEST_MODE) {
 
-    spinButton.disabled = false;
+    spinButton.disabled =
+      false;
+
 
     setStatus(
       "Test mode: unlimited spins enabled"
     );
 
-    return;
 
+    return;
   }
 
 
@@ -477,18 +605,22 @@ function restoreDailyState() {
 
   if (hasPlayed) {
 
-    spinButton.disabled = true;
+    spinButton.disabled =
+      true;
+
 
     setStatus(
       "You’ve used today’s spin. Come back tomorrow."
     );
 
-    return;
 
+    return;
   }
 
 
-  spinButton.disabled = false;
+  spinButton.disabled =
+    false;
+
 
   setStatus(
     "Your daily spin is ready"
@@ -496,42 +628,35 @@ function restoreDailyState() {
 }
 
 
-/* =========================================
-   STATUS HELPER
-========================================= */
-
-function setStatus(message) {
-
-  if (!statusText) {
-    return;
-  }
-
-  statusText.textContent =
-    message;
-}
-
-
-/* =========================================
+/* =========================================================
    PICK PRIZE USING SHEET ODDS
-========================================= */
+========================================================= */
 
 function pickPrizeIndex() {
 
   const totalChance =
     wheelPrizes.reduce(
-      (total, item) =>
+      (
+        total,
+        item
+      ) =>
+
         total +
+
         Math.max(
           Number(
             item.chance || 0
           ),
           0
         ),
+
       0
     );
 
 
-  if (totalChance <= 0) {
+  if (
+    totalChance <= 0
+  ) {
 
     const tryAgainIndex =
       wheelPrizes.findIndex(
@@ -562,17 +687,23 @@ function pickPrizeIndex() {
     index++
   ) {
 
-    roll -= Math.max(
-      Number(
-        wheelPrizes[index]
-          .chance || 0
-      ),
-      0
-    );
+    roll -=
+      Math.max(
+        Number(
+          wheelPrizes[
+            index
+          ].chance || 0
+        ),
+        0
+      );
 
 
-    if (roll <= 0) {
+    if (
+      roll <= 0
+    ) {
+
       return index;
+
     }
 
   }
@@ -583,9 +714,10 @@ function pickPrizeIndex() {
   );
 }
 
-/* =========================================
+
+/* =========================================================
    SOUND HELPERS
-========================================= */
+========================================================= */
 
 function playSpinSound() {
 
@@ -593,23 +725,28 @@ function playSpinSound() {
 
     spinSound.pause();
 
-    spinSound.currentTime = 0;
+    spinSound.currentTime =
+      0;
+
 
     const playPromise =
       spinSound.play();
+
 
     if (
       playPromise !== undefined
     ) {
 
-      playPromise.catch(error => {
+      playPromise.catch(
+        error => {
 
-        console.log(
-          "Spin sound could not play:",
-          error
-        );
+          console.log(
+            "Spin sound could not play:",
+            error
+          );
 
-      });
+        }
+      );
 
     }
 
@@ -630,7 +767,8 @@ function stopSpinSound() {
 
     spinSound.pause();
 
-    spinSound.currentTime = 0;
+    spinSound.currentTime =
+      0;
 
   } catch (error) {
 
@@ -640,7 +778,6 @@ function stopSpinSound() {
     );
 
   }
-
 }
 
 
@@ -650,23 +787,28 @@ function playCelebrationSound() {
 
     celebrationSound.pause();
 
-    celebrationSound.currentTime = 0;
+    celebrationSound.currentTime =
+      0;
+
 
     const playPromise =
       celebrationSound.play();
+
 
     if (
       playPromise !== undefined
     ) {
 
-      playPromise.catch(error => {
+      playPromise.catch(
+        error => {
 
-        console.log(
-          "Celebration sound could not play:",
-          error
-        );
+          console.log(
+            "Celebration sound could not play:",
+            error
+          );
 
-      });
+        }
+      );
 
     }
 
@@ -678,12 +820,48 @@ function playCelebrationSound() {
     );
 
   }
-
 }
 
-/* =========================================
+
+/* =========================================================
+   START WHEEL LIGHT EFFECT
+========================================================= */
+
+function startWheelEffects() {
+
+  if (wheelFrame) {
+
+    wheelFrame
+      .classList
+      .add(
+        "spinning"
+      );
+
+  }
+}
+
+
+/* =========================================================
+   STOP WHEEL LIGHT EFFECT
+========================================================= */
+
+function stopWheelEffects() {
+
+  if (wheelFrame) {
+
+    wheelFrame
+      .classList
+      .remove(
+        "spinning"
+      );
+
+  }
+}
+
+
+/* =========================================================
    SPIN WHEEL
-========================================= */
+========================================================= */
 
 function spinWheel() {
 
@@ -699,44 +877,53 @@ function spinWheel() {
     ) === "yes"
   ) {
 
-    spinButton.disabled = true;
+    spinButton.disabled =
+      true;
+
 
     setStatus(
       "You’ve already used today’s spin."
     );
 
-    return;
 
+    return;
   }
 
 
-  if (!wheelPrizes.length) {
+  if (
+    !wheelPrizes.length
+  ) {
 
     setStatus(
       "The prizes are still loading."
     );
 
-    return;
 
+    return;
   }
 
 
-  spinning = true;
+  spinning =
+    true;
 
-  spinButton.disabled = true;
 
-if (wheelFrame) {
-  wheelFrame.classList.add("spinning");
-}
-   
+  spinButton.disabled =
+    true;
+
+
+  startWheelEffects();
+
+
   setStatus(
     "The wheel is spinning..."
   );
-playSpinSound();
+
+
+  playSpinSound();
+
 
   /*
-    Choose winning prize BEFORE
-    animation starts.
+    CHOOSE WINNING PRIZE
   */
 
   const winningIndex =
@@ -749,23 +936,32 @@ playSpinSound();
     ];
 
 
+  /*
+    8 sections = 45 degrees each
+  */
+
   const segmentAngle =
     360 /
     wheelPrizes.length;
 
 
   /*
-    Centre of selected segment.
+    Find centre of winning segment
   */
 
   const segmentCentre =
-    winningIndex *
-      segmentAngle +
-    segmentAngle / 2;
+    (
+      winningIndex *
+      segmentAngle
+    ) +
+    (
+      segmentAngle /
+      2
+    );
 
 
   /*
-    Pointer sits at 12 o'clock.
+    Pointer is at 12 o'clock
   */
 
   const targetAngle =
@@ -794,23 +990,27 @@ playSpinSound();
 
 
   /*
-    7–9 complete turns.
+    7–9 complete turns
   */
 
   const extraTurns =
     7 +
     Math.floor(
-      Math.random() * 3
+      Math.random() *
+      3
     );
 
 
   currentRotation +=
-    extraTurns * 360 +
+    (
+      extraTurns *
+      360
+    ) +
     alignment;
 
 
   /*
-    Premium easing.
+    PREMIUM SPIN EASING
   */
 
   wheel.style.transition =
@@ -822,23 +1022,28 @@ playSpinSound();
 
 
   /*
-    Optional phone vibration
-    at start.
+    Phone vibration at start
   */
 
   if (
     navigator.vibrate
   ) {
-    navigator.vibrate(18);
+
+    navigator.vibrate(
+      18
+    );
+
   }
 
 
   /*
-    Store play immediately
-    in live mode.
+    Lock daily play immediately
+    when LIVE
   */
 
-  if (!TEST_MODE) {
+  if (
+    !TEST_MODE
+  ) {
 
     localStorage.setItem(
       playKey,
@@ -849,39 +1054,48 @@ playSpinSound();
 
 
   /*
-    Show result after wheel stops.
+    RESULT AFTER SPIN
   */
 
-window.setTimeout(
-  () => {
+  window.setTimeout(
+    () => {
 
-    stopSpinSound();
+      stopSpinSound();
 
-    if (
-      navigator.vibrate
-    ) {
+      stopWheelEffects();
 
-      navigator.vibrate(
-        [20, 35, 45]
-      );
 
-    }
-     
-if (wheelFrame) {
-  wheelFrame.classList.remove("spinning");
+      if (
+        navigator.vibrate
+      ) {
+
+        navigator.vibrate(
+          [
+            20,
+            35,
+            45
+          ]
+        );
+
+      }
+
+
+      showResult();
+
+    },
+
+    5550
+  );
 }
-    showResult();
 
-  },
-  5550
-);  
-}
 
-/* =========================================
-   CHECK WHETHER RESULT IS A WIN
-========================================= */
+/* =========================================================
+   CHECK IF RESULT IS A WIN
+========================================================= */
 
-function isWinningPrize(prize) {
+function isWinningPrize(
+  prize
+) {
 
   if (!prize) {
     return false;
@@ -905,20 +1119,29 @@ function isWinningPrize(prize) {
 
 
   return (
-    name !== "TRY AGAIN" &&
-    name !== "NO PRIZE" &&
-    claimType !== "none"
+
+    name !==
+      "TRY AGAIN" &&
+
+    name !==
+      "NO PRIZE" &&
+
+    claimType !==
+      "none"
+
   );
 }
 
 
-/* =========================================
+/* =========================================================
    SHOW RESULT
-========================================= */
+========================================================= */
 
 function showResult() {
 
-  if (!currentPrize) {
+  if (
+    !currentPrize
+  ) {
     return;
   }
 
@@ -929,7 +1152,9 @@ function showResult() {
     );
 
 
-  addStats(won);
+  addStats(
+    won
+  );
 
 
   localStorage.setItem(
@@ -938,40 +1163,58 @@ function showResult() {
   );
 
 
-  recentWin.textContent =
-    currentPrize.prize;
+  if (
+    recentWin
+  ) {
 
-
-  if (won) {
-
-  showWinningResult();
-
-  playCelebrationSound();
-
-  launchConfetti();
-
-} else {
-
-  showTryAgainResult();
+    recentWin.textContent =
+      currentPrize.prize;
 
   }
 
 
-  resultModal.classList.add(
-    "show"
-  );
+  if (won) {
+
+    showWinningResult();
+
+    playCelebrationSound();
+
+    launchConfetti();
+
+  } else {
+
+    showTryAgainResult();
+
+  }
 
 
-  spinning = false;
+  if (
+    resultModal
+  ) {
+
+    resultModal
+      .classList
+      .add(
+        "show"
+      );
+
+    resultModal.scrollTop =
+      0;
+
+  }
 
 
-  /*
-    Test mode unlocks again.
-  */
+  spinning =
+    false;
 
-  if (TEST_MODE) {
 
-    spinButton.disabled = false;
+  if (
+    TEST_MODE
+  ) {
+
+    spinButton.disabled =
+      false;
+
 
     setStatus(
       "Test mode: spin again whenever you’re ready"
@@ -981,9 +1224,9 @@ function showResult() {
 }
 
 
-/* =========================================
+/* =========================================================
    WINNING RESULT
-========================================= */
+========================================================= */
 
 function showWinningResult() {
 
@@ -991,18 +1234,19 @@ function showWinningResult() {
     "You’re a winner!";
 
 
-  /*
-    Gold star for winning result.
-  */
+  if (
+    resultIcon
+  ) {
 
-  if (resultIcon) {
     resultIcon.textContent =
       "★";
+
   }
 
 
   const codeSection =
     currentPrize.code
+
       ? `
         <div class="claim-code-box">
 
@@ -1026,14 +1270,18 @@ function showWinningResult() {
 
         </div>
       `
+
       : "";
 
 
   const minimumSpend =
     currentPrize.minSpend &&
-    currentPrize.minSpend !== "0" &&
+    currentPrize.minSpend !==
+      "0" &&
     currentPrize.minSpend
-      .toLowerCase() !== "none"
+      .toLowerCase() !==
+      "none"
+
       ? `
         <p class="claim-detail">
           Minimum spend:
@@ -1042,13 +1290,16 @@ function showWinningResult() {
           )}
         </p>
       `
+
       : "";
 
 
   const expiry =
     currentPrize.expiry &&
     currentPrize.expiry
-      .toLowerCase() !== "none"
+      .toLowerCase() !==
+      "none"
+
       ? `
         <p class="claim-detail">
           Valid for:
@@ -1057,6 +1308,7 @@ function showWinningResult() {
           )}
         </p>
       `
+
       : "";
 
 
@@ -1117,21 +1369,18 @@ function showWinningResult() {
       ></p>
 
     </div>
+
   `;
 
 
   /*
-    Hide standard Continue button
-    until claim succeeds.
+    Hide normal continue button
+    until claim is completed
   */
 
   closeResultButton.style.display =
     "none";
 
-
-  /*
-    Claim button listener.
-  */
 
   const claimButton =
     document.getElementById(
@@ -1139,19 +1388,18 @@ function showWinningResult() {
     );
 
 
-  if (claimButton) {
+  if (
+    claimButton
+  ) {
 
-    claimButton.addEventListener(
-      "click",
-      submitClaim
-    );
+    claimButton
+      .addEventListener(
+        "click",
+        submitClaim
+      );
 
   }
 
-
-  /*
-    Copy button listener.
-  */
 
   const copyButton =
     document.getElementById(
@@ -1159,20 +1407,23 @@ function showWinningResult() {
     );
 
 
-  if (copyButton) {
+  if (
+    copyButton
+  ) {
 
-    copyButton.addEventListener(
-      "click",
-      copyPrizeCode
-    );
+    copyButton
+      .addEventListener(
+        "click",
+        copyPrizeCode
+      );
 
   }
 }
 
 
-/* =========================================
+/* =========================================================
    TRY AGAIN RESULT
-========================================= */
+========================================================= */
 
 function showTryAgainResult() {
 
@@ -1180,9 +1431,13 @@ function showTryAgainResult() {
     "Better luck tomorrow";
 
 
-  if (resultIcon) {
+  if (
+    resultIcon
+  ) {
+
     resultIcon.textContent =
       "✦";
+
   }
 
 
@@ -1206,9 +1461,9 @@ function showTryAgainResult() {
 }
 
 
-/* =========================================
+/* =========================================================
    SUBMIT WINNER CLAIM
-========================================= */
+========================================================= */
 
 async function submitClaim() {
 
@@ -1242,21 +1497,23 @@ async function submitClaim() {
     !claimButton ||
     !claimStatus
   ) {
+
     return;
+
   }
 
 
   const name =
-    nameInput.value.trim();
+    nameInput
+      .value
+      .trim();
 
 
   const email =
-    emailInput.value.trim();
+    emailInput
+      .value
+      .trim();
 
-
-  /*
-    Required fields.
-  */
 
   if (
     !name ||
@@ -1266,29 +1523,28 @@ async function submitClaim() {
     claimStatus.textContent =
       "Please enter your name and email.";
 
-    return;
 
+    return;
   }
 
 
-  /*
-    Basic email check.
-  */
-
   if (
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      .test(email)
+      .test(
+        email
+      )
   ) {
 
     claimStatus.textContent =
       "Please enter a valid email address.";
 
-    return;
 
+    return;
   }
 
 
-  claimButton.disabled = true;
+  claimButton.disabled =
+    true;
 
 
   claimButton.textContent =
@@ -1305,12 +1561,15 @@ async function submitClaim() {
       await fetch(
         CLAIM_URL,
         {
+
           method:
             "POST",
 
           headers: {
+
             "Content-Type":
               "text/plain;charset=utf-8"
+
           },
 
           body:
@@ -1344,12 +1603,16 @@ async function submitClaim() {
 
               testMode:
                 TEST_MODE
+
             })
+
         }
       );
 
 
-    if (!response.ok) {
+    if (
+      !response.ok
+    ) {
 
       throw new Error(
         "Claim request failed."
@@ -1358,19 +1621,19 @@ async function submitClaim() {
     }
 
 
-    /*
-      SUCCESS
-    */
-
     resultTitle.textContent =
       TEST_MODE
         ? "Test claim sent!"
         : "Claim sent!";
 
 
-    if (resultIcon) {
+    if (
+      resultIcon
+    ) {
+
       resultIcon.textContent =
         "✓";
+
     }
 
 
@@ -1382,9 +1645,12 @@ async function submitClaim() {
 
         ${
           currentPrize.code
+
             ? "Your discount code is ready to use."
+
             : "We’ll check your claim and apply your reward shortly."
         }
+
       </p>
     `;
 
@@ -1405,7 +1671,8 @@ async function submitClaim() {
     );
 
 
-    claimButton.disabled = false;
+    claimButton.disabled =
+      false;
 
 
     claimButton.textContent =
@@ -1419,9 +1686,9 @@ async function submitClaim() {
 }
 
 
-/* =========================================
+/* =========================================================
    COPY DISCOUNT CODE
-========================================= */
+========================================================= */
 
 async function copyPrizeCode() {
 
@@ -1434,7 +1701,9 @@ async function copyPrizeCode() {
   if (
     !currentPrize?.code
   ) {
+
     return;
+
   }
 
 
@@ -1446,7 +1715,9 @@ async function copyPrizeCode() {
       );
 
 
-    if (button) {
+    if (
+      button
+    ) {
 
       button.textContent =
         "Copied!";
@@ -1457,9 +1728,13 @@ async function copyPrizeCode() {
     window.setTimeout(
       () => {
 
-        if (button) {
+        if (
+          button
+        ) {
+
           button.textContent =
             "Copy code";
+
         }
 
       },
@@ -1475,7 +1750,9 @@ async function copyPrizeCode() {
     );
 
 
-    if (button) {
+    if (
+      button
+    ) {
 
       button.textContent =
         currentPrize.code;
@@ -1486,11 +1763,13 @@ async function copyPrizeCode() {
 }
 
 
-/* =========================================
+/* =========================================================
    LOCAL STATS
-========================================= */
+========================================================= */
 
-function addStats(won) {
+function addStats(
+  won
+) {
 
   const plays =
     Number(
@@ -1502,11 +1781,15 @@ function addStats(won) {
 
   localStorage.setItem(
     "marvalousSpinTotalPlays",
-    String(plays)
+    String(
+      plays
+    )
   );
 
 
-  if (won) {
+  if (
+    won
+  ) {
 
     const wins =
       Number(
@@ -1518,7 +1801,9 @@ function addStats(won) {
 
     localStorage.setItem(
       "marvalousSpinTotalWins",
-      String(wins)
+      String(
+        wins
+      )
     );
 
   }
@@ -1535,21 +1820,33 @@ function addStats(won) {
 
 
   yesterday.setDate(
-    yesterday.getDate() - 1
+    yesterday.getDate() -
+    1
   );
 
 
   const yesterdayKey = [
+
     yesterday.getFullYear(),
 
     String(
-      yesterday.getMonth() + 1
-    ).padStart(2, "0"),
+      yesterday.getMonth() +
+      1
+    ).padStart(
+      2,
+      "0"
+    ),
 
     String(
       yesterday.getDate()
-    ).padStart(2, "0")
-  ].join("-");
+    ).padStart(
+      2,
+      "0"
+    )
+
+  ].join(
+    "-"
+  );
 
 
   let streak =
@@ -1565,21 +1862,25 @@ function addStats(won) {
     yesterdayKey
   ) {
 
-    streak += 1;
+    streak +=
+      1;
 
   } else if (
     lastPlayDate !==
     todayKey
   ) {
 
-    streak = 1;
+    streak =
+      1;
 
   }
 
 
   localStorage.setItem(
     "marvalousSpinStreak",
-    String(streak)
+    String(
+      streak
+    )
   );
 
 
@@ -1590,24 +1891,32 @@ function addStats(won) {
 }
 
 
-/* =========================================
+/* =========================================================
    CONFETTI
-========================================= */
+========================================================= */
 
 function launchConfetti() {
 
   const colours = [
-    "#e6bf5d",
-    "#fff1b4",
-    "#7b2ab9",
+
+    "#f2c94c",
+
+    "#fff1a8",
+
+    "#bb3dff",
+
     "#ffffff",
-    "#c99735"
+
+    "#7c22d3",
+
+    "#ffcf52"
+
   ];
 
 
   for (
     let index = 0;
-    index < 75;
+    index < 90;
     index++
   ) {
 
@@ -1622,13 +1931,17 @@ function launchConfetti() {
 
 
     piece.style.left =
-      `${Math.random() * 100}vw`;
+      `${
+        Math.random() *
+        100
+      }vw`;
 
 
     piece.style.top =
       `${
         -20 -
-        Math.random() * 100
+        Math.random() *
+        100
       }px`;
 
 
@@ -1644,8 +1957,9 @@ function launchConfetti() {
     piece.style.setProperty(
       "--fall-x",
       `${
-        Math.random() * 180 -
-        90
+        Math.random() *
+        200 -
+        100
       }px`
     );
 
@@ -1653,14 +1967,8 @@ function launchConfetti() {
     piece.style.animationDelay =
       `${
         Math.random() *
-        0.4
+        0.45
       }s`;
-
-
-    piece.style.transform =
-      `rotate(${
-        Math.random() * 180
-      }deg)`;
 
 
     document.body.appendChild(
@@ -1670,40 +1978,58 @@ function launchConfetti() {
 
     window.setTimeout(
       () => {
+
         piece.remove();
+
       },
-      2500
+      2600
     );
 
   }
 }
 
 
-/* =========================================
-   MODAL
-========================================= */
+/* =========================================================
+   CLOSE RESULT
+========================================================= */
 
 function closeResult() {
 
-  resultModal.classList.remove(
-    "show"
-  );
+  if (
+    resultModal
+  ) {
+
+    resultModal
+      .classList
+      .remove(
+        "show"
+      );
+
+
+    resultModal.scrollTop =
+      0;
+
+  }
 
 
   /*
-    Reset modal scroll.
+    Make sure celebration sound
+    is not still playing if user closes early
   */
 
-  resultModal.scrollTop = 0;
+  celebrationSound.pause();
+
+  celebrationSound.currentTime =
+    0;
 
 
-  /*
-    Test mode can spin again.
-  */
+  if (
+    TEST_MODE
+  ) {
 
-  if (TEST_MODE) {
+    spinButton.disabled =
+      false;
 
-    spinButton.disabled = false;
 
     setStatus(
       "Test mode: spin again whenever you’re ready"
@@ -1713,11 +2039,13 @@ function closeResult() {
 }
 
 
-/* =========================================
-   MODAL BUTTON EVENTS
-========================================= */
+/* =========================================================
+   MODAL EVENTS
+========================================================= */
 
-if (closeResultButton) {
+if (
+  closeResultButton
+) {
 
   closeResultButton
     .addEventListener(
@@ -1728,7 +2056,9 @@ if (closeResultButton) {
 }
 
 
-if (resultCloseX) {
+if (
+  resultCloseX
+) {
 
   resultCloseX
     .addEventListener(
@@ -1739,44 +2069,47 @@ if (resultCloseX) {
 }
 
 
-/*
-  Tap dark backdrop to close.
-*/
+if (
+  resultModal
+) {
 
-if (resultModal) {
+  resultModal
+    .addEventListener(
+      "click",
+      event => {
 
-  resultModal.addEventListener(
-    "click",
-    event => {
+        if (
+          event.target ===
+          resultModal
+        ) {
 
-      if (
-        event.target ===
-        resultModal
-      ) {
+          closeResult();
 
-        closeResult();
+        }
 
       }
-
-    }
-  );
+    );
 
 }
 
 
-/*
-  Escape key closes modal
-  on desktop.
-*/
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
 
 document.addEventListener(
   "keydown",
   event => {
 
     if (
-      event.key === "Escape" &&
-      resultModal.classList
-        .contains("show")
+      event.key ===
+        "Escape" &&
+
+      resultModal
+        ?.classList
+        .contains(
+          "show"
+        )
     ) {
 
       closeResult();
@@ -1787,42 +2120,61 @@ document.addEventListener(
 );
 
 
-/* =========================================
+/* =========================================================
    SAFE DYNAMIC TEXT
-========================================= */
+========================================================= */
 
-function escapeHtml(value = "") {
+function escapeHtml(
+  value = ""
+) {
 
-  return String(value).replace(
+  return String(
+    value
+  ).replace(
+
     /[&<>"']/g,
-    character => ({
-      "&":
-        "&amp;",
 
-      "<":
-        "&lt;",
+    character =>
+      ({
 
-      ">":
-        "&gt;",
+        "&":
+          "&amp;",
 
-      '"':
-        "&quot;",
+        "<":
+          "&lt;",
 
-      "'":
-        "&#039;"
-    })[character]
+        ">":
+          "&gt;",
+
+        '"':
+          "&quot;",
+
+        "'":
+          "&#039;"
+
+      })[
+        character
+      ]
+
   );
 }
 
 
-/* =========================================
+/* =========================================================
    START
-========================================= */
+========================================================= */
 
-spinButton.addEventListener(
-  "click",
-  spinWheel
-);
+if (
+  spinButton
+) {
+
+  spinButton
+    .addEventListener(
+      "click",
+      spinWheel
+    );
+
+}
 
 
 loadSettings();
