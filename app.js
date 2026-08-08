@@ -646,28 +646,26 @@ function playCelebrationSound() {
   try {
 
     celebrationSound.pause();
+
     celebrationSound.currentTime = 0;
 
     const playPromise =
       celebrationSound.play();
 
-    if (playPromise !== undefined) {
+    if (
+      playPromise !== undefined
+    ) {
 
       playPromise.catch(error => {
+
         console.log(
           "Celebration sound could not play:",
           error
         );
+
       });
 
     }
-
-    window.setTimeout(() => {
-
-      celebrationSound.pause();
-      celebrationSound.currentTime = 0;
-
-    }, 2500);
 
   } catch (error) {
 
