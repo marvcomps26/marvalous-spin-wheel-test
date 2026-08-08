@@ -53,6 +53,8 @@ celebrationSound.loop = false;
 /* =========================================
    ELEMENTS
 ========================================= */
+const wheelFrame =
+  document.querySelector(".wheel-frame");
 
 const wheel =
   document.getElementById("wheel");
@@ -67,7 +69,8 @@ const recentWin =
   document.getElementById("recentWin");
 
 const resultModal =
-  document.getElementById("resultModal");
+  document.
+   ("resultModal");
 
 const resultTitle =
   document.getElementById("resultTitle");
@@ -722,7 +725,10 @@ function spinWheel() {
 
   spinButton.disabled = true;
 
-
+if (wheelFrame) {
+  wheelFrame.classList.add("spinning");
+}
+   
   setStatus(
     "The wheel is spinning..."
   );
@@ -860,7 +866,10 @@ window.setTimeout(
       );
 
     }
-
+     
+if (wheelFrame) {
+  wheelFrame.classList.remove("spinning");
+}
     showResult();
 
   },
