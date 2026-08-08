@@ -8,153 +8,535 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-  <meta name="theme-color" content="#050006">
+  <meta
+    name="theme-color"
+    content="#050207"
+  >
+
+  <meta
+    name="color-scheme"
+    content="dark"
+  >
 
   <title>Marv’s Spin the Wheel</title>
 
+  <!-- Premium serif for major headings -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Sora:wght@500;600;700;800&display=swap"
     rel="stylesheet"
   >
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 </head>
 
 <body>
 
+  <!--
+    Decorative background only.
+    No functionality attached.
+  -->
+  <div
+    class="page-ambient"
+    aria-hidden="true"
+  ></div>
+
+
   <main class="game-shell">
 
-    <header class="game-header">
-      <div class="logo-circle">M</div>
 
-      <div>
-        <span class="header-kicker">MARVALOUS DAILY GAME</span>
-        <h1>Spin the Wheel</h1>
+    <!-- =========================
+         PREMIUM HEADER
+    ========================== -->
+
+    <header class="game-header">
+
+      <div
+        class="brand-medallion"
+        aria-hidden="true"
+      >
+        <div class="brand-medallion-inner">
+          <span>M</span>
+        </div>
       </div>
+
+
+      <div class="header-copy">
+
+        <span class="header-kicker">
+          MARVALOUS DAILY GAME
+        </span>
+
+        <h1>
+          Spin the Wheel
+        </h1>
+
+      </div>
+
     </header>
 
 
+
+    <!-- =========================
+         MAIN HERO / GAME CARD
+    ========================== -->
+
     <section class="hero-panel">
 
-      <span class="daily-badge">ONE SPIN PER DAY</span>
 
-      <h2>
-        Spin for a
-        <strong>Marvalous reward!</strong>
-      </h2>
+      <!-- top gold accent line -->
+      <div
+        class="hero-top-shine"
+        aria-hidden="true"
+      ></div>
 
-      <p>
-        Tap the button and see where the wheel lands.
-      </p>
 
+      <!-- Daily badge -->
+      <div class="daily-badge">
+
+        <span
+          class="badge-sparkle"
+          aria-hidden="true"
+        >
+          ✦
+        </span>
+
+        <span>
+          ONE SPIN PER DAY
+        </span>
+
+        <span
+          class="badge-sparkle"
+          aria-hidden="true"
+        >
+          ✦
+        </span>
+
+      </div>
+
+
+
+      <!-- Main heading -->
+      <div class="hero-copy">
+
+        <h2>
+          <span class="hero-line-white">
+            SPIN FOR A
+          </span>
+
+          <span class="hero-line-gold">
+            MARVALOUS
+          </span>
+
+          <span class="hero-line-gold">
+            REWARD!
+          </span>
+        </h2>
+
+
+        <p>
+          Tap the button and see where the wheel lands.
+        </p>
+
+      </div>
+
+
+
+      <!-- =========================
+           WHEEL
+      ========================== -->
 
       <div class="wheel-area">
 
-        <div class="wheel-pointer"></div>
 
+        <!-- Pointer -->
+        <div
+          class="wheel-pointer"
+          aria-hidden="true"
+        >
+          <div class="pointer-gem"></div>
+        </div>
+
+
+
+        <!-- Outer premium wheel frame -->
         <div class="wheel-frame">
 
-          <div id="wheel" class="wheel">
 
-            <div class="wheel-label label-1">5% OFF</div>
-            <div class="wheel-label label-2">TRY AGAIN</div>
-            <div class="wheel-label label-3">10% OFF</div>
-            <div class="wheel-label label-4">BONUS</div>
-            <div class="wheel-label label-5">15% OFF</div>
-            <div class="wheel-label label-6">TRY AGAIN</div>
-            <div class="wheel-label label-7">5% OFF</div>
-            <div class="wheel-label label-8">MYSTERY</div>
+          <!-- Decorative illuminated ring -->
+          <div
+            class="wheel-light-ring"
+            aria-hidden="true"
+          >
+
+            <span class="wheel-light light-1"></span>
+            <span class="wheel-light light-2"></span>
+            <span class="wheel-light light-3"></span>
+            <span class="wheel-light light-4"></span>
+            <span class="wheel-light light-5"></span>
+            <span class="wheel-light light-6"></span>
+            <span class="wheel-light light-7"></span>
+            <span class="wheel-light light-8"></span>
+            <span class="wheel-light light-9"></span>
+            <span class="wheel-light light-10"></span>
+            <span class="wheel-light light-11"></span>
+            <span class="wheel-light light-12"></span>
 
           </div>
 
+
+
+          <!--
+            IMPORTANT:
+            Keep id="wheel".
+            Your JavaScript rotates this exact element.
+          -->
+          <div
+            id="wheel"
+            class="wheel"
+          >
+
+
+            <!--
+              Keep all 8 wheel-label elements.
+              Your JS fills these from the Google Sheet.
+            -->
+
+            <div class="wheel-label label-1">
+              20% OFF
+            </div>
+
+            <div class="wheel-label label-2">
+              50% OFF
+            </div>
+
+            <div class="wheel-label label-3">
+              15% OFF
+            </div>
+
+            <div class="wheel-label label-4">
+              5% OFF
+            </div>
+
+            <div class="wheel-label label-5">
+              10% OFF
+            </div>
+
+            <div class="wheel-label label-6">
+              15% OFF
+            </div>
+
+            <div class="wheel-label label-7">
+              TRY AGAIN
+            </div>
+
+            <div class="wheel-label label-8">
+              TRY AGAIN
+            </div>
+
+
+          </div>
+
+
+
+          <!--
+            IMPORTANT:
+            Keep id="spinButton".
+            app.js uses this.
+          -->
           <button
             id="spinButton"
             class="spin-button"
             type="button"
+            aria-label="Spin the wheel"
           >
-            SPIN
+
+            <span class="spin-button-inner">
+              SPIN
+            </span>
+
           </button>
+
 
         </div>
 
       </div>
 
 
-      <div class="game-status" aria-live="polite">
-        <span id="statusText">Your daily spin is ready</span>
+
+      <!-- =========================
+           DAILY STATUS
+      ========================== -->
+
+      <div
+        class="game-status"
+        aria-live="polite"
+      >
+
+        <div
+          class="status-icon"
+          aria-hidden="true"
+        >
+          ✓
+        </div>
+
+        <!--
+          IMPORTANT:
+          Keep id="statusText".
+        -->
+        <span id="statusText">
+          Your daily spin is ready
+        </span>
+
       </div>
+
 
     </section>
 
+
+
+    <!-- =========================
+         INFO CARDS
+    ========================== -->
 
     <section class="info-grid">
 
-      <article class="info-card">
-        <span class="info-icon">🎡</span>
-        <div>
-          <strong>One daily spin</strong>
-          <small>Come back tomorrow</small>
-        </div>
-      </article>
 
       <article class="info-card">
-        <span class="info-icon">🎁</span>
-        <div>
-          <strong>Daily rewards</strong>
-          <small>New chances every day</small>
+
+        <div
+          class="info-number"
+          aria-hidden="true"
+        >
+          01
         </div>
+
+        <div class="info-divider"></div>
+
+        <div class="info-copy">
+
+          <strong>
+            Daily spin
+          </strong>
+
+          <small>
+            Come back tomorrow
+            <br>
+            for another spin.
+          </small>
+
+        </div>
+
       </article>
+
+
+
+      <article class="info-card">
+
+        <div
+          class="info-number"
+          aria-hidden="true"
+        >
+          02
+        </div>
+
+        <div class="info-divider"></div>
+
+        <div class="info-copy">
+
+          <strong>
+            Member rewards
+          </strong>
+
+          <small>
+            Exclusive rewards
+            <br>
+            every day.
+          </small>
+
+        </div>
+
+      </article>
+
 
     </section>
 
+
+
+    <!-- =========================
+         LATEST SPIN CARD
+    ========================== -->
 
     <section class="recent-win-card">
 
-      <div>
-        <span>YOUR RECENT WIN</span>
-        <h2 id="recentWin">Nothing yet</h2>
-        <p>Your latest reward will appear here.</p>
+
+      <div class="recent-win-copy">
+
+
+        <div class="recent-win-heading">
+
+          <span>
+            LATEST SPIN
+          </span>
+
+          <div
+            class="recent-heading-line"
+            aria-hidden="true"
+          ></div>
+
+          <span
+            class="recent-heading-star"
+            aria-hidden="true"
+          >
+            ✦
+          </span>
+
+        </div>
+
+
+        <!--
+          IMPORTANT:
+          Keep id="recentWin".
+          app.js updates this.
+        -->
+        <h2 id="recentWin">
+          Nothing yet
+        </h2>
+
+
+        <p>
+          Your latest reward will appear here.
+        </p>
+
       </div>
 
-      <div class="recent-win-icon">★</div>
+
+
+      <div
+        class="recent-win-medallion"
+        aria-hidden="true"
+      >
+
+        <div class="recent-win-orbit orbit-1"></div>
+        <div class="recent-win-orbit orbit-2"></div>
+
+        <div class="recent-win-icon">
+          ★
+        </div>
+
+      </div>
+
 
     </section>
+
 
   </main>
 
 
-  <div id="resultModal" class="result-modal">
+
+  <!-- ====================================
+       RESULT MODAL
+  ===================================== -->
+
+  <div
+    id="resultModal"
+    class="result-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="resultTitle"
+  >
+
 
     <div class="result-card">
-  <button
-  id="resultCloseX"
-  class="result-close-x"
-  type="button"
-  aria-label="Close result"
->
-  ×
-  </button>
-      <span class="result-kicker">YOUR RESULT</span>
 
-      <div class="result-icon">🎉</div>
 
-      <h2 id="resultTitle">You won!</h2>
+      <!-- premium modal top glow -->
+      <div
+        class="result-top-glow"
+        aria-hidden="true"
+      ></div>
 
-      <p id="resultMessage">
+
+      <!--
+        IMPORTANT:
+        Keep this ID for JS.
+      -->
+      <button
+        id="resultCloseX"
+        class="result-close-x"
+        type="button"
+        aria-label="Close result"
+      >
+        ×
+      </button>
+
+
+
+      <span class="result-kicker">
+        YOUR RESULT
+      </span>
+
+
+
+      <div
+        class="result-icon"
+        aria-hidden="true"
+      >
+        ★
+      </div>
+
+
+
+      <!--
+        IMPORTANT:
+        Keep this ID.
+      -->
+      <h2 id="resultTitle">
+        You won!
+      </h2>
+
+
+
+      <!--
+        IMPORTANT:
+        app.js injects the prize,
+        claim form and code into here.
+      -->
+      <div
+        id="resultMessage"
+        class="result-message"
+      >
         Your reward will appear here.
-      </p>
+      </div>
 
+
+
+      <!--
+        IMPORTANT:
+        Keep this ID.
+        app.js shows/hides this depending
+        on whether a claim form is needed.
+      -->
       <button
         id="closeResultButton"
+        class="result-continue-button"
         type="button"
       >
         Continue
       </button>
 
+
     </div>
 
   </div>
 
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
 
   <script src="app.js"></script>
 
