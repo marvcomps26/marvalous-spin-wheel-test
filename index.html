@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -27,9 +29,11 @@
 
   <link
     rel="stylesheet"
-    href="style.css"
+    href="./style.css"
   >
+
 </head>
+
 
 <body>
 
@@ -42,23 +46,26 @@
   <main class="game-shell">
 
 
-    <!-- =========================================
+    <!-- =====================================================
          HEADER
-    ========================================== -->
+    ====================================================== -->
 
     <header class="game-header">
 
-      <div
-        class="brand-medallion"
-        aria-hidden="true"
-      >
-       <div class="brand-medallion-inner">
-  <img
-    src="./marvalous-logo.png"
-    alt="Marvalous"
-    class="brand-logo-image"
-  >
-       </div>
+
+      <div class="brand-medallion">
+
+        <div class="brand-medallion-inner">
+
+          <img
+            src="./marvalous-logo.png"
+            alt="Marvalous"
+            class="brand-logo-image"
+          >
+
+        </div>
+
+      </div>
 
 
       <div class="header-copy">
@@ -90,13 +97,14 @@
 
       </div>
 
+
     </header>
 
 
 
-    <!-- =========================================
-         HERO / GAME PANEL
-    ========================================== -->
+    <!-- =====================================================
+         MAIN GAME PANEL
+    ====================================================== -->
 
     <section class="hero-panel">
 
@@ -114,12 +122,14 @@
         ✦
       </div>
 
+
       <div
         class="hero-sparkle hero-sparkle-right"
         aria-hidden="true"
       >
         ✦
       </div>
+
 
 
       <div class="hero-copy">
@@ -149,9 +159,9 @@
 
 
 
-      <!-- =========================================
+      <!-- ===================================================
            WHEEL
-      ========================================== -->
+      ==================================================== -->
 
       <div class="wheel-area">
 
@@ -167,6 +177,8 @@
 
         <div class="wheel-frame">
 
+
+          <!-- LIGHTS -->
 
           <div
             class="wheel-light-ring"
@@ -190,6 +202,8 @@
 
 
 
+          <!-- ROTATING WHEEL -->
+
           <div
             id="wheel"
             class="wheel"
@@ -204,7 +218,7 @@
             </div>
 
             <div class="wheel-label label-3">
-              15% OFF
+              75% OFF
             </div>
 
             <div class="wheel-label label-4">
@@ -231,6 +245,8 @@
 
 
 
+          <!-- SPIN BUTTON -->
+
           <button
             id="spinButton"
             class="spin-button"
@@ -251,9 +267,9 @@
 
 
 
-      <!-- =========================================
+      <!-- ===================================================
            STATUS
-      ========================================== -->
+      ==================================================== -->
 
       <div
         class="game-status"
@@ -278,14 +294,15 @@
 
 
 
-    <!-- =========================================
+    <!-- =====================================================
          INFO CARDS
-    ========================================== -->
+    ====================================================== -->
 
     <section class="info-grid">
 
 
       <article class="info-card">
+
 
         <div
           class="info-number"
@@ -294,7 +311,9 @@
           01
         </div>
 
+
         <div class="info-divider"></div>
+
 
         <div class="info-copy">
 
@@ -318,11 +337,13 @@
           ◫
         </div>
 
+
       </article>
 
 
 
       <article class="info-card">
+
 
         <div
           class="info-number"
@@ -331,7 +352,9 @@
           02
         </div>
 
+
         <div class="info-divider"></div>
+
 
         <div class="info-copy">
 
@@ -355,6 +378,7 @@
           🎁
         </div>
 
+
       </article>
 
 
@@ -362,9 +386,9 @@
 
 
 
-    <!-- =========================================
+    <!-- =====================================================
          LATEST SPIN
-    ========================================== -->
+    ====================================================== -->
 
     <section class="recent-win-card">
 
@@ -410,6 +434,7 @@
           VIEW ALL REWARDS
         </button>
 
+
       </div>
 
 
@@ -434,11 +459,12 @@
 
 
 
-    <!-- =========================================
-         BOTTOM PREMIUM STRIP
-    ========================================== -->
+    <!-- =====================================================
+         BOTTOM STRIP
+    ====================================================== -->
 
     <section class="premium-footer-strip">
+
 
       <div class="footer-item">
 
@@ -499,6 +525,7 @@
 
       </div>
 
+
     </section>
 
 
@@ -506,9 +533,9 @@
 
 
 
-  <!-- =========================================
-       RESULT MODAL
-    ========================================== -->
+  <!-- =====================================================
+       RESULT / WINNER POPUP
+  ====================================================== -->
 
   <div
     id="resultModal"
@@ -543,17 +570,23 @@
       </span>
 
 
-   <div class="result-icon">
-  <img
-    src="./marvalous-logo.png"
-    alt="Marvalous"
-    class="result-logo-image"
-  >
-   </div>
+
+      <!-- MARVALOUS LOGO -->
+
+      <div class="result-icon">
+
+        <img
+          src="./marvalous-logo.png"
+          alt="Marvalous"
+          class="result-logo-image"
+        >
+
+      </div>
+
 
 
       <h2 id="resultTitle">
-        You won!
+        Your Result
       </h2>
 
 
@@ -570,7 +603,7 @@
         class="result-continue-button"
         type="button"
       >
-        Continue
+        Done
       </button>
 
 
@@ -578,71 +611,83 @@
 
   </div>
 
-<!-- =========================================
-     ALL REWARDS POPUP
-========================================== -->
 
-<div
-  id="rewardsModal"
-  class="rewards-modal"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="rewardsModalTitle"
->
 
-  <div class="rewards-modal-card">
+  <!-- =====================================================
+       VIEW ALL REWARDS POPUP
+  ====================================================== -->
 
-    <div
-      class="rewards-modal-glow"
-      aria-hidden="true"
-    ></div>
+  <div
+    id="rewardsModal"
+    class="rewards-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="rewardsModalTitle"
+  >
 
-    <button
-      id="rewardsCloseX"
-      class="rewards-close-x"
-      type="button"
-      aria-label="Close rewards"
-    >
-      ×
-    </button>
 
-    <span class="rewards-kicker">
-      MARVALOUS REWARDS
-    </span>
+    <div class="rewards-modal-card">
 
-    <div
-      class="rewards-star"
-      aria-hidden="true"
-    >
-      ★
+
+      <div
+        class="rewards-modal-glow"
+        aria-hidden="true"
+      ></div>
+
+
+      <button
+        id="rewardsCloseX"
+        class="rewards-close-x"
+        type="button"
+        aria-label="Close rewards"
+      >
+        ×
+      </button>
+
+
+      <span class="rewards-kicker">
+        MARVALOUS REWARDS
+      </span>
+
+
+      <div class="rewards-star">
+        ★
+      </div>
+
+
+      <h2 id="rewardsModalTitle">
+        Today’s Rewards
+      </h2>
+
+
+      <p class="rewards-intro">
+        Here’s what your daily spin could reveal.
+      </p>
+
+
+      <div
+        id="rewardsList"
+        class="rewards-list"
+      ></div>
+
+
+      <button
+        id="rewardsCloseButton"
+        class="rewards-close-button"
+        type="button"
+      >
+        Close
+      </button>
+
+
     </div>
-
-    <h2 id="rewardsModalTitle">
-      Today’s Rewards
-    </h2>
-
-    <p class="rewards-intro">
-      Here’s what your daily spin could reveal.
-    </p>
-
-    <div
-      id="rewardsList"
-      class="rewards-list"
-    ></div>
-
-    <button
-      id="rewardsCloseButton"
-      class="rewards-close-button"
-      type="button"
-    >
-      Close
-    </button>
 
   </div>
 
-</div>
 
-  <script src="app.js"></script>
+
+  <script src="./app.js"></script>
 
 </body>
+
 </html>
